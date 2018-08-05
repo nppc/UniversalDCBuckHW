@@ -1,4 +1,4 @@
-update=8/4/2018 5:48:20 PM
+update=8/5/2018 10:08:17 PM
 version=1
 last_client=kicad
 [pcbnew]
@@ -60,3 +60,4 @@ LibName28=contrib
 LibName29=valves
 LibName30=ir
 LibName31=allegro
+LibName32=C:/src/Tennp/Git/KiCadCustomLibs/KiCadCustomLibraries
