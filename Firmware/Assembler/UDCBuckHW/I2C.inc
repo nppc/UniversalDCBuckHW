@@ -57,6 +57,8 @@ I2Cadr:
 	ldi itmp,(1<<USISIE) | (0<<USIOIE) | (1<<USIWM1) | (1<<USIWM0) | (1<<USICS1)	; Counter overflow not yet enabled
 	out USICR,itmp
 	out USISR, USISRconst
+	;DEBUG
+	cbi PORTB, PIN_PWM	; address not ok.
 	out SREG, r_sreg
 	reti
 I2CadrOK:
@@ -70,6 +72,8 @@ I2CadrOK:
 	out USISR,itmp
 	; now we are ready to wait fot ACK bit
 	ldi USIstate, 2
+	;DEBUG
+	sbi PORTB, PIN_PWM	; address ok.
 	out SREG, r_sreg
 	reti
 

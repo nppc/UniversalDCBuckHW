@@ -53,7 +53,6 @@ M_AVERAGE_current_COUNTER:	.BYTE 1	 ; Counter in the table
 
 .CSEG
 .ORG 0
-.include "I2C.inc"
 
 	; Interrupt vectors
 	rjmp RESET ; Reset Handler
@@ -72,6 +71,8 @@ M_AVERAGE_current_COUNTER:	.BYTE 1	 ; Counter in the table
 	rjmp USI_start	;USI start
 	rjmp USI_ovf	;USI Overflow
 
+.include "I2C.inc"
+
 
 RESET:
 	cli
@@ -86,3 +87,13 @@ RESET:
 	inc z1
 
 	rcall USI_init	; initialize registers and pins
+
+	cbi PORTB, PIN_PWM
+	sbi DDRB, PIN_PWM
+	cbi DDRB, PIN_Vsense
+	cbi DDRB, PIN_Isense
+
+	sei
+
+loop:
+	rjmp loop

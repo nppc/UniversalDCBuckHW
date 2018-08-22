@@ -21,16 +21,17 @@
  <OUTPUT_FILES>
  </OUTPUT_FILES>
  <LABELS>
-  <M_AVERAGE_voltage_TABLE><FILE>C:\src\Tennp\Git\UniversalDCBuckHW\Firmware\Assembler\UDCBuckHW\main.asm</FILE><LINE>46</LINE></M_AVERAGE_voltage_TABLE>
-  <M_AVERAGE_voltage_COUNTER><FILE>C:\src\Tennp\Git\UniversalDCBuckHW\Firmware\Assembler\UDCBuckHW\main.asm</FILE><LINE>47</LINE></M_AVERAGE_voltage_COUNTER>
-  <M_AVERAGE_current_TABLE><FILE>C:\src\Tennp\Git\UniversalDCBuckHW\Firmware\Assembler\UDCBuckHW\main.asm</FILE><LINE>48</LINE></M_AVERAGE_current_TABLE>
-  <M_AVERAGE_current_COUNTER><FILE>C:\src\Tennp\Git\UniversalDCBuckHW\Firmware\Assembler\UDCBuckHW\main.asm</FILE><LINE>49</LINE></M_AVERAGE_current_COUNTER>
-  <USI_init><FILE>C:\src\Tennp\Git\UniversalDCBuckHW\Firmware\Assembler\UDCBuckHW\I2C.inc</FILE><LINE>3</LINE></USI_init>
+  <M_AVERAGE_voltage_TABLE><FILE>C:\src\Tennp\Git\UniversalDCBuckHW\Firmware\Assembler\UDCBuckHW\main.asm</FILE><LINE>47</LINE></M_AVERAGE_voltage_TABLE>
+  <M_AVERAGE_voltage_COUNTER><FILE>C:\src\Tennp\Git\UniversalDCBuckHW\Firmware\Assembler\UDCBuckHW\main.asm</FILE><LINE>48</LINE></M_AVERAGE_voltage_COUNTER>
+  <M_AVERAGE_current_TABLE><FILE>C:\src\Tennp\Git\UniversalDCBuckHW\Firmware\Assembler\UDCBuckHW\main.asm</FILE><LINE>49</LINE></M_AVERAGE_current_TABLE>
+  <M_AVERAGE_current_COUNTER><FILE>C:\src\Tennp\Git\UniversalDCBuckHW\Firmware\Assembler\UDCBuckHW\main.asm</FILE><LINE>50</LINE></M_AVERAGE_current_COUNTER>
+  <RESET><FILE>C:\src\Tennp\Git\UniversalDCBuckHW\Firmware\Assembler\UDCBuckHW\main.asm</FILE><LINE>77</LINE></RESET>
   <USI_start><FILE>C:\src\Tennp\Git\UniversalDCBuckHW\Firmware\Assembler\UDCBuckHW\I2C.inc</FILE><LINE>24</LINE></USI_start>
   <USI_ovf><FILE>C:\src\Tennp\Git\UniversalDCBuckHW\Firmware\Assembler\UDCBuckHW\I2C.inc</FILE><LINE>33</LINE></USI_ovf>
+  <USI_init><FILE>C:\src\Tennp\Git\UniversalDCBuckHW\Firmware\Assembler\UDCBuckHW\I2C.inc</FILE><LINE>3</LINE></USI_init>
   <I2Cadr><FILE>C:\src\Tennp\Git\UniversalDCBuckHW\Firmware\Assembler\UDCBuckHW\I2C.inc</FILE><LINE>49</LINE></I2Cadr>
-  <I2CadrOK><FILE>C:\src\Tennp\Git\UniversalDCBuckHW\Firmware\Assembler\UDCBuckHW\I2C.inc</FILE><LINE>63</LINE></I2CadrOK>
-  <I2CadrOKreceive><FILE>C:\src\Tennp\Git\UniversalDCBuckHW\Firmware\Assembler\UDCBuckHW\I2C.inc</FILE><LINE>71</LINE></I2CadrOKreceive>
-  <RESET><FILE>C:\src\Tennp\Git\UniversalDCBuckHW\Firmware\Assembler\UDCBuckHW\main.asm</FILE><LINE>75</LINE></RESET>
+  <I2Cack><FILE>C:\src\Tennp\Git\UniversalDCBuckHW\Firmware\Assembler\UDCBuckHW\I2C.inc</FILE><LINE>81</LINE></I2Cack>
+  <I2CadrOK><FILE>C:\src\Tennp\Git\UniversalDCBuckHW\Firmware\Assembler\UDCBuckHW\I2C.inc</FILE><LINE>64</LINE></I2CadrOK>
+  <loop><FILE>C:\src\Tennp\Git\UniversalDCBuckHW\Firmware\Assembler\UDCBuckHW\main.asm</FILE><LINE>98</LINE></loop>
  </LABELS>
 </ASSEMBLER_INFO>
