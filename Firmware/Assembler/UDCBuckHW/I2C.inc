@@ -1,35 +1,50 @@
 ;PINS has external 1K pullups, so we should controll only DDR port of the pin (sink, float)
 
 USI_init:
-; float all I2C pins (external pullups)
-	cbi PORTB, PIN_SDA ; maybe this should be changed
+
+	;ldi tmp, (1<<USISIE) | (1<<USIOIE) | (1<<USIWM1) | (1<<USIWM0) | (1<<USICS1)	; Counter overflow is enabled
+	;mov USICRconst, tmp
+
+	;ldi tmp, (1<<USISIF) | (1<<USIOIF) | (1<<USIPF)	; clear start, stop, overflow condition flags and counter
+	;mov USISRconst, tmp
+
+	;ldi tmp,(1<<USISIE) | (0<<USIOIE) | (1<<USIWM1) | (1<<USIWM0) | (1<<USICS1)	; Counter overflow not yet enabled
+	;out USICR,tmp
+	;out USISR, USISRconst
+
 	cbi PORTB, PIN_SCL
-	cbi DDRB, PIN_SDA  ; maybe this should be changed
 	cbi DDRB, PIN_SCL
+	cbi PORTB, PIN_SDA ; maybe need to change
+	cbi DDRB, PIN_SDA 
 
-	ldi tmp, (1<<USISIE) | (1<<USIOIE) | (1<<USIWM1) | (1<<USIWM0) | (1<<USICS1)	; Counter overflow is enabled
-	mov USICRconst, tmp
-
-	ldi tmp, (1<<USISIF) | (1<<USIOIF) | (1<<USIPF)	; clear start, stop, overflow condition flags and counter
-	mov USISRconst, tmp
-
-	ldi tmp,(1<<USISIE) | (0<<USIOIE) | (1<<USIWM1) | (1<<USIWM0) | (1<<USICS1)	; Counter overflow not yet enabled
+	ldi tmp,(1<<USISIE)+(1<<USIWM1)+(1<<USIWM0)+(1<<USICS1) ;+(1<<USICS0)
 	out USICR,tmp
-	out USISR, USISRconst
+	ldi tmp,0xf0
+	out USISR,tmp
+
+	;sbi PORTB, PIN_SCL
+	;sbi DDRB, PIN_SCL
+	;sbi PORTB, PIN_SDA
+	;cbi DDRB, PIN_SDA
 
 	clr USIstate
-ret
+	ret
 
 ; when new packet is coming...
 USI_start:
-	;in r_sreg, SREG
 	sbi DDRB, PIN_Vsense
-	ldi USIstate, 1	; Status is 1 - start condition detected
-	out USICR, USICRconst	; Enable USI Counter overflow interrupt
-	; clear USISIF (set to 1) and clear counter
-	out USISR, USISRconst	; Clear flags and counter
-	;out SREG, r_sreg
+	ldi USIstate, 1
+	in itmp,USICR;(Enable USI Counter overflow interrupt)
+	sbr itmp,0b01000000
+	out USICR,itmp
+	rcall I2C_clear_ack
+	;ldi tmp,0xf0
 	reti
+	;sbi DDRB, PIN_Vsense
+	;ldi USIstate, 1	; Status is 1 - start condition detected
+	;out USICR, USICRconst	; Enable USI Counter overflow interrupt
+	;rcall I2C_clear_ack
+	;reti
 
 USI_ovf:
 	in r_sreg, SREG
@@ -39,7 +54,7 @@ USI_ovf:
 	cpi USIstate,2
 	breq I2Cack
 	cpi USIstate,3
-	;breq I2Cbyte
+	breq I2Cbyte
 
 	;rjmp USIend
 
@@ -48,17 +63,24 @@ USI_ovf:
 
 ; address byte came
 I2Cadr:
-	in itmp, USIBR	; read data (address and data direction bit)
-	rcall indicateByte
-	cpi itmp, 255	;(1<<7) | I2C_ADDRESS
+	in itmp, USIDR	; read data (address and data direction bit)
+	;rcall indicateByte
+;	cpi itmp, ((I2C_ADDRESS << 1) & 0xFE)	; writing
+;	breq I2CadrOK
+;	cpi itmp, ((I2C_ADDRESS << 1) | 1)	; reading
+;	breq I2CadrOK
+	cpi itmp, (I2C_ADDRESS & 0xFE)	; writing
 	breq I2CadrOK
-	cpi itmp, (0<<7) | I2C_ADDRESS
+	cpi itmp, (I2C_ADDRESS | 1)	; reading
 	breq I2CadrOK
 	; not me - leave interrupt
 	clr USIstate	; start over
-	ldi itmp,(1<<USISIE) | (0<<USIOIE) | (1<<USIWM1) | (1<<USIWM0) | (1<<USICS1)	; Counter overflow not yet enabled
+	;ldi itmp,(1<<USISIE) | (0<<USIOIE) | (1<<USIWM1) | (1<<USIWM0) | (1<<USICS1)	; Counter overflow not yet enabled
+	;out USICR,itmp
+	in itmp,USICR;(Disable USI Counter overflow interrupt)
+	cbr itmp,0b01000000
 	out USICR,itmp
-	out USISR, USISRconst
+	rcall I2C_clear_ack
 	;DEBUG
 	cbi DDRB, PIN_Vsense
 	cbi PORTB, PIN_PWM	; address not ok.
@@ -68,15 +90,12 @@ I2Cadr:
 I2CadrOK:
 	;DEBUG
 	sbi PORTB, PIN_PWM	; address ok.
-	cbi DDRB, PIN_Vsense
+	
 	; store the direction bit for further action
 	mov USIdataDir, itmp
-	andi USIdataDir, 0b10000000	; clear all remaining bits as they are not needed
+	andi USIdataDir, 0b00000001	; clear all remaining bits as they are not needed
 	; first send ack.
-	sbi DDRB, PIN_SDA	; set SDA line LOW
-	mov itmp, USISRconst
-	sbr itmp, 0x0E		;(clear flags and counter set to 0x0E)
-	out USISR,itmp
+	rcall I2C_set_ack
 	; now we are ready to wait fot ACK bit
 	ldi USIstate, 2
 	out SREG, r_sreg
@@ -84,8 +103,12 @@ I2CadrOK:
 
 ; Now we are received ACK bit
 I2Cack:
-	cbi	DDRB, PIN_SDA		; Relase SDA line
-	out USISR, USISRconst	; clear flags and counter
+	;DEBUG
+	cbi DDRB, PIN_Vsense
+
+	rcall I2C_clear_ack
+	;cbi	DDRB, PIN_SDA		; Relase SDA line
+	;out USISR, USISRconst	; clear flags and counter
 	; we are ready to receive/send a byte of data
 	;TODO clear data counter
 	;
@@ -94,11 +117,57 @@ I2Cack:
 	out SREG, r_sreg
 	reti
 
+I2Cbyte:
+	in itmp,USIBR
+	push itmp
+	rcall I2C_set_ack
+	clr USIstate
+	; end receiving
+	in itmp,USICR;(Disable USI Counter overflow interrupt)
+	cbr itmp,0b01000000
+	out USICR,itmp
+	rcall I2C_clear_ack
+	cbi PORTB, PIN_PWM
+	pop itmp
+	rcall indicateByte
+
+	out SREG, r_sreg
+	reti
+
+
+I2C_clear_ack:
+	cbi	DDRB, PIN_SDA
+	cbi PORTB, PIN_SCL
+	cbi DDRB, PIN_SCL
+	in itmp,USISR
+	cbr itmp,0b00001111;(Clear counter)
+	sbr itmp,0b11100000;(Enable new interrupts. Releasing SCL)
+	out USISR,itmp
+	;out USISR, USISRconst	; Clear flags and counter
+
+	ret
+
+I2C_set_ack:
+	sbi	DDRB, PIN_SDA
+	sbi PORTB, PIN_SCL
+	sbi DDRB, PIN_SCL
+
+	in itmp,USISR
+	cbr itmp,0b00000001;(Set counter to 0xE)
+	sbr itmp,0b11101110;(Enable new interrupts. Releasing SCL)
+	out USISR,itmp
+;	mov itmp, USISRconst
+;	sbr itmp, 0x0E		;(clear flags and counter set to 0x0E)
+;	out USISR, itmp
+	ret
+
+
 ; debug
 ; byte in itmp
 indicateByte:
+	rcall delay500ms
 	push itmp
-	ldi itmp1, 8 ; 8 bytes
+	ldi itmp1, 8 ; 8 bits
 indicateBloop:
 	lsr itmp
 	brcs show1

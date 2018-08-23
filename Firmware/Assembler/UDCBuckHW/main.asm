@@ -76,6 +76,7 @@ M_AVERAGE_current_COUNTER:	.BYTE 1	 ; Counter in the table
 
 RESET:
 	cli
+
 	ldi tmp, high(RAMEND) 
 	out SPH,tmp				; Set Stack Pointer to top of RAM
 	ldi tmp, low(RAMEND)
@@ -86,7 +87,12 @@ RESET:
 	clr z1
 	inc z1
 
+	ldi tmp, 1<<CLKPCE	
+	out CLKPR, tmp		; enable clock change
+	out CLKPR, z0		; prescaler 1
+
 	rcall USI_init	; initialize registers and pins
+
 
 	cbi PORTB, PIN_PWM
 	sbi DDRB, PIN_PWM
@@ -100,8 +106,8 @@ loop:
 
 	
 delay500ms:
-    ldi  tmp, 3
-    ldi  tmp1, 138
+    ldi  tmp, 3 * 8
+    ldi  tmp1, 120
     clr  tmp2
 delay500L1:
 	dec  tmp2
@@ -113,8 +119,8 @@ delay500L1:
 	ret
 	
 delay100ms:
-    ldi  tmp, 130
-    ldi  tmp1, 222
+    ldi  tmp, 0
+    ldi  tmp1, 0
 delay100L1: 
 	dec  tmp1
     brne delay100L1
