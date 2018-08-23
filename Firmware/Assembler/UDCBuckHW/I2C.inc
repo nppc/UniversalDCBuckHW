@@ -23,6 +23,7 @@ ret
 ; when new packet is coming...
 USI_start:
 	;in r_sreg, SREG
+	sbi DDRB, PIN_Vsense
 	ldi USIstate, 1	; Status is 1 - start condition detected
 	out USICR, USICRconst	; Enable USI Counter overflow interrupt
 	; clear USISIF (set to 1) and clear counter
@@ -48,7 +49,8 @@ USI_ovf:
 ; address byte came
 I2Cadr:
 	in itmp, USIBR	; read data (address and data direction bit)
-	cpi itmp, (1<<7) | I2C_ADDRESS
+	rcall indicateByte
+	cpi itmp, 255	;(1<<7) | I2C_ADDRESS
 	breq I2CadrOK
 	cpi itmp, (0<<7) | I2C_ADDRESS
 	breq I2CadrOK
@@ -58,10 +60,15 @@ I2Cadr:
 	out USICR,itmp
 	out USISR, USISRconst
 	;DEBUG
+	cbi DDRB, PIN_Vsense
 	cbi PORTB, PIN_PWM	; address not ok.
+	;rcall indicateByte
 	out SREG, r_sreg
 	reti
 I2CadrOK:
+	;DEBUG
+	sbi PORTB, PIN_PWM	; address ok.
+	cbi DDRB, PIN_Vsense
 	; store the direction bit for further action
 	mov USIdataDir, itmp
 	andi USIdataDir, 0b10000000	; clear all remaining bits as they are not needed
@@ -72,8 +79,6 @@ I2CadrOK:
 	out USISR,itmp
 	; now we are ready to wait fot ACK bit
 	ldi USIstate, 2
-	;DEBUG
-	sbi PORTB, PIN_PWM	; address ok.
 	out SREG, r_sreg
 	reti
 
@@ -89,3 +94,28 @@ I2Cack:
 	out SREG, r_sreg
 	reti
 
+; debug
+; byte in itmp
+indicateByte:
+	push itmp
+	ldi itmp1, 8 ; 8 bytes
+indicateBloop:
+	lsr itmp
+	brcs show1
+	sbi PORTB, PIN_PWM
+	rcall delay100ms	; show0
+	cbi PORTB, PIN_PWM
+indicateCont:
+	rcall delay500ms; pause
+	dec itmp1
+	brne indicateBloop
+	rcall delay500ms
+	rcall delay500ms
+	rcall delay500ms
+	pop itmp
+	ret
+show1:
+	sbi PORTB, PIN_PWM
+	rcall delay500ms	; show1
+	cbi PORTB, PIN_PWM
+	rjmp indicateCont

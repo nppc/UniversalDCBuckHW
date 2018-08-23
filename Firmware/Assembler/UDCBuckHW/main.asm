@@ -97,3 +97,27 @@ RESET:
 
 loop:
 	rjmp loop
+
+	
+delay500ms:
+    ldi  tmp, 3
+    ldi  tmp1, 138
+    clr  tmp2
+delay500L1:
+	dec  tmp2
+    brne delay500L1
+    dec  tmp1
+    brne delay500L1
+    dec  tmp
+    brne delay500L1
+	ret
+	
+delay100ms:
+    ldi  tmp, 130
+    ldi  tmp1, 222
+delay100L1: 
+	dec  tmp1
+    brne delay100L1
+    dec  tmp
+    brne delay100L1
+	ret
