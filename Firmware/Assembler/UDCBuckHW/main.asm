@@ -4,11 +4,15 @@
 ; Created: 8/13/2018 7:17:48 PM
 ; Author : Pavel
 ;
-.set	MOVINGAVERAGE = 1 ; comment it if not needed
+
+#define DEBUG
+
+#define	MOVINGAVERAGE ; comment it if not needed
 .EQU	MOVINGAVERAGE_N_voltage = 5 ; can be 3, 5 or 7.
 .EQU	MOVINGAVERAGE_N_current = 5 ; can be 3, 5 or 7.
 
-.EQU	I2C_ADDRESS	= 0x5F		; choose address here (7bit)
+.EQU	USI_ADDRESS	= 0x5E	; choose address here (7bit)
+.EQU	USI_DATALEN = 2		; currently we receive only 2 bytes
 
 .include "tn85def.inc"
 
@@ -39,16 +43,17 @@
 .def	USICRconst	=	r10	; predevined interrupts settings for starting counter overflow interrupt
 .def	USISRconst	=	r11	; predevined clearing start flag and counter 
 .def	USIdataDir	=	r21	; Data direction flag (actually only 7th bit) 
-
+.def 	USIbytesCntr=	r22	; Counter for receiving/sending bytes via USI
+; YH:YL are used in USI interupt as a pointer to the SRAM buffer
 .DSEG
 .ORG SRAM_START
-
-.IFDEF MOVINGAVERAGE
+USI_dataBuffer:				.BYTE USI_DATALEN	; USI bytes buffer
+#ifdef MOVINGAVERAGE
 M_AVERAGE_voltage_TABLE:	.BYTE MOVINGAVERAGE_N_voltage * 2 ; Table for running moving average algorithm (max 14 bytes).
 M_AVERAGE_voltage_COUNTER:	.BYTE 1	 ; Counter in the table
 M_AVERAGE_current_TABLE:	.BYTE MOVINGAVERAGE_N_current * 2 ; Table for running moving average algorithm (max 14 bytes).
 M_AVERAGE_current_COUNTER:	.BYTE 1	 ; Counter in the table
-.ENDIF
+#endif
 
 
 .CSEG
@@ -86,6 +91,8 @@ RESET:
 	clr z0
 	clr z1
 	inc z1
+	
+	clr USIbytesCntr	; clear USI counter
 
 	ldi tmp, 1<<CLKPCE	
 	out CLKPR, tmp		; enable clock change
@@ -93,37 +100,83 @@ RESET:
 
 	rcall USI_init	; initialize registers and pins
 
-
-	cbi PORTB, PIN_PWM
-	sbi DDRB, PIN_PWM
-	cbi DDRB, PIN_Vsense
-	cbi DDRB, PIN_Isense
+	; Initialize remaining pins
+	cbi PORTB, PIN_PWM		; after reset it will be LOW, but still, let's force it to LOW.
+	sbi DDRB, PIN_PWM		; output
+	cbi DDRB, PIN_Vsense	; input
+	cbi DDRB, PIN_Isense	; input
 
 	sei
 
 loop:
+	cpi USIbytesCntr,USI_DATALEN
+	brne loop	; not yet
+	; now indicate the received data
+	cli
+	ldi YH, HIGH(USI_dataBuffer);
+	ldi YL, LOW(USI_dataBuffer);
+	ld tmp3, Y+
+	rcall indicateByte
+	ld tmp3, Y+
+	rcall indicateByte
+	rcall delay500ms
+	rcall delay500ms
+	rcall delay500ms
+	rcall delay500ms
+	rcall delay500ms
+	rcall delay500ms
+	sei
 	rjmp loop
 
-	
-delay500ms:
-    ldi  tmp, 24
-    ldi  tmp1, 120
-    clr  tmp2
-delay500L1:
-	dec  tmp2
-    brne delay500L1
-    dec  tmp1
-    brne delay500L1
-    dec  tmp
-    brne delay500L1
-	ret
-	
-delay100ms:
-    ldi  tmp, 0
-    ldi  tmp1, 0
-delay100L1: 
-	dec  tmp1
-    brne delay100L1
-    dec  tmp
-    brne delay100L1
-	ret
+#ifdef DEBUG
+	delay500ms:
+		ldi  tmp, 22
+		ldi  tmp1, 120
+		clr  tmp2
+	delay500L1:
+		dec  tmp2
+		brne delay500L1
+		dec  tmp1
+		brne delay500L1
+		dec  tmp
+		brne delay500L1
+		ret
+		
+	delay100ms:
+		ldi  tmp, 0
+		ldi  tmp1, 0
+	delay100L1: 
+		dec  tmp1
+		brne delay100L1
+		dec  tmp
+		brne delay100L1
+		ret
+#endif
+
+#ifdef DEBUG
+	; byte in tmp3
+	indicateByte:
+		rcall delay500ms
+		ldi tmp, 8 ; 8 bits
+	indicateBloop:
+		push tmp
+		lsr tmp3
+		brcs show1
+		sbi PORTB, PIN_PWM
+		rcall delay100ms	; show0
+		cbi PORTB, PIN_PWM
+	indicateCont:
+		rcall delay500ms; pause
+		pop tmp
+		dec tmp
+		brne indicateBloop
+		rcall delay500ms
+		rcall delay500ms
+		rcall delay500ms
+		ret
+	show1:
+		sbi PORTB, PIN_PWM
+		rcall delay500ms	; show1
+		cbi PORTB, PIN_PWM
+		rjmp indicateCont
+#endif
