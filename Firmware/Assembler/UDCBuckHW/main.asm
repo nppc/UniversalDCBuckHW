@@ -106,7 +106,7 @@ loop:
 
 	
 delay500ms:
-    ldi  tmp, 3 * 8
+    ldi  tmp, 24
     ldi  tmp1, 120
     clr  tmp2
 delay500L1:
