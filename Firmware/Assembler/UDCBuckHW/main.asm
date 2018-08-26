@@ -8,8 +8,7 @@
 #define DEBUG
 
 #define	MOVINGAVERAGE ; comment it if not needed
-.EQU	MOVINGAVERAGE_N_voltage = 5 ; can be 3, 5 or 7.
-.EQU	MOVINGAVERAGE_N_current = 5 ; can be 3, 5 or 7.
+.EQU	MOVINGAVERAGE_N = 5 ; can be 3, 5 or 7.
 
 .EQU	USI_ADDRESS	= 0x5E	; choose address here (7bit)
 .EQU	USI_DATALEN = 2		; currently we receive only 2 bytes
@@ -35,25 +34,29 @@
 .def	tmp4		=	r5
 .def	itmp		=	r18	; variables to use in interrupts
 .def	itmp1		=	r19	; variables to use in interrupts
-.def	tmpL1		=	r6	; temp register for 16 bit calculations
-.def	tmpH1		=	r7	; temp register for 16 bit calculations
-.def	tmpL2		=	r8	; temp register for 16 bit calculations
-.def	tmpH2		=	r9	; temp register for 16 bit calculations
+.def	itmp2		=	r6	; variables to use in interrupts
+.def	tmpL1		=	r7	; temp register for 16 bit calculations
+.def	tmpH1		=	r8	; temp register for 16 bit calculations
+.def	tmpL2		=	r9	; temp register for 16 bit calculations
+.def	tmpH2		=	r10	; temp register for 16 bit calculations
 .def	USIstate	=	r20	; state of I2C protocol
-.def	USICRconst	=	r10	; predevined interrupts settings for starting counter overflow interrupt
-.def	USISRconst	=	r11	; predevined clearing start flag and counter 
+.def	USICRconst	=	r11	; predevined interrupts settings for starting counter overflow interrupt
+.def	USISRconst	=	r12	; predevined clearing start flag and counter 
 .def	USIdataDir	=	r21	; Data direction flag (actually only 7th bit) 
 .def 	USIbytesCntr=	r22	; Counter for receiving/sending bytes via USI
+.def	ADC_counter	=	r23	; Flags for ADC. Refer to ADC.inc for details
 ; YH:YL are used in USI interupt as a pointer to the SRAM buffer
 .DSEG
 .ORG SRAM_START
 USI_dataBuffer:				.BYTE USI_DATALEN	; USI bytes buffer
 #ifdef MOVINGAVERAGE
-M_AVERAGE_voltage_TABLE:	.BYTE MOVINGAVERAGE_N_voltage * 2 ; Table for running moving average algorithm (max 14 bytes).
 M_AVERAGE_voltage_COUNTER:	.BYTE 1	 ; Counter in the table
-M_AVERAGE_current_TABLE:	.BYTE MOVINGAVERAGE_N_current * 2 ; Table for running moving average algorithm (max 14 bytes).
+M_AVERAGE_voltage_TABLE:	.BYTE MOVINGAVERAGE_N * 2 ; Table for running moving average algorithm (max 14 bytes).
 M_AVERAGE_current_COUNTER:	.BYTE 1	 ; Counter in the table
+M_AVERAGE_current_TABLE:	.BYTE MOVINGAVERAGE_N * 2 ; Table for running moving average algorithm (max 14 bytes).
 #endif
+ADC_Voltage_RAW:			.BYTE 2	; Raw ADC value for Voltage
+ADC_Current_RAW:			.BYTE 2	; Raw ADC value for Current
 
 
 .CSEG
@@ -68,7 +71,7 @@ M_AVERAGE_current_COUNTER:	.BYTE 1	 ; Counter in the table
 	reti	;TIMER0 OVF Timer/Counter0 Overflow
 	reti	;EE_RDY EEPROM Ready
 	reti	;ANA_COMP Analog Comparator
-	reti	;ADC ADC Conversion Complete
+	rjmp ADC_INT ;ADC Conversion Complete
 	reti	;TIMER1 COMPB Timer/Counter1 Compare Match B
 	reti	;TIMER0 COMPA Timer/Counter0 Compare Match A
 	reti	;TIMER0 COMPB Timer/Counter0 Compare Match B
@@ -77,15 +80,13 @@ M_AVERAGE_current_COUNTER:	.BYTE 1	 ; Counter in the table
 	rjmp USI_ovf	;USI Overflow
 
 .include "I2C.inc"
-
+.include "PWM.inc"
+.include "ADC.inc"
+.include "MovAverage.inc"
+.include "math.inc"
 
 RESET:
 	cli
-
-	ldi tmp, high(RAMEND) 
-	out SPH,tmp				; Set Stack Pointer to top of RAM
-	ldi tmp, low(RAMEND)
-	out SPL,tmp				; Set Stack Pointer to top of RAM
 
 	;initialize constants
 	clr z0
@@ -98,17 +99,32 @@ RESET:
 	out CLKPR, tmp		; enable clock change
 	out CLKPR, z0		; prescaler 1
 
-	rcall USI_init	; initialize registers and pins
+	ldi tmp, high(RAMEND) 
+	out SPH,tmp				; Set Stack Pointer to top of RAM
+	ldi tmp, low(RAMEND)
+	out SPL,tmp				; Set Stack Pointer to top of RAM
 
-	; Initialize remaining pins
-	cbi PORTB, PIN_PWM		; after reset it will be LOW, but still, let's force it to LOW.
-	sbi DDRB, PIN_PWM		; output
-	cbi DDRB, PIN_Vsense	; input
-	cbi DDRB, PIN_Isense	; input
+	rcall init_PWM	; Initialize FET controlling with PWM
+	#ifdef MOVINGAVERAGE
+		rcall init_Moving_Average
+	#endif
+	rcall init_ADC	; Initialize V and I measuring
+	rcall USI_init	; initialize registers and pins for I2C
 
 	sei
-
+	
+	ldi tmp, 40
+	out OCR1A, tmp
 loop:
+	; reading of ADC value looks like this:
+	; lds tmp3, ADC_Voltage_RAW+1
+	; cpi tmp3, 255
+	; breq Value_not_ready
+	; lds tmp2, ADC_Voltage_RAW
+	; rcall moving_average
+	; work with value
+
+	rjmp loop
 	cpi USIbytesCntr,USI_DATALEN
 	brne loop	; not yet
 	; now indicate the received data
