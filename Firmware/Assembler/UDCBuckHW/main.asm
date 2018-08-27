@@ -11,7 +11,7 @@
 .EQU	MOVINGAVERAGE_N = 5 ; can be 3, 5 or 7.
 
 .EQU	USI_ADDRESS	= 0x5E	; choose address here (7bit)
-.EQU	USI_DATALEN = 2		; currently we receive only 2 bytes
+.EQU	USI_DATALEN = 10		; currently we receive only 2 bytes
 
 .include "tn85def.inc"
 
@@ -40,12 +40,10 @@
 .def	tmpL2		=	r9	; temp register for 16 bit calculations
 .def	tmpH2		=	r10	; temp register for 16 bit calculations
 .def	USIstate	=	r20	; state of I2C protocol
-.def	USICRconst	=	r11	; predevined interrupts settings for starting counter overflow interrupt
-.def	USISRconst	=	r12	; predevined clearing start flag and counter 
 .def	USIdataDir	=	r21	; Data direction flag (actually only 7th bit) 
 .def 	USIbytesCntr=	r22	; Counter for receiving/sending bytes via USI
 .def	ADC_counter	=	r23	; Flags for ADC. Refer to ADC.inc for details
-; YH:YL are used in USI interupt as a pointer to the SRAM buffer
+; YH:YL are used in USI interrupt as a pointer to the SRAM buffer
 .DSEG
 .ORG SRAM_START
 USI_dataBuffer:				.BYTE USI_DATALEN	; USI bytes buffer
@@ -79,6 +77,7 @@ ADC_Current_RAW:			.BYTE 2	; Raw ADC value for Current
 	rjmp USI_start	;USI start
 	rjmp USI_ovf	;USI Overflow
 
+	
 .include "I2C.inc"
 .include "PWM.inc"
 .include "ADC.inc"
@@ -93,8 +92,6 @@ RESET:
 	clr z1
 	inc z1
 	
-	clr USIbytesCntr	; clear USI counter
-
 	ldi tmp, 1<<CLKPCE	
 	out CLKPR, tmp		; enable clock change
 	out CLKPR, z0		; prescaler 1
@@ -104,18 +101,35 @@ RESET:
 	ldi tmp, low(RAMEND)
 	out SPL,tmp				; Set Stack Pointer to top of RAM
 
-	rcall init_PWM	; Initialize FET controlling with PWM
+	;rcall init_PWM	; Initialize FET controlling with PWM
 	#ifdef MOVINGAVERAGE
 		rcall init_Moving_Average
 	#endif
 	rcall init_ADC	; Initialize V and I measuring
 	rcall USI_init	; initialize registers and pins for I2C
 
+	#ifdef DEBUG
+		sbi DDRB, PIN_PWM
+	#endif
+	
 	sei
 	
-	ldi tmp, 40
-	out OCR1A, tmp
+	;ldi tmp, 40
+	;out OCR1A, tmp
 loop:
+	; test I2C
+	sbis PINB, PIN_PWM
+	rjmp loop
+	; show received data
+	;3rd byte
+	cbi PORTB, PIN_PWM
+	ldi xl,low(USI_dataBuffer+2)	;Set pointer on the first received byte
+	ldi xh,high(USI_dataBuffer+2)
+	ld tmp3, X+
+	rcall indicateByte
+	cbi DDRB, PIN_Vsense
+	rjmp loop
+
 	; reading of ADC value looks like this:
 	; lds tmp3, ADC_Voltage_RAW+1
 	; cpi tmp3, 255
@@ -147,7 +161,7 @@ loop:
 #ifdef DEBUG
 	delay500ms:
 		ldi  tmp, 22
-		ldi  tmp1, 120
+		ldi  tmp1, 100
 		clr  tmp2
 	delay500L1:
 		dec  tmp2
@@ -172,6 +186,8 @@ loop:
 #ifdef DEBUG
 	; byte in tmp3
 	indicateByte:
+		rcall delay500ms
+		rcall delay500ms
 		rcall delay500ms
 		ldi tmp, 8 ; 8 bits
 	indicateBloop:
