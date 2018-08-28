@@ -11,7 +11,7 @@
 .EQU	MOVINGAVERAGE_N = 5 ; can be 3, 5 or 7.
 
 .EQU	USI_ADDRESS	= 0x5E	; choose address here (7bit)
-.EQU	USI_DATALEN = 10		; currently we receive only 2 bytes
+.EQU	USI_DATALEN = 3		; bytes to receive/send via I2C (not including address byte)
 
 .include "tn85def.inc"
 
@@ -202,9 +202,7 @@ loop:
 		pop tmp
 		dec tmp
 		brne indicateBloop
-		rcall delay500ms
-		rcall delay500ms
-		rcall delay500ms
+		rcall delay100ms
 		ret
 	show1:
 		sbi PORTB, PIN_PWM
