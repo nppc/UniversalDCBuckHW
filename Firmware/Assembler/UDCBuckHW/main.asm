@@ -11,7 +11,7 @@
 .EQU	MOVINGAVERAGE_N = 5 ; can be 3, 5 or 7.
 
 .EQU	USI_ADDRESS	= 0x5E	; choose address here (7bit)
-.EQU	USI_DATALEN = 3		; bytes to receive/send via I2C (not including address byte)
+.EQU	USI_DATALEN = 6		; bytes to receive/send via I2C (not including address byte)
 
 .include "tn85def.inc"
 
@@ -101,7 +101,7 @@ RESET:
 	ldi tmp, low(RAMEND)
 	out SPL,tmp				; Set Stack Pointer to top of RAM
 
-	;rcall init_PWM	; Initialize FET controlling with PWM
+	rcall init_PWM	; Initialize FET controlling with PWM
 	#ifdef MOVINGAVERAGE
 		rcall init_Moving_Average
 	#endif
@@ -114,20 +114,7 @@ RESET:
 	
 	sei
 	
-	;ldi tmp, 40
-	;out OCR1A, tmp
 loop:
-	; test I2C
-	sbis PINB, PIN_PWM
-	rjmp loop
-	; show received data
-	;3rd byte
-	cbi PORTB, PIN_PWM
-	ldi xl,low(USI_dataBuffer+2)	;Set pointer on the first received byte
-	ldi xh,high(USI_dataBuffer+2)
-	ld tmp3, X+
-	rcall indicateByte
-	cbi DDRB, PIN_Vsense
 	rjmp loop
 
 	; reading of ADC value looks like this:
@@ -138,25 +125,6 @@ loop:
 	; rcall moving_average
 	; work with value
 
-	rjmp loop
-	cpi USIbytesCntr,USI_DATALEN
-	brne loop	; not yet
-	; now indicate the received data
-	cli
-	ldi YH, HIGH(USI_dataBuffer);
-	ldi YL, LOW(USI_dataBuffer);
-	ld tmp3, Y+
-	rcall indicateByte
-	ld tmp3, Y+
-	rcall indicateByte
-	rcall delay500ms
-	rcall delay500ms
-	rcall delay500ms
-	rcall delay500ms
-	rcall delay500ms
-	rcall delay500ms
-	sei
-	rjmp loop
 
 #ifdef DEBUG
 	delay500ms:
@@ -186,7 +154,16 @@ loop:
 #ifdef DEBUG
 	; byte in tmp3
 	indicateByte:
-		rcall delay500ms
+		rcall delay100ms
+		cbi PORTB, PIN_PWM
+		rcall delay100ms
+		sbi PORTB, PIN_PWM
+		rcall delay100ms
+		cbi PORTB, PIN_PWM
+		rcall delay100ms
+		sbi PORTB, PIN_PWM
+		rcall delay100ms
+		cbi PORTB, PIN_PWM
 		rcall delay500ms
 		rcall delay500ms
 		ldi tmp, 8 ; 8 bits

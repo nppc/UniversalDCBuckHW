@@ -3,7 +3,6 @@
 .equ	I2Cack			= 2	; acknowledge received byte
 .equ	I2Cdir			= 3	; Read=0, Transmit=1
 .equ	I2Cbyte			= 4	; Process byte according to I2Cdir
-.equ	I2Ccheckack		= 5	; check acknowledge from master
 
 ; called from setup (not onterrupts)
 USI_init:
@@ -13,10 +12,10 @@ USI_init:
 	out USISR, tmp
 
 	; start with all pins floated (pulled up by external resistors)
-	;sbi PORTB, PIN_SCL	; should be 1. If Atmel doc says different - don't trust it. :)
-	;sbi PORTB, PIN_SDA	; should be always 1.
-	;sbi DDRB, PIN_SCL	; should be 1. If Atmel doc says different - don't trust it. :)
-	;cbi DDRB, PIN_SDA 
+	sbi PORTB, PIN_SCL	; should be 1. If Atmel doc says different - don't trust it. :)
+	sbi PORTB, PIN_SDA	; should be always 1.
+	sbi DDRB, PIN_SCL	; should be 1. If Atmel doc says different - don't trust it. :)
+	cbi DDRB, PIN_SDA 
 	
 	clr USIstate
 	clr USIbytesCntr	; clear USI counter
@@ -26,6 +25,9 @@ USI_init:
 	
 USI_start:
 	; SREG register is not affected here
+	#ifdef DEBUG
+	cbi DDRB, PIN_Vsense
+	#endif
 
 	sbic PINB,PIN_SCL	;Wait for SCL to go low to ensure the "Start Condition" has completed.
 	rjmp PC-1
@@ -50,8 +52,6 @@ USI_ovf:
 	rjmp I2Cadr_check
 	sbrc USIstate, I2Cack
 	rjmp I2Cack_byte
-	sbrc USIstate, I2Ccheckack
-	rjmp I2Cack_check
 	sbrc USIstate, I2Cbyte
 	rjmp I2Cbyte_process
 
@@ -66,7 +66,9 @@ I2Cadr_check:
 	cbr USIstate, (1<<I2Cadr)	; Address processed - clear flag
 	bld USIstate, I2Cdir	; set flag according to data direction bit
 	
-	sbi DDRB, PIN_Vsense	; Address OK
+	#ifdef DEBUG
+		sbi DDRB, PIN_Vsense	; Address OK
+	#endif
 
 	ldi YL, low(USI_dataBuffer);Set pointer to the USI array
 	ldi YH, high(USI_dataBuffer)
@@ -91,7 +93,7 @@ I2Cack_byte:	; Acknowledge received byte
 	sbrs USIstate, I2Cdir
 	rjmp USI_exit
 	
-	sbi	DDRB, PIN_SDA	; maybe we don't need it
+	sbi	DDRB, PIN_SDA	; Seems this is important	
 	ld itmp, Y+ ; load data from array
 	out USIDR, itmp
 	
@@ -116,27 +118,16 @@ I2Cbyte_process_transmit:
 	; wait for ack bit
 	ldi itmp,(1<<USIOIF) | (1<<USIPF) | (1<<USIDC) | (0x0E<<USICNT0)
 	out USISR, itmp
-	sbr USIstate, (1<<I2Ccheckack)
+	sbr USIstate, (1<<I2Cack)
 	rjmp USI_exit
 
-I2Cack_check:
-	cbr USIstate, (1<<I2Ccheckack)
-	; if ack ok, then prepare to send next byte, if no, then terminate
-	; TODO
-	; lets asume that ack was OK
-	inc USIbytesCntr
-	cpi USIbytesCntr, USI_DATALEN+1	; total bytes to receive (including address byte)
-	breq I2C_data_OK
-
-	sbi	DDRB, PIN_SDA	; maybe we don't need it
-	ld itmp, Y+ ; load data from array
-	out USIDR, itmp
-
-	
-	rjmp USI_exit	
 
 I2C_data_OK:	; Received all bytes
-	sbi PORTB, PIN_PWM
+
+	#ifdef DEBUG
+		cbi DDRB, PIN_Vsense
+	#endif
+
 	; finish receiving
 
 I2Cbadadr:
