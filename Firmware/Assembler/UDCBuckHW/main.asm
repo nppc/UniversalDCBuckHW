@@ -11,7 +11,17 @@
 .EQU	MOVINGAVERAGE_N = 5 ; can be 3, 5 or 7.
 
 .EQU	USI_ADDRESS	= 0x5E	; choose address here (7bit)
-.EQU	USI_DATALEN = 6		; bytes to receive/send via I2C (not including address byte)
+.EQU	USI_DATALEN = 11	; bytes to receive/send via I2C (not including address byte)
+; Data transmitted via I2C (11 bytes):
+; 1 byte: Set Voltage (V/10) (R/W) 0-255
+; 1 byte: Voltage change ((V/10)/S) (R/W) 4-250
+; 1 byte: Min Voltage (V/10) (R/W) 0-255
+; 1 byte: Max Voltage (V/10) (R/W) 1-255
+; 1 byte: PWM (R)
+; 1 byte: Measured Voltage (A/10) (R)
+; 1 byte: Measured Current (A/10) (R)
+; 2 bytes:Voltage ADC RAW (R)
+; 2 bytes:Current ADC RAW (R)
 
 .include "tn85def.inc"
 
@@ -40,9 +50,10 @@
 .def	tmpL2		=	r9	; temp register for 16 bit calculations
 .def	tmpH2		=	r10	; temp register for 16 bit calculations
 .def	USIstate	=	r20	; state of I2C protocol
-.def	USIdataDir	=	r21	; Data direction flag (actually only 7th bit) 
-.def 	USIbytesCntr=	r22	; Counter for receiving/sending bytes via USI
-.def	ADC_counter	=	r23	; Flags for ADC. Refer to ADC.inc for details
+.def	ADC_counter	=	r21	; Flags for ADC. Refer to ADC.inc for details
+.def	setVolt_tmp	=	r11	; For smooth change of preset voltage
+.def	V_chg_const	=	r12	; Converted value for timer0 from Voltage_Change SRAM
+.def	SchedulerCnt=	r13	; Counter for scheduler
 ; YH:YL are used in USI interrupt as a pointer to the SRAM buffer
 .DSEG
 .ORG SRAM_START
@@ -53,9 +64,17 @@ M_AVERAGE_voltage_TABLE:	.BYTE MOVINGAVERAGE_N * 2 ; Table for running moving av
 M_AVERAGE_current_COUNTER:	.BYTE 1	 ; Counter in the table
 M_AVERAGE_current_TABLE:	.BYTE MOVINGAVERAGE_N * 2 ; Table for running moving average algorithm (max 14 bytes).
 #endif
+; Variables (R/W)
+Voltage_Set:				.BYTE 1 ; (V/10)
+Voltage_Change:				.BYTE 1 ; (V/10). Before using this variable, we need to convert it for timer0 counter
+Voltage_Min:				.BYTE 1 ; (V/10)
+Voltage_Max:				.BYTE 1 ; (V/10)
+; Variables (R)
+PWM_Value:					.BYTE 1
+Voltage_Measured:			.BYTE 1 ; (V/10)
+Current:					.BYTE 1 ; (A/10)
 ADC_Voltage_RAW:			.BYTE 2	; Raw ADC value for Voltage
 ADC_Current_RAW:			.BYTE 2	; Raw ADC value for Current
-
 
 .CSEG
 .ORG 0
@@ -71,11 +90,11 @@ ADC_Current_RAW:			.BYTE 2	; Raw ADC value for Current
 	reti	;ANA_COMP Analog Comparator
 	rjmp ADC_INT ;ADC Conversion Complete
 	reti	;TIMER1 COMPB Timer/Counter1 Compare Match B
-	reti	;TIMER0 COMPA Timer/Counter0 Compare Match A
+	rjmp TMR0_COMPA ; Timer/Counter0 Compare Match A
 	reti	;TIMER0 COMPB Timer/Counter0 Compare Match B
 	reti	;WDT
-	rjmp USI_start	;USI start
-	rjmp USI_ovf	;USI Overflow
+	rjmp USI_start	; USI start
+	rjmp USI_ovf	; USI Overflow
 
 	
 .include "I2C.inc"
@@ -83,6 +102,8 @@ ADC_Current_RAW:			.BYTE 2	; Raw ADC value for Current
 .include "ADC.inc"
 .include "MovAverage.inc"
 .include "math.inc"
+.include "scheduler.inc"
+.include "EEPROM.inc"
 
 RESET:
 	cli
@@ -101,17 +122,22 @@ RESET:
 	ldi tmp, low(RAMEND)
 	out SPL,tmp				; Set Stack Pointer to top of RAM
 
+	rcall EEPROM_restoreSettings
+
 	rcall init_PWM	; Initialize FET controlling with PWM
 	#ifdef MOVINGAVERAGE
 		rcall init_Moving_Average
 	#endif
-	rcall init_ADC	; Initialize V and I measuring
-	rcall USI_init	; initialize registers and pins for I2C
+	rcall init_ADC			; Initialize V and I measuring
+	rcall init_USI			; Initialize registers and pins for I2C
+	rcall init_Scheduler	; Initialize scheduler for smooth change to desired voltage
 
 	#ifdef DEBUG
 		sbi DDRB, PIN_PWM
 	#endif
-	
+
+	; this call should be the last before enabling interrupts and entering main loop
+	rcall Scheduler_start	
 	sei
 	
 loop:

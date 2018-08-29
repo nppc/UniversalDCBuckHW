@@ -1,11 +1,13 @@
-; USIstate flags:
-.equ	I2Cadr			= 1	; wait for address
-.equ	I2Cack			= 2	; acknowledge received byte
-.equ	I2Cdir			= 3	; Read=0, Transmit=1
+; USIstate (4 bits flags and counter bits 0-3):
+.equ	I2Cadr			= 7	; wait for address
+.equ	I2Cack			= 6	; acknowledge received byte
+.equ	I2Cdir			= 5	; Read=0, Transmit=1
 .equ	I2Cbyte			= 4	; Process byte according to I2Cdir
+.equ	I2Ccounter		= 0b00001111	; Counter bits (0-3)
+; remaining bits is counter for send/received bytes
 
 ; called from setup (not onterrupts)
-USI_init:
+init_USI:
 	ldi tmp, (1<<USISIE) | (1<<USIWM1) | (1<<USIWM0) | (1<<USICS1)
 	out USICR, tmp
 	ldi tmp, (1<<USISIF) | (1<<USIOIF) | (1<<USIPF)
@@ -17,8 +19,7 @@ USI_init:
 	sbi DDRB, PIN_SCL	; should be 1. If Atmel doc says different - don't trust it. :)
 	cbi DDRB, PIN_SDA 
 	
-	clr USIstate
-	clr USIbytesCntr	; clear USI counter
+	clr USIstate	; clear flags and counter
 	ret
 
 ; Other routines called from interrupts
@@ -30,7 +31,7 @@ USI_start:
 	#endif
 
 	sbic PINB,PIN_SCL	;Wait for SCL to go low to ensure the "Start Condition" has completed.
-	rjmp PC-1
+	rjmp PC-1			;Without this, I2c is unstable.
 
 	ldi USIstate, (1<<I2Cadr)	; Initialize flags for new packet
 
@@ -70,23 +71,31 @@ I2Cadr_check:
 		sbi DDRB, PIN_Vsense	; Address OK
 	#endif
 
+	; Now is good time to update data in buffer
+	; If master requested the data, update buffer from variables
+	; TODO
+	
 	ldi YL, low(USI_dataBuffer);Set pointer to the USI array
 	ldi YH, high(USI_dataBuffer)
 
 	rcall SetACK
 
 	sbr USIstate, (1<<I2Cack)
-	clr USIbytesCntr
+	cbr USIstate, I2Ccounter	; clear counter
 	rjmp USI_exit
 
 
 I2Cack_byte:	; Acknowledge received byte
 	cbr USIstate, (1<<I2Cack)	; reset flag
 	rcall I2C_clear_ack
-
-	inc USIbytesCntr
-	cpi USIbytesCntr, USI_DATALEN+1	; total bytes to receive (including address byte)
+	mov itmp, USIstate	
+	inc itmp	; increment counter. Flags bits will be not touched
+	andi itmp, I2Ccounter	; we need to filter counter bits
+	cpi itmp, USI_DATALEN+1	; total bytes to receive (including address byte)
 	breq I2C_data_OK
+	; store new counter value
+	cbr USIstate, I2Ccounter	; erase counter bits
+	or USIstate, itmp			; store counter bits
 	
 	sbr USIstate, (1<<I2Cbyte)	; Receive/Send next byte
 	; if we transmit the data, then fill USI data register
@@ -122,13 +131,14 @@ I2Cbyte_process_transmit:
 	rjmp USI_exit
 
 
-I2C_data_OK:	; Received all bytes
+I2C_data_OK:	; Received/sent all bytes
 
 	#ifdef DEBUG
 		cbi DDRB, PIN_Vsense
 	#endif
 
-	; finish receiving
+	; If master are sent new data, then update variables from buffer
+	; TODO
 
 I2Cbadadr:
 	rcall StopDetected
