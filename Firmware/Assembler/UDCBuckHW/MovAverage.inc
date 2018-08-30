@@ -9,9 +9,9 @@ init_Moving_Average:
 
 
 ; smooth RC signal via moving average algorithm
-; store 10 bit value to the Moving Average array
+; store/read 10 bit value to the Moving Average array
 ; value is in tmp2:tmp3 
-; Z points to the array of data data (Counter and averaging data)
+; Z points to the array of data (Counter and averaging data)
 moving_average:
 	; we will run average within MOVINGAVERAGE_N values.
 	; pointer for moving average table

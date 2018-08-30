@@ -51,5 +51,58 @@ copy_buf_store_VoltChange:
 	; now we need to convert Voltage_Change for use in timer0
 	rcall Scheduler_convert_changeValue
 copy_buf_skip_VoltChange:
+	ret
+	
+; Convert ADC RAW voltage to real voltage
+Convert_VoltageADC_to_Volt:
+	; Convert?
+	sbrs ADC_flags, flag_ADCvoltageReady
+	rjmp convert_V_exit
+	; reset flag 
+	cbr ADC_flags, (1<<flag_ADCvoltageReady)
+	lds tmp2, ADC_Voltage_RAW
+	lds tmp3, ADC_Voltage_RAW+1
+	#ifdef MOVINGAVERAGE
+		ldi ZL, LOW(M_AVERAGE_voltage_COUNTER)
+		ldi ZH, HIGH(M_AVERAGE_voltage_COUNTER)
+		rcall moving_average
+	#endif
+	; Value is ready for converting to Volts (actually V*10 eg 120 = 12V)
+	; The formula is: ADC * 32 / VOLT_DIV_CONST
+	ldi tmp, 5
+mult32:
+	lsl tmp2
+	rol tmp3
+	dec tmp
+	brne mult32
+	; divide it by a constant
+	mov tmpL1, tmp2
+	mov tmpH1, tmp3
+	ldi tmp, VOLT_DIV_CONST
+	mov tmpL2, tmp
+	clr tmpH2
+	rcall div16u	; result in tmpH1:tmpL1 (actually only low byte)
+	sts Voltage_Measured, tmpL1
+convert_V_exit:
+	ret
 
+
+; Convert ADC RAW current to real current
+Convert_CurrentADC_to_Current:
+	; Convert?
+	sbrs ADC_flags, flag_ADCcurrentReady
+	rjmp convert_C_exit
+	; reset flag 
+	cbr ADC_flags, (1<<flag_ADCcurrentReady)
+	lds tmp2, ADC_Current_RAW
+	lds tmp3, ADC_Current_RAW+1
+	#ifdef MOVINGAVERAGE
+		ldi ZL, LOW(M_AVERAGE_current_COUNTER)
+		ldi ZH, HIGH(M_AVERAGE_current_COUNTER)
+		rcall moving_average
+	#endif
+	; Value is ready for converting to Current (actually C*10 eg 55 = 5.5A)
+	; ADC_Current_zero_RAW - reference for 0.0A
+	; TODO
+convert_C_exit:
 	ret

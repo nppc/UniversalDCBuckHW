@@ -13,13 +13,13 @@
 .EQU	USI_ADDRESS	= 0x5E	; choose address here (7bit)
 .EQU	USI_DATALEN = 11	; bytes to receive/send via I2C (not including address byte)
 ; Data transmitted via I2C (11 bytes):
-; 1 byte: Set Voltage (V/10) (R/W) 0 or from min to max voltage
-; 1 byte: Voltage change ((V/10)/S) (R/W) 4-255
-; 1 byte: Min Voltage (V/10) (R/W) 0-max
-; 1 byte: Max Voltage (V/10) (R/W) min-255
+; 1 byte: Set Voltage (V*10) (R/W) 0 or from min to max voltage
+; 1 byte: Voltage change ((V*10)/S) (R/W) 4-255
+; 1 byte: Min Voltage (V*10) (R/W) 0-max
+; 1 byte: Max Voltage (V*10) (R/W) min-255
 ; 1 byte: PWM (R)
-; 1 byte: Measured Voltage (A/10) (R)
-; 1 byte: Measured Current (A/10) (R)
+; 1 byte: Measured Voltage (A*10) (R)
+; 1 byte: Measured Current (A*10) (R)
 ; 2 bytes:Voltage ADC RAW (R)
 ; 2 bytes:Current ADC RAW (R)
 
@@ -45,15 +45,16 @@
 .def	itmp		=	r18	; variables to use in interrupts
 .def	itmp1		=	r19	; variables to use in interrupts
 .def	itmp2		=	r6	; variables to use in interrupts
-.def	tmpL1		=	r7	; temp register for 16 bit calculations
-.def	tmpH1		=	r8	; temp register for 16 bit calculations
-.def	tmpL2		=	r9	; temp register for 16 bit calculations
-.def	tmpH2		=	r10	; temp register for 16 bit calculations
+.def	itmp3		=	r7	; variables to use in interrupts
+.def	tmpL1		=	r8	; temp register for 16 bit calculations
+.def	tmpH1		=	r9	; temp register for 16 bit calculations
+.def	tmpL2		=	r10	; temp register for 16 bit calculations
+.def	tmpH2		=	r11	; temp register for 16 bit calculations
 .def	USIstate	=	r20	; state of I2C protocol
-.def	ADC_counter	=	r21	; Flags for ADC. Refer to ADC.inc for details
-.def	setVolt_tmp	=	r11	; For smooth change of preset voltage
-.def	V_chg_const	=	r12	; Converted value for timer0 from Voltage_Change SRAM
-.def	SchedulerCnt=	r13	; Counter for scheduler
+.def	ADC_flags	=	r21	; Flags for ADC. Refer to ADC.inc for details
+.def	setVolt_tmp	=	r12	; For smooth change of preset voltage
+.def	V_chg_const	=	r13	; Converted value for timer0 from Voltage_Change SRAM
+.def	SchedulerCnt=	r14	; Counter for scheduler
 ; YH:YL are used in USI interrupt as a pointer to the SRAM buffer
 ; ZH:ZL for general use in main loop
 .DSEG
@@ -61,16 +62,17 @@
 USI_dataBuffer:				.BYTE USI_DATALEN	; USI bytes buffer
 USI_buffer_updateStatus:	.BYTE 1	; 1 - Buffer updated with new data, 0 - data is read by main loop
 ; Variables (R/W)
-Voltage_Set:				.BYTE 1 ; (V/10)
-Voltage_Change:				.BYTE 1 ; (V/10). Before using this variable, we need to convert it for timer0 counter
-Voltage_Min:				.BYTE 1 ; (V/10)
-Voltage_Max:				.BYTE 1 ; (V/10)
+Voltage_Set:				.BYTE 1 ; (V*10)
+Voltage_Change:				.BYTE 1 ; (V*10). Before using this variable, we need to convert it for timer0 counter
+Voltage_Min:				.BYTE 1 ; (V*10)
+Voltage_Max:				.BYTE 1 ; (V*10)
 ; Variables (R)
 PWM_Value:					.BYTE 1
-Voltage_Measured:			.BYTE 1 ; (V/10)
-Current:					.BYTE 1 ; (A/10)
+Voltage_Measured:			.BYTE 1 ; (V*10)
+Current:					.BYTE 1 ; (A*10)
 ADC_Voltage_RAW:			.BYTE 2	; Raw ADC value for Voltage
 ADC_Current_RAW:			.BYTE 2	; Raw ADC value for Current
+ADC_Current_zero_RAW:		.BYTE 2	; ADC value when no load (0.0A)
 #ifdef MOVINGAVERAGE
 M_AVERAGE_voltage_COUNTER:	.BYTE 1	 ; Counter in the table
 M_AVERAGE_voltage_TABLE:	.BYTE MOVINGAVERAGE_N * 2 ; Table for running moving average algorithm (max 14 bytes).
@@ -110,7 +112,6 @@ M_AVERAGE_current_TABLE:	.BYTE MOVINGAVERAGE_N * 2 ; Table for running moving av
 
 RESET:
 	cli
-
 	;initialize constants
 	clr z0
 	clr z1
@@ -148,15 +149,11 @@ loop:
 	cpse tmp, z0
 	rcall copy_buffer_to_Variables
 	
+	rcall Convert_VoltageADC_to_Volt
+	rcall Convert_CurrentADC_to_Current
+	
 	rjmp loop
 
-	; reading of ADC value looks like this:
-	; lds tmp3, ADC_Voltage_RAW+1
-	; cpi tmp3, 255
-	; breq Value_not_ready
-	; lds tmp2, ADC_Voltage_RAW
-	; rcall moving_average
-	; work with value
 
 
 #ifdef DEBUG
