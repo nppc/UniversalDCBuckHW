@@ -20,8 +20,17 @@ init_USI:
 	cbi DDRB, PIN_SDA 
 	
 	clr USIstate	; clear flags and counter
+	
+	; We also need to update some bytes in buffer that we restored from EEPORM
+	sts USI_dataBuffer, z0	; Voltage_Set always 0 at the beginning
+	lds tmp, Voltage_Change
+	sts USI_dataBuffer+1,tmp	; Voltage_Change
+	lds tmp, Voltage_Min
+	sts USI_dataBuffer+2,tmp	; Voltage_Min
+	lds tmp, Voltage_Max
+	sts USI_dataBuffer+3,tmp	;Voltage_Max
 	ret
-
+	
 ; Other routines called from interrupts
 	
 USI_start:
@@ -73,9 +82,27 @@ I2Cadr_check:
 
 	; Now is good time to update data in buffer
 	; If master requested the data, update buffer from variables
-	; TODO
-	
-	ldi YL, low(USI_dataBuffer);Set pointer to the USI array
+	sbrs USIstate, I2Cdir
+	rjmp I2Cadr_skip_copybuf
+	ldi YL, low(USI_dataBuffer + 4)	;Set pointer to the USI array. We don't need to update first 4 bytes as they are changing at startup or after I2C data received.
+	ldi YH, high(USI_dataBuffer + 4)
+	lds itmp, PWM_Value
+	st Y+, itmp
+	lds itmp, Voltage_Measured
+	st Y+, itmp
+	lds itmp, Current
+	st Y+, itmp
+	lds itmp, ADC_Voltage_RAW
+	st Y+, itmp
+	lds itmp, ADC_Voltage_RAW+1
+	st Y+, itmp
+	lds itmp, ADC_Current_RAW
+	st Y+, itmp
+	lds itmp, ADC_Current_RAW+1
+	st Y+, itmp
+
+I2Cadr_skip_copybuf:	
+	ldi YL, low(USI_dataBuffer)	;Set pointer to the USI array
 	ldi YH, high(USI_dataBuffer)
 
 	rcall SetACK
@@ -108,6 +135,22 @@ I2Cack_byte:	; Acknowledge received byte
 	
 	rjmp USI_exit
 
+I2C_data_OK:	; Received/sent all bytes
+
+	#ifdef DEBUG
+		cbi DDRB, PIN_Vsense
+	#endif
+
+	; If master sent new data, then make it known to main loop for processing
+	sbrs USIstate, I2Cdir
+	sts USI_buffer_updateStatus, z1	; New data arrived
+
+I2Cbadadr:
+	rcall StopDetected
+
+USI_exit:
+	out SREG, r_sreg
+	reti
 
 I2Cbyte_process:
 	; check, does we read or transmit data?
@@ -129,23 +172,6 @@ I2Cbyte_process_transmit:
 	out USISR, itmp
 	sbr USIstate, (1<<I2Cack)
 	rjmp USI_exit
-
-
-I2C_data_OK:	; Received/sent all bytes
-
-	#ifdef DEBUG
-		cbi DDRB, PIN_Vsense
-	#endif
-
-	; If master are sent new data, then update variables from buffer
-	; TODO
-
-I2Cbadadr:
-	rcall StopDetected
-
-USI_exit:
-	out SREG, r_sreg
-	reti
 
 	
 SetACK:
@@ -173,4 +199,3 @@ I2C_clear_ack:
 	ldi itmp, (1<<USISIF) | (1<<USIOIF) | (1<<USIPF)
 	out USISR, itmp
 	ret
-;------------------

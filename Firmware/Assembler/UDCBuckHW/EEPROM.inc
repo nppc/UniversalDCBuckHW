@@ -47,7 +47,6 @@ ee_check_byte:
 ee_bt_ok:	
 	ret
 
-
 ; Restore data from EEPROM.
 ; Restore Factory settings if EEPROM is corrupted
 EEPROM_restoreSettings:

@@ -13,10 +13,10 @@
 .EQU	USI_ADDRESS	= 0x5E	; choose address here (7bit)
 .EQU	USI_DATALEN = 11	; bytes to receive/send via I2C (not including address byte)
 ; Data transmitted via I2C (11 bytes):
-; 1 byte: Set Voltage (V/10) (R/W) 0-255
-; 1 byte: Voltage change ((V/10)/S) (R/W) 4-250
-; 1 byte: Min Voltage (V/10) (R/W) 0-255
-; 1 byte: Max Voltage (V/10) (R/W) 1-255
+; 1 byte: Set Voltage (V/10) (R/W) 0 or from min to max voltage
+; 1 byte: Voltage change ((V/10)/S) (R/W) 4-255
+; 1 byte: Min Voltage (V/10) (R/W) 0-max
+; 1 byte: Max Voltage (V/10) (R/W) min-255
 ; 1 byte: PWM (R)
 ; 1 byte: Measured Voltage (A/10) (R)
 ; 1 byte: Measured Current (A/10) (R)
@@ -55,15 +55,11 @@
 .def	V_chg_const	=	r12	; Converted value for timer0 from Voltage_Change SRAM
 .def	SchedulerCnt=	r13	; Counter for scheduler
 ; YH:YL are used in USI interrupt as a pointer to the SRAM buffer
+; ZH:ZL for general use in main loop
 .DSEG
 .ORG SRAM_START
 USI_dataBuffer:				.BYTE USI_DATALEN	; USI bytes buffer
-#ifdef MOVINGAVERAGE
-M_AVERAGE_voltage_COUNTER:	.BYTE 1	 ; Counter in the table
-M_AVERAGE_voltage_TABLE:	.BYTE MOVINGAVERAGE_N * 2 ; Table for running moving average algorithm (max 14 bytes).
-M_AVERAGE_current_COUNTER:	.BYTE 1	 ; Counter in the table
-M_AVERAGE_current_TABLE:	.BYTE MOVINGAVERAGE_N * 2 ; Table for running moving average algorithm (max 14 bytes).
-#endif
+USI_buffer_updateStatus:	.BYTE 1	; 1 - Buffer updated with new data, 0 - data is read by main loop
 ; Variables (R/W)
 Voltage_Set:				.BYTE 1 ; (V/10)
 Voltage_Change:				.BYTE 1 ; (V/10). Before using this variable, we need to convert it for timer0 counter
@@ -75,6 +71,12 @@ Voltage_Measured:			.BYTE 1 ; (V/10)
 Current:					.BYTE 1 ; (A/10)
 ADC_Voltage_RAW:			.BYTE 2	; Raw ADC value for Voltage
 ADC_Current_RAW:			.BYTE 2	; Raw ADC value for Current
+#ifdef MOVINGAVERAGE
+M_AVERAGE_voltage_COUNTER:	.BYTE 1	 ; Counter in the table
+M_AVERAGE_voltage_TABLE:	.BYTE MOVINGAVERAGE_N * 2 ; Table for running moving average algorithm (max 14 bytes).
+M_AVERAGE_current_COUNTER:	.BYTE 1	 ; Counter in the table
+M_AVERAGE_current_TABLE:	.BYTE MOVINGAVERAGE_N * 2 ; Table for running moving average algorithm (max 14 bytes).
+#endif
 
 .CSEG
 .ORG 0
@@ -104,6 +106,7 @@ ADC_Current_RAW:			.BYTE 2	; Raw ADC value for Current
 .include "math.inc"
 .include "scheduler.inc"
 .include "EEPROM.inc"
+.include "main.inc"
 
 RESET:
 	cli
@@ -141,6 +144,10 @@ RESET:
 	sei
 	
 loop:
+	lds tmp, USI_buffer_updateStatus
+	cpse tmp, z0
+	rcall copy_buffer_to_Variables
+	
 	rjmp loop
 
 	; reading of ADC value looks like this:
