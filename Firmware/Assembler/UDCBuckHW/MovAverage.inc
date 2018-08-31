@@ -33,7 +33,7 @@ moving_average:
 mov_avrg_skp:
 	pop ZH
 	pop ZL
-	st Z+, tmp
+	st Z+, tmp	; Store counter
 	; sum all values in the table
 	; Z points to the first element in the table
 	ldi tmp, MOVINGAVERAGE_N

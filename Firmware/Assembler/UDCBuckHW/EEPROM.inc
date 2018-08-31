@@ -59,9 +59,9 @@ EEPROM_restoreSettings:
 	rcall EEPROM_read	; read byte to tmpL2. Address is incremented
 	sts Voltage_Change, tmpL2
 	rcall EEPROM_read	; read byte to tmpL2. Address is incremented
-	sts EEPROM_Voltage_Min, tmpL2
+	sts Voltage_Min, tmpL2
 	rcall EEPROM_read	; read byte to tmpL2. Address is incremented
-	sts EEPROM_Voltage_Max, tmpL2
+	sts Voltage_Max, tmpL2
 	ret
 
 ; This routine is called at startup, so interrupts are off.

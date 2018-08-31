@@ -43,10 +43,11 @@ Scheduler_start:
 	out GTCCR, tmp		; we don't care about timer1 as GTCCR is not used there
 	ret
 	
-; interrupt for timer0 counting
+; interrupt for timer0 counting (every 1ms)
 TMR0_COMPA:
-	; most of the time only these 5 instructions will run
+	; most of the time only these 6 instructions will run
 	in r_sreg, SREG
+	sbr PWM_flags, (1<<PWM_flag_regulatePWM)	; We adjust PWM every 1ms.
 	dec SchedulerCnt
 	breq TMR0_changeVolt
 	out SREG, r_sreg
@@ -63,7 +64,6 @@ TMR0_changeVolt:
 TMR0_changeVolt_adjust:
 	cp setVolt_tmp, itmp
 	brlo TMR0_changeVolt_adjust_inc
-	; dec
 	dec setVolt_tmp
 	out SREG, r_sreg
 	reti

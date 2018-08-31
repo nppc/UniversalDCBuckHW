@@ -82,24 +82,24 @@ I2Cadr_check:
 
 	; Now is good time to update data in buffer
 	; If master requested the data, update buffer from variables
-	sbrs USIstate, I2Cdir
-	rjmp I2Cadr_skip_copybuf
-	ldi YL, low(USI_dataBuffer + 4)	;Set pointer to the USI array. We don't need to update first 4 bytes as they are changing at startup or after I2C data received.
-	ldi YH, high(USI_dataBuffer + 4)
-	lds itmp, PWM_Value
-	st Y+, itmp
-	lds itmp, Voltage_Measured
-	st Y+, itmp
-	lds itmp, Current
-	st Y+, itmp
-	lds itmp, ADC_Voltage_RAW
-	st Y+, itmp
-	lds itmp, ADC_Voltage_RAW+1
-	st Y+, itmp
-	lds itmp, ADC_Current_RAW
-	st Y+, itmp
-	lds itmp, ADC_Current_RAW+1
-	st Y+, itmp
+	;sbrs USIstate, I2Cdir
+	;rjmp I2Cadr_skip_copybuf
+	;ldi YL, low(USI_dataBuffer + 4)	;Set pointer to the USI array. We don't need to update first 4 bytes as they are changing at startup or after I2C data received.
+	;ldi YH, high(USI_dataBuffer + 4)
+	;lds itmp, PWM_Value
+	;st Y+, itmp
+	;lds itmp, Voltage_Measured
+	;st Y+, itmp
+	;lds itmp, Current_Measured
+	;st Y+, itmp
+	;lds itmp, ADC_Voltage_RAW
+	;st Y+, itmp
+	;lds itmp, ADC_Voltage_RAW+1
+	;st Y+, itmp
+	;lds itmp, ADC_Current_RAW
+	;st Y+, itmp
+	;lds itmp, ADC_Current_RAW+1
+	;st Y+, itmp
 
 I2Cadr_skip_copybuf:	
 	ldi YL, low(USI_dataBuffer)	;Set pointer to the USI array

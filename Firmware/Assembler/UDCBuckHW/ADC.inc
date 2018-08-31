@@ -24,13 +24,18 @@
 ;.EQU 	INTTEMP_ADC = (1<<MUX3) | (1<<MUX2) | (1<<MUX1) | (1<<MUX0) ; ADC4 (Internal temperature sensor)
 
 .EQU	VOLT_DIV_CONST		= 155		; To get this number use formula (for 21v max): 
-										; 4095/(Vmax*10)*8, where Vmax=(R1+R2)*Vref/R2
-										; Vref=5v 
+										; VREF=5v 
+										; 4095/(Vmax*10)*8, where Vmax=(R1+R2)*VREF/R2
 										; and resistor values is from divider (22K/6.8K)
-										; Vmax=(22+6.8)*5/6.8=21.18
+										; Vmax=(22+6.8)*VREF/6.8=21.18
 										; 4095/(21.18*10)*8=155
 										; And then voltage will be calculated as ADC * 32 / VOLT_DIV_CONST
-.EQU	CURRENT_MULT_CONST	= 185	; mV/A
+
+.EQU	CURRENT_DIV_CONST	= 242		; To get this number use formula (for 185mV/A sensor): 
+										; VREF=5v 
+										; MULCOEFF=VREF*1000/185/1023*10
+										; 1/MULCOEFF*64=242
+										; And then current will be calculated as (ADC-ADC_Current_zero_RAW)*64/CURRENT_DIV_CONST
 										
 
 ; ADC conversion complete interrupt
