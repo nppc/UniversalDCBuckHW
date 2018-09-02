@@ -6,8 +6,7 @@ init_PWM:
 	out TCNT1, z0
 	out OCR1A, z0			; no PWM
 	clr PWM_flags
-	sts PWM_Value, z0
-	sts USI_dataBuffer+4, z0	; Update buffer too
+	sts USI_dataBuffer+4, z0	; Clear PWM value in buffer
 	ldi tmp, (0<<CS13) | (0<<CS12) | (0<<CS11) | (1<<CS10) | (1<<PWM1A) | (1<<COM1A1) | (0<<COM1A0)	; prescaller 1; fast PWM on OC1A
 	out TCCR1, tmp	
 	; Enable 64mhz

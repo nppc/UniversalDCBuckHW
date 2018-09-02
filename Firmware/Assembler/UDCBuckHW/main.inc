@@ -79,10 +79,8 @@ mult32:
 	mov tmpL2, tmp
 	clr tmpH2
 	rcall div16u	; result in tmpH1:tmpL1 (actually only low byte)
-	cli
 	sts Voltage_Measured, tmpL1
 	sts USI_dataBuffer+5, tmpL1
-	sei
 convert_V_exit:
 	ret
 
@@ -117,10 +115,7 @@ mult64:
 	mov tmpL2, tmp
 	clr tmpH2
 	rcall div16u	; result in tmpH1:tmpL1 (actually only low byte)
-	cli
-	sts Current_Measured, tmpL1
-	sts USI_dataBuffer+6, tmpL1
-	sei
+	sts USI_dataBuffer+6, tmpL1	; Store Current measured to buffer
 convert_C_exit:
 	ret
 	
@@ -144,11 +139,8 @@ Regulate_PWM:
 	inc tmp1
 Regulate_PWM_update:
 	out OCR1A, tmp1
-	sts PWM_Value, tmp1
 	sts USI_dataBuffer+4, tmp1	; PWM_Value
 Regulate_PWM_exit:
-	; DEBUG
-	;sts USI_dataBuffer+4, setVolt_tmp
 	ret
 Regulate_PWM_minus:
 	; check that we not at min already

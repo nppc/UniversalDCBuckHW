@@ -119,8 +119,8 @@ init_ADC:
 		brne waitforADC_Ref_L1
 	#endif
 	; store last value to get reference for Current measurement (0.0A)
-	sts ADC_Current_zero_RAW, itmp2
-	sts ADC_Current_zero_RAW+1, itmp3
+	sts ADC_Current_zero_RAW, tmp2
+	sts ADC_Current_zero_RAW+1, tmp3
 
 	ldi tmp, VSENSE_ADC
 	out ADMUX, tmp
