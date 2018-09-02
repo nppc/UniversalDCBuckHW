@@ -5,7 +5,7 @@
 ; Author : Pavel
 ;
 
-#define DEBUG
+;#define DEBUG
 
 #define	MOVINGAVERAGE ; comment it if not needed
 .EQU	MOVINGAVERAGE_N = 5 ; can be 3, 5 or 7.
@@ -51,7 +51,7 @@
 .def	tmpL2		=	r10	; temp register for 16 bit calculations
 .def	tmpH2		=	r11	; temp register for 16 bit calculations
 .def	USIstate	=	r20	; state of I2C protocol
-.def	ADC_flags	=	r21	; Flags for ADC. Refer to ADC.inc for details
+.def	ADC_counter	=	r21	; Flags for ADC. Refer to ADC.inc for details
 .def	setVolt_tmp	=	r12	; For smooth change of preset voltage
 .def	V_chg_const	=	r13	; Converted value for timer0 from Voltage_Change SRAM
 .def	SchedulerCnt=	r14	; Counter for scheduler
@@ -71,8 +71,6 @@ Voltage_Max:				.BYTE 1 ; (V*10)
 PWM_Value:					.BYTE 1
 Voltage_Measured:			.BYTE 1 ; (V*10)
 Current_Measured:			.BYTE 1 ; (A*10)
-ADC_Voltage_RAW:			.BYTE 2	; Raw ADC value for Voltage
-ADC_Current_RAW:			.BYTE 2	; Raw ADC value for Current
 ADC_Current_zero_RAW:		.BYTE 2	; ADC value when no load (0.0A)
 #ifdef MOVINGAVERAGE
 M_AVERAGE_voltage_COUNTER:	.BYTE 1	 ; Counter in the table
@@ -93,7 +91,7 @@ M_AVERAGE_current_TABLE:	.BYTE MOVINGAVERAGE_N * 2 ; Table for running moving av
 	reti	;TIMER0 OVF Timer/Counter0 Overflow
 	reti	;EE_RDY EEPROM Ready
 	reti	;ANA_COMP Analog Comparator
-	rjmp ADC_INT ;ADC Conversion Complete
+	reti	;ADC_INT ;ADC Conversion Complete
 	reti	;TIMER1 COMPB Timer/Counter1 Compare Match B
 	rjmp TMR0_COMPA ; Timer/Counter0 Compare Match A
 	reti	;TIMER0 COMPB Timer/Counter0 Compare Match B
@@ -146,82 +144,20 @@ RESET:
 	; this call should be the last before enabling interrupts and entering main loop
 	rcall Scheduler_start	
 
-	#ifdef DEBUG
-		cbi PORTB, PIN_PWM
-	#endif
+	sbi ADCSRA, ADSC
+	
 	sei
 	
 loop:
+	; wait for ADC complete
+	sbic ADCSRA, ADSC
+	rjmp loop
+	rcall ADC_Read
+
+	rcall Regulate_PWM
+
 	lds tmp, USI_buffer_updateStatus
 	cpse tmp, z0
 	rcall copy_buffer_to_Variables
 	
-	rcall Convert_VoltageADC_to_Volt
-	rcall Regulate_PWM
-	rcall Convert_CurrentADC_to_Current
-	
 	rjmp loop
-
-
-
-#ifdef DEBUG
-	delay500ms:
-		ldi  tmp, 22
-		ldi  tmp1, 100
-		clr  tmp2
-	delay500L1:
-		dec  tmp2
-		brne delay500L1
-		dec  tmp1
-		brne delay500L1
-		dec  tmp
-		brne delay500L1
-		ret
-		
-	delay100ms:
-		ldi  tmp, 0
-		ldi  tmp1, 0
-	delay100L1: 
-		dec  tmp1
-		brne delay100L1
-		dec  tmp
-		brne delay100L1
-		ret
-#endif
-
-#ifdef DEBUG
-	; byte in tmp3
-	indicateByte:
-		rcall delay100ms
-		cbi PORTB, PIN_PWM
-		rcall delay100ms
-		sbi PORTB, PIN_PWM
-		rcall delay100ms
-		cbi PORTB, PIN_PWM
-		rcall delay100ms
-		sbi PORTB, PIN_PWM
-		rcall delay100ms
-		cbi PORTB, PIN_PWM
-		rcall delay500ms
-		rcall delay500ms
-		ldi tmp, 8 ; 8 bits
-	indicateBloop:
-		push tmp
-		lsr tmp3
-		brcs show1
-		sbi PORTB, PIN_PWM
-		rcall delay100ms	; show0
-		cbi PORTB, PIN_PWM
-	indicateCont:
-		rcall delay500ms; pause
-		pop tmp
-		dec tmp
-		brne indicateBloop
-		rcall delay100ms
-		ret
-	show1:
-		sbi PORTB, PIN_PWM
-		rcall delay500ms	; show1
-		cbi PORTB, PIN_PWM
-		rjmp indicateCont
-#endif

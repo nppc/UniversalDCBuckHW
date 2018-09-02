@@ -3,21 +3,13 @@
 ; Then measure 1 sample of I.
 ; So, I will be measured 8 times slower than V.
 ;
-; ADC_flags:
-; bits 0-3 - counter:
+; ADC_counter:
 ;  0 - skip ADC reading
 ;  1-8 - Read Voltage
 ;  8 - after reading, change ADC channel to I
 ;  9 - skip ADC reading
 ;  10 - Read Current
 ;  10 - after reading, change ADC channel to V and reset counter
-; bit 4 - N/A
-; bit 5 - N/A
-; bit 6 - Voltage ADC value ready
-; bit 7 - Current ADC value ready
-.EQU flag_ADCcounter = 0b00001111
-.EQU flag_ADCvoltageReady = 6
-.EQU flag_ADCcurrentReady = 7
 
 .EQU 	VSENSE_ADC = (0<<MUX3) | (0<<MUX2) | (1<<MUX1) | (0<<MUX0) ; ADC2 (PB4) 
 .EQU 	ISENSE_ADC = (0<<MUX3) | (0<<MUX2) | (1<<MUX1) | (1<<MUX0) ; ADC3 (PB3)
@@ -38,62 +30,55 @@
 										; And then current will be calculated as (ADC-ADC_Current_zero_RAW)*64/CURRENT_DIV_CONST
 										
 
-; ADC conversion complete interrupt
-ADC_INT:
-	in r_sreg, SREG
-	; first read the result. We will start new conversion later as we have one ADC clock time for it.
-	in itmp2, ADCL
-	in itmp3, ADCH
-	; get counter from ADC flag
-	mov itmp1, ADC_flags
-	andi itmp1, flag_ADCcounter
-	; should we change channel?
-	cpi itmp1, 8	; check counter
+ADC_Read:
+	in tmp2, ADCL
+	in tmp3, ADCH
+	cpi ADC_counter, 8	; check counter
 	brne ADC_skp_change_1
 	; Change channel to I
-	ldi itmp, ISENSE_ADC
-	out ADMUX, itmp
+	ldi tmp, ISENSE_ADC
+	out ADMUX, tmp
 	rjmp ADC_skp_change_2
 ADC_skp_change_1:
-	cpi itmp1, 10	; check counter
+	cpi ADC_counter, 10	; check counter
 	brne ADC_skp_change_2
 	; Change channel to V
-	ldi itmp, VSENSE_ADC
-	out ADMUX, itmp
+	ldi tmp, VSENSE_ADC
+	out ADMUX, tmp
 ADC_skp_change_2:
 	; start new ADC reading
 	sbi ADCSRA, ADSC
 	; continue to analyze counter
-	cpi itmp1, 0	; skip reading
-	breq adc_int_exit
-	cpi itmp1, 9	; 1-8
+	cpi ADC_counter, 0	; skip reading
+	breq adc_exit
+	cpi ADC_counter, 9	; 1-8
 	brlo ADC_read_Volt
-	cpi itmp1, 9 ; skip reading
-	breq adc_int_exit
-	cpi itmp1, 10 
+	cpi ADC_counter, 9 ; skip reading
+	breq adc_exit
+	cpi ADC_counter, 10 
 	breq ADC_read_Current
 
-adc_int_exit:
-	inc itmp1	; increment counter
-	; store counter back to flags register
-	cbr ADC_flags, flag_ADCcounter	; clear old counter value
-	or ADC_flags, itmp1			; store new counter value
-	out SREG, r_sreg
-	reti
+adc_exit:
+	inc ADC_counter	; increment counter
+	ret
 ADC_read_Volt:
-	; store value for future reading in main loop
-	sts ADC_Voltage_RAW, itmp2
-	sts ADC_Voltage_RAW+1, itmp3
-	sbr ADC_flags, (1<<flag_ADCvoltageReady)
-	rjmp adc_int_exit
+	; store value
+	cli
+	sts USI_dataBuffer+7, tmp2
+	sts USI_dataBuffer+8, tmp3
+	sei
+	rcall Convert_VoltageADC_to_Volt
+	rjmp adc_exit
 ADC_read_Current:
-	; store value for future reading in main loop
-	sts ADC_Current_RAW, itmp2
-	sts ADC_Current_RAW+1, itmp3
-	sbr ADC_flags, (1<<flag_ADCcurrentReady)
+	; store value
+	cli
+	sts USI_dataBuffer+9, tmp2
+	sts USI_dataBuffer+10, tmp3
+	sei
+	rcall Convert_CurrentADC_to_Current
 	; also reset counter
-	ldi itmp1, 255	; Before exit counter will became 0.
-	rjmp adc_int_exit
+	ldi ADC_counter, 255	; Before exit counter will became 0.
+	rjmp adc_exit
 
 
 init_ADC:
@@ -106,9 +91,9 @@ init_ADC:
 	cbi DDRB, PIN_Vsense	; input
 	cbi DDRB, PIN_Isense	; input
 	; Initialize ADC variables
-	clr ADC_flags
+	clr ADC_counter
 	; set 125khz clock for ADC (8mhz/64)m interrupt
-	ldi tmp, (1<<ADPS2) | (1<<ADPS1) | (0<<ADPS0) | (1<<ADIE) | (1<<ADEN)
+	ldi tmp, (1<<ADPS2) | (1<<ADPS1) | (0<<ADPS0) | (0<<ADIE) | (1<<ADEN)	; no interrupts
 	out ADCSRA, tmp
 	; configure channel 
 	; voltage reference by default is VCC
