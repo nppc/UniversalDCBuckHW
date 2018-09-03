@@ -13,12 +13,18 @@ copy_buffer_to_Variables:
 	ldi ZH, high(USI_dataBuffer)
 	ld tmp, Z+	; Voltage_Set we update later, after Min/Max data received
 	ld tmp1, Z+
-	ld tmp2, Z+
-	ld tmp3, Z+
+	ld tmp2, Z+	; Voltage_min
+	ld tmp3, Z+	; Voltage_max
 	; Other data we don't care as it is read only data
 
 	; check the validity of Voltage_Set
 	; Voltage_Set should be in the range from Voltage_Min to Voltage_Max or 0.
+	cp tmp, tmp3
+	brlo copy_buf_inrange
+	; too high - update
+	mov tmp, tmp3
+	rjmp copy_buf_store_VoltSet
+copy_buf_inrange:
 	cp tmp, z0	; check for 0
 	breq copy_buf_store_VoltSet
 	cp tmp, tmp2	; check for min
