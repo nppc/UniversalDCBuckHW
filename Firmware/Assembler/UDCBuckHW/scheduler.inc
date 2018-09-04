@@ -20,10 +20,10 @@ init_Scheduler:
 	clr setVolt_tmp		; At the beginning voltage is 0.
 	ret
 	
-; The value transmitted via I2C and stored in EEPROM is human readable value ((V/10)/S)
+; The value transmitted via I2C and stored in EEPROM is human readable value ((V*10)/S)
 ; But we need to convert it for timer0 use
 Scheduler_convert_changeValue:
-	; formula is: 1000/Value
+	; formula is: (1000/1ms)/Value
 	ldi tmp, HIGH(1000)
 	mov tmpH1, tmp
 	ldi tmp, LOW(1000)
@@ -54,15 +54,14 @@ TMR0_COMPA:
 	reti
 TMR0_changeVolt:
 	mov SchedulerCnt, V_chg_const	; rewind counter
-	; compare setVolt_tmp register to Voltage_Set
+	; compare setVolt_tmp to Voltage_Set
 	; if not equal, then adjust setVolt_tmp to be closer to Voltage_Set
-	lds itmp, Voltage_Set
-	cpse itmp, setVolt_tmp
+	cpse Voltage_Set, setVolt_tmp
 	rjmp TMR0_changeVolt_adjust
 	out SREG, r_sreg
 	reti
 TMR0_changeVolt_adjust:
-	cp setVolt_tmp, itmp
+	cp setVolt_tmp, Voltage_Set
 	brlo TMR0_changeVolt_adjust_inc
 	dec setVolt_tmp
 	out SREG, r_sreg

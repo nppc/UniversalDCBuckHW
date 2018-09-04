@@ -13,10 +13,12 @@
 .EQU	USI_ADDRESS	= 0x5E	; choose address here (7bit)
 .EQU	USI_DATALEN = 11	; bytes to receive/send via I2C (not including address byte)
 ; Data transmitted via I2C (11 bytes):
+; (R/W)
 ; 1 byte: Set Voltage (V*10) (R/W) 0 or from min to max voltage
 ; 1 byte: Voltage change ((V*10)/S) (R/W) 4-255
 ; 1 byte: Min Voltage (V*10) (R/W) 0-max
 ; 1 byte: Max Voltage (V*10) (R/W) min-255
+; (R)
 ; 1 byte: PWM (R)
 ; 1 byte: Measured Voltage (A*10) (R)
 ; 1 byte: Measured Current (A*10) (R)
@@ -54,8 +56,9 @@
 .def	ADC_counter	=	r21	; Flags for ADC. Refer to ADC.inc for details
 .def	setVolt_tmp	=	r12	; For smooth change of preset voltage
 .def	V_chg_const	=	r13	; Converted value for timer0 from Voltage_Change SRAM
+.def	Voltage_Set	=	r22	; Voltage for Buck output (V*10)
 .def	SchedulerCnt=	r14	; Counter for scheduler
-.def	PWM_flags	=	r22	; Flags for generating PWM 
+.def	PWM_flags	=	r23	; Flags for generating PWM 
 ; YH:YL are used in USI interrupt as a pointer to the SRAM buffer
 ; ZH:ZL for general use in main loop
 .DSEG
@@ -63,7 +66,6 @@
 USI_dataBuffer:				.BYTE USI_DATALEN	; USI bytes buffer
 USI_buffer_updateStatus:	.BYTE 1	; 1 - Buffer updated with new data, 0 - data is read by main loop
 ; Variables (R/W)
-Voltage_Set:				.BYTE 1 ; (V*10)
 Voltage_Change:				.BYTE 1 ; (V*10). Before using this variable, we need to convert it for timer0 counter
 Voltage_Min:				.BYTE 1 ; (V*10)
 Voltage_Max:				.BYTE 1 ; (V*10)
@@ -113,6 +115,8 @@ RESET:
 	clr z0
 	clr z1
 	inc z1
+	
+	clr Voltage_Set	; At the beginning it is always 0.
 	
 	ldi tmp, 1<<CLKPCE	
 	out CLKPR, tmp		; enable clock change

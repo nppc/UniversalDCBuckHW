@@ -33,7 +33,7 @@ copy_buf_inrange:
 	; not valid, adjust it
 	clr tmp
 copy_buf_store_VoltSet:
-	sts Voltage_Set, tmp
+	mov Voltage_Set, tmp
 	
 	; check the validity of Voltage_Min
 	; Voltage_Min should be smaller or equal max
