@@ -15,12 +15,14 @@
 .EQU 	ISENSE_ADC = (0<<MUX3) | (0<<MUX2) | (1<<MUX1) | (1<<MUX0) ; ADC3 (PB3)
 ;.EQU 	INTTEMP_ADC = (1<<MUX3) | (1<<MUX2) | (1<<MUX1) | (1<<MUX0) ; ADC4 (Internal temperature sensor)
 
-.EQU	VOLT_DIV_CONST		= 155		; To get this number use formula (for 21v max): 
+;.EQU	VOLT_DIV_CONST		= 155		; This coeff is for board in beer chiller: 
+
+.EQU	VOLT_DIV_CONST		= 115		; To get this number use formula (for 21v max): 
 										; VREF=5v 
 										; 4095/(Vmax*10)*8, where Vmax=(R1+R2)*VREF/R2
-										; and resistor values is from divider (22K/6.8K)
-										; Vmax=(22+6.8)*VREF/6.8=21.18
-										; 4095/(21.18*10)*8=155
+										; and resistor values is from divider (47K/10K)
+										; Vmax=(47+10)*VREF/6.8=28.5
+										; 4095/(28.5*10)*8=115
 										; And then voltage will be calculated as ADC * 32 / VOLT_DIV_CONST
 
 .EQU	CURRENT_DIV_CONST	= 242		; To get this number use formula (for 185mV/A sensor): 

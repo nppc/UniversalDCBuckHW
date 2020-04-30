@@ -149,7 +149,7 @@ RESET:
 	sbi ADCSRA, ADSC
 	
 	sei
-	
+
 loop:
 	; wait for ADC complete
 	sbic ADCSRA, ADSC
