@@ -1,0 +1,2289 @@
+
+---
+events:
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineSystem.cmake:213 (message)"
+      - "CMakeLists.txt:13 (project)"
+    message: |
+      The target system is: Generic -  - 
+      The host system is: Windows - 10.0.19045 - 
+  -
+    kind: "find-v1"
+    backtrace:
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeNinjaFindMake.cmake:5 (find_program)"
+      - "CMakeLists.txt:13 (project)"
+    mode: "program"
+    variable: "CMAKE_MAKE_PROGRAM"
+    description: "Program used to build from build.ninja files."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "ninja-build"
+      - "ninja"
+      - "samu"
+    candidate_directories:
+      - "C:/Users/Pavel/.mplab/app-finder/apps/ninja/v1.13.2/"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/make/v4.4.1/windows/"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/"
+      - "C:/Windows/System32/"
+      - "C:/Windows/"
+      - "C:/Windows/System32/wbem/"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/"
+      - "C:/Windows/System32/OpenSSH/"
+      - "C:/Program Files/Git/cmd/"
+      - "C:/Program Files/dotnet/"
+      - "C:/Program Files/Intel/WiFi/bin/"
+      - "C:/Program Files/Common Files/Intel/WirelessCommon/"
+      - "C:/Program Files (x86)/Intel/Intel(R) Management Engine Components/DAL/"
+      - "C:/Program Files/Intel/Intel(R) Management Engine Components/DAL/"
+      - "C:/Program Files (x86)/IDEMIA/AWP/Dlls/"
+      - "C:/Program Files/IDEMIA/AWP/Dlls/"
+      - "C:/Program Files/PuTTY/"
+      - "C:/Users/Pavel/AppData/Local/Microsoft/WindowsApps/"
+      - "C:/Users/User/AppData/Local/Programs/Microsoft VS Code/bin/"
+      - "C:/Users/Pavel/AppData/Local/Python/bin/"
+    searched_directories:
+      - "C:/Users/Pavel/.mplab/app-finder/apps/ninja/v1.13.2/ninja-build.com"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/ninja/v1.13.2/ninja-build.exe"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/ninja/v1.13.2/ninja-build"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/ninja/v1.13.2/ninja.com"
+    found: "C:/Users/Pavel/.mplab/app-finder/apps/ninja/v1.13.2/ninja.exe"
+    search_context:
+      ENV{PATH}:
+        - "C:\\Users\\Pavel\\.mplab\\app-finder\\apps\\ninja\\v1.13.2"
+        - "C:\\Users\\Pavel\\.mplab\\app-finder\\apps\\make\\v4.4.1\\windows"
+        - "C:\\Users\\Pavel\\.mplab\\app-finder\\apps\\hexmate\\v3.00\\dist\\win\\bin"
+        - "C:\\Windows\\system32"
+        - "C:\\Windows"
+        - "C:\\Windows\\System32\\Wbem"
+        - "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\Windows\\System32\\OpenSSH\\"
+        - "C:\\Program Files\\Git\\cmd"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\Program Files\\Intel\\WiFi\\bin\\"
+        - "C:\\Program Files\\Common Files\\Intel\\WirelessCommon\\"
+        - "C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\DAL"
+        - "C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\DAL"
+        - "C:\\Program Files (x86)\\IDEMIA\\AWP\\Dlls"
+        - "C:\\Program Files\\IDEMIA\\AWP\\Dlls"
+        - "C:\\Program Files\\PuTTY\\"
+        - "C:\\Users\\Pavel\\AppData\\Local\\Microsoft\\WindowsApps"
+        - "C:\\Users\\User\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
+        - "C:\\Users\\Pavel\\AppData\\Local\\Python\\bin"
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineCompilerId.cmake:1341 (message)"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineASMCompiler.cmake:174 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "CMakeLists.txt:13 (project)"
+    message: |
+      Checking whether the ASM compiler is GNU using "--version" did not match "(GNU assembler)|(GCC)|(Free Software Foundation)":
+      C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/avrasm2.exe: invalid option -- -
+      AVRASM: AVR macro assembler 2.2.8 (build 80 Jan 14 2020 18:27:50)
+      Copyright (C) 1995-2020 ATMEL Corporation
+      
+      usage: C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/avrasm2.exe [options] file.asm
+      
+      Type 'avrasm2 -h' for help.
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineCompilerId.cmake:1341 (message)"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineASMCompiler.cmake:174 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "CMakeLists.txt:13 (project)"
+    message: |
+      Checking whether the ASM compiler is AppleClang using "--version" did not match "(Apple (clang|LLVM) version)":
+      C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/avrasm2.exe: invalid option -- -
+      AVRASM: AVR macro assembler 2.2.8 (build 80 Jan 14 2020 18:27:50)
+      Copyright (C) 1995-2020 ATMEL Corporation
+      
+      usage: C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/avrasm2.exe [options] file.asm
+      
+      Type 'avrasm2 -h' for help.
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineCompilerId.cmake:1341 (message)"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineASMCompiler.cmake:174 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "CMakeLists.txt:13 (project)"
+    message: |
+      Checking whether the ASM compiler is Clang using "--version" did not match "(clang version)":
+      C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/avrasm2.exe: invalid option -- -
+      AVRASM: AVR macro assembler 2.2.8 (build 80 Jan 14 2020 18:27:50)
+      Copyright (C) 1995-2020 ATMEL Corporation
+      
+      usage: C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/avrasm2.exe [options] file.asm
+      
+      Type 'avrasm2 -h' for help.
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineCompilerId.cmake:1341 (message)"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineASMCompiler.cmake:174 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "CMakeLists.txt:13 (project)"
+    message: |
+      Checking whether the ASM compiler is ARMClang using "--version" did not match "armclang":
+      C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/avrasm2.exe: invalid option -- -
+      AVRASM: AVR macro assembler 2.2.8 (build 80 Jan 14 2020 18:27:50)
+      Copyright (C) 1995-2020 ATMEL Corporation
+      
+      usage: C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/avrasm2.exe [options] file.asm
+      
+      Type 'avrasm2 -h' for help.
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineCompilerId.cmake:1341 (message)"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineASMCompiler.cmake:174 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "CMakeLists.txt:13 (project)"
+    message: |
+      Checking whether the ASM compiler is OrangeC using "--version" did not match "occ \\(OrangeC\\) Version":
+      C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/avrasm2.exe: invalid option -- -
+      AVRASM: AVR macro assembler 2.2.8 (build 80 Jan 14 2020 18:27:50)
+      Copyright (C) 1995-2020 ATMEL Corporation
+      
+      usage: C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/avrasm2.exe [options] file.asm
+      
+      Type 'avrasm2 -h' for help.
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineCompilerId.cmake:1341 (message)"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineASMCompiler.cmake:174 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "CMakeLists.txt:13 (project)"
+    message: |
+      Checking whether the ASM compiler is HP using "-V" did not match "HP C":
+      AVRASM: AVR macro assembler 2.2.8 (build 80 Jan 14 2020 18:27:50)
+      Copyright (C) 1995-2020 ATMEL Corporation
+      
+      usage: C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/avrasm2.exe [options] file.asm
+      
+      Type 'avrasm2 -h' for help.
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineCompilerId.cmake:1341 (message)"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineASMCompiler.cmake:174 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "CMakeLists.txt:13 (project)"
+    message: |
+      Checking whether the ASM compiler is Intel using "--version" did not match "(ICC)":
+      C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/avrasm2.exe: invalid option -- -
+      AVRASM: AVR macro assembler 2.2.8 (build 80 Jan 14 2020 18:27:50)
+      Copyright (C) 1995-2020 ATMEL Corporation
+      
+      usage: C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/avrasm2.exe [options] file.asm
+      
+      Type 'avrasm2 -h' for help.
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineCompilerId.cmake:1341 (message)"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineASMCompiler.cmake:174 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "CMakeLists.txt:13 (project)"
+    message: |
+      Checking whether the ASM compiler is IntelLLVM using "--version" did not match "(Intel[^
+      ]+oneAPI)":
+      C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/avrasm2.exe: invalid option -- -
+      AVRASM: AVR macro assembler 2.2.8 (build 80 Jan 14 2020 18:27:50)
+      Copyright (C) 1995-2020 ATMEL Corporation
+      
+      usage: C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/avrasm2.exe [options] file.asm
+      
+      Type 'avrasm2 -h' for help.
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineCompilerId.cmake:1341 (message)"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineASMCompiler.cmake:174 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "CMakeLists.txt:13 (project)"
+    message: |
+      Checking whether the ASM compiler is SunPro using "-V" did not match "Sun C":
+      AVRASM: AVR macro assembler 2.2.8 (build 80 Jan 14 2020 18:27:50)
+      Copyright (C) 1995-2020 ATMEL Corporation
+      
+      usage: C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/avrasm2.exe [options] file.asm
+      
+      Type 'avrasm2 -h' for help.
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineCompilerId.cmake:1341 (message)"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineASMCompiler.cmake:174 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "CMakeLists.txt:13 (project)"
+    message: |
+      Checking whether the ASM compiler is XL using "-qversion" did not match "XL C":
+      C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/avrasm2.exe: invalid option -- q
+      AVRASM: AVR macro assembler 2.2.8 (build 80 Jan 14 2020 18:27:50)
+      Copyright (C) 1995-2020 ATMEL Corporation
+      
+      usage: C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/avrasm2.exe [options] file.asm
+      
+      Type 'avrasm2 -h' for help.
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineCompilerId.cmake:1341 (message)"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineASMCompiler.cmake:174 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "CMakeLists.txt:13 (project)"
+    message: |
+      Checking whether the ASM compiler is MSVC using "-?" did not match "Microsoft":
+      C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/avrasm2.exe: invalid option -- ?
+      AVRASM: AVR macro assembler 2.2.8 (build 80 Jan 14 2020 18:27:50)
+      Copyright (C) 1995-2020 ATMEL Corporation
+      
+      usage: C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/avrasm2.exe [options] file.asm
+      
+      Type 'avrasm2 -h' for help.
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineCompilerId.cmake:1341 (message)"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineASMCompiler.cmake:174 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "CMakeLists.txt:13 (project)"
+    message: |
+      Checking whether the ASM compiler is TI using "-h" did not match "Texas Instruments":
+      AVRASM: AVR macro assembler 2.2.8 (build 80 Jan 14 2020 18:27:50)
+      Copyright (C) 1995-2020 ATMEL Corporation
+      
+      usage: C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/avrasm2.exe [options] file.asm
+      
+       Options:
+          -f O|M|I|G -  output file format:
+              -fO Debug info for simulation in AVR Studio (default)
+                  -fO1 | -fO2 - force format version 1 or 2 (default: auto)
+              -fM Motorola hex
+              -fI Intel hex
+              -fG Generic hex format
+              -f- No output file
+          -o ofile   Put output in 'ofile'.
+          -d dfile   Generate debug info for simulation in AVR Studio in 'dfile'.
+                     Can only be used with the -f [M|I|G] option.
+          -l lfile   Generate listing in 'lfile'
+          -m mfile   Generate map in 'mfile'
+          -e efile   Place EEPROM contents in 'efile'
+          -w         Relative jumps are allowed to wrap for program ROM
+                     up to 4k words in size
+          -C ver     Specify AVR core version
+          -c         Case sensitive
+          -1/-2      Turn on/off AVR Assembler version 1 compatibility.
+          -p1|0      Set/unset AVRASM1 implicit .device include (also set by -1)
+          -I dir     Preprocessor: Add 'dir' to include search path
+          -i file    Preprocessor: Explicitly pre-include file
+          -D name[=value] Preprocessor: Define symbol. If =value is
+                     omitted, it is set to 1.
+          -U name    Preprocessor: Undefine symbol.
+          -S file    Produce include/label info file for AVR Studio
+          -v verbosity [0-9][s]:
+              -vs Include target resource usage statistics
+              -vl Output low-level assembly code to stdout
+              -vk Keep output files if source file empty
+              -v0 Silent, only error messages printed
+              -v1 Error and warning messages printed
+              -v2 Error, warning, and  info messages printed (default)
+              -v3-v9 Unspecified, increasing amounts of assembler internal dumps.
+          -V         Format map and list files for Verilog.
+          -8 -|+     Force Disable/Ebable 8kB check for JMP/CALL
+          -O i|w|e   Overlap report: ignore|warning|error [error]
+          -W-b|+bo|+bi Byte operand out of range warning disable|overflow|integer
+          -W+ie|+iw  Unsupported instruction error | warning
+          -W+fw      Label slip caused by forward ref accepted (DANGEROUS)
+          -FD|Tfmt   __DATE__ | __TIME__ format, using strftime(3) format string
+          -h         this help
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineCompilerId.cmake:1341 (message)"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineASMCompiler.cmake:174 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "CMakeLists.txt:13 (project)"
+    message: |
+      Checking whether the ASM compiler is TIClang using "--version" did not match "(TI (.*) Clang Compiler)":
+      C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/avrasm2.exe: invalid option -- -
+      AVRASM: AVR macro assembler 2.2.8 (build 80 Jan 14 2020 18:27:50)
+      Copyright (C) 1995-2020 ATMEL Corporation
+      
+      usage: C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/avrasm2.exe [options] file.asm
+      
+      Type 'avrasm2 -h' for help.
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineCompilerId.cmake:1341 (message)"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineASMCompiler.cmake:174 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "CMakeLists.txt:13 (project)"
+    message: |
+      Checking whether the ASM compiler is IAR using "" did not match "IAR Assembler":
+      AVRASM: AVR macro assembler 2.2.8 (build 80 Jan 14 2020 18:27:50)
+      Copyright (C) 1995-2020 ATMEL Corporation
+      
+      usage: C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/avrasm2.exe [options] file.asm
+      
+      Type 'avrasm2 -h' for help.
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineCompilerId.cmake:1341 (message)"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineASMCompiler.cmake:174 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "CMakeLists.txt:13 (project)"
+    message: |
+      Checking whether the ASM compiler is Diab using "-V" did not match "Wind River Systems":
+      AVRASM: AVR macro assembler 2.2.8 (build 80 Jan 14 2020 18:27:50)
+      Copyright (C) 1995-2020 ATMEL Corporation
+      
+      usage: C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/avrasm2.exe [options] file.asm
+      
+      Type 'avrasm2 -h' for help.
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineCompilerId.cmake:1341 (message)"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineASMCompiler.cmake:174 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "CMakeLists.txt:13 (project)"
+    message: |
+      Checking whether the ASM compiler is ARMCC using "" did not match "(ARM Compiler)|(ARM Assembler)|(Arm Compiler)":
+      AVRASM: AVR macro assembler 2.2.8 (build 80 Jan 14 2020 18:27:50)
+      Copyright (C) 1995-2020 ATMEL Corporation
+      
+      usage: C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/avrasm2.exe [options] file.asm
+      
+      Type 'avrasm2 -h' for help.
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineCompilerId.cmake:1341 (message)"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineASMCompiler.cmake:174 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "CMakeLists.txt:13 (project)"
+    message: |
+      Checking whether the ASM compiler is NASM using "-v" did not match "(NASM version)":
+      C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/avrasm2.exe: option requires an argument -- v
+      AVRASM: AVR macro assembler 2.2.8 (build 80 Jan 14 2020 18:27:50)
+      Copyright (C) 1995-2020 ATMEL Corporation
+      
+      usage: C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/avrasm2.exe [options] file.asm
+      
+      Type 'avrasm2 -h' for help.
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineCompilerId.cmake:1341 (message)"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineASMCompiler.cmake:174 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "CMakeLists.txt:13 (project)"
+    message: |
+      Checking whether the ASM compiler is YASM using "--version" did not match "(yasm)":
+      C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/avrasm2.exe: invalid option -- -
+      AVRASM: AVR macro assembler 2.2.8 (build 80 Jan 14 2020 18:27:50)
+      Copyright (C) 1995-2020 ATMEL Corporation
+      
+      usage: C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/avrasm2.exe [options] file.asm
+      
+      Type 'avrasm2 -h' for help.
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineCompilerId.cmake:1341 (message)"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineASMCompiler.cmake:174 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "CMakeLists.txt:13 (project)"
+    message: |
+      Checking whether the ASM compiler is ADSP using "-version" did not match "Analog Devices":
+      AVRASM: AVR macro assembler 2.2.8 (build 80 Jan 14 2020 18:27:50)
+      Copyright (C) 1995-2020 ATMEL Corporation
+      
+      Invalid/too many comamnd line arguments
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineCompilerId.cmake:1341 (message)"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineASMCompiler.cmake:174 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "CMakeLists.txt:13 (project)"
+    message: |
+      Checking whether the ASM compiler is QCC using "-V" did not match "gcc_nto":
+      AVRASM: AVR macro assembler 2.2.8 (build 80 Jan 14 2020 18:27:50)
+      Copyright (C) 1995-2020 ATMEL Corporation
+      
+      usage: C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/avrasm2.exe [options] file.asm
+      
+      Type 'avrasm2 -h' for help.
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineCompilerId.cmake:1341 (message)"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineASMCompiler.cmake:174 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "CMakeLists.txt:13 (project)"
+    message: |
+      Checking whether the ASM compiler is Tasking using "--version" did not match "TASKING":
+      C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/avrasm2.exe: invalid option -- -
+      AVRASM: AVR macro assembler 2.2.8 (build 80 Jan 14 2020 18:27:50)
+      Copyright (C) 1995-2020 ATMEL Corporation
+      
+      usage: C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/avrasm2.exe [options] file.asm
+      
+      Type 'avrasm2 -h' for help.
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineCompilerId.cmake:1341 (message)"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineASMCompiler.cmake:174 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "CMakeLists.txt:13 (project)"
+    message: |
+      Checking whether the ASM compiler is Renesas using "-v" did not match "(RX Family C/C\\+\\+ Compiler)|(RL78 Family Compiler)|(RH850 Family Compiler)":
+      C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/avrasm2.exe: option requires an argument -- v
+      AVRASM: AVR macro assembler 2.2.8 (build 80 Jan 14 2020 18:27:50)
+      Copyright (C) 1995-2020 ATMEL Corporation
+      
+      usage: C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/avrasm2.exe [options] file.asm
+      
+      Type 'avrasm2 -h' for help.
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineCompilerId.cmake:1341 (message)"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineASMCompiler.cmake:174 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "CMakeLists.txt:13 (project)"
+    message: |
+      Checking whether the ASM compiler is PellesC using "" did not match "Pelles Macro Assembler":
+      AVRASM: AVR macro assembler 2.2.8 (build 80 Jan 14 2020 18:27:50)
+      Copyright (C) 1995-2020 ATMEL Corporation
+      
+      usage: C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/avrasm2.exe [options] file.asm
+      
+      Type 'avrasm2 -h' for help.
+      
+  -
+    kind: "find-v1"
+    backtrace:
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeFindBinUtils.cmake:247 (find_program)"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineASMCompiler.cmake:270 (include)"
+      - "CMakeLists.txt:13 (project)"
+    mode: "program"
+    variable: "CMAKE_AR"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "ar"
+    candidate_directories:
+      - "C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/ninja/v1.13.2/"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/make/v4.4.1/windows/"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/"
+      - "C:/Windows/System32/"
+      - "C:/Windows/"
+      - "C:/Windows/System32/wbem/"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/"
+      - "C:/Windows/System32/OpenSSH/"
+      - "C:/Program Files/Git/cmd/"
+      - "C:/Program Files/dotnet/"
+      - "C:/Program Files/Intel/WiFi/bin/"
+      - "C:/Program Files/Common Files/Intel/WirelessCommon/"
+      - "C:/Program Files (x86)/Intel/Intel(R) Management Engine Components/DAL/"
+      - "C:/Program Files/Intel/Intel(R) Management Engine Components/DAL/"
+      - "C:/Program Files (x86)/IDEMIA/AWP/Dlls/"
+      - "C:/Program Files/IDEMIA/AWP/Dlls/"
+      - "C:/Program Files/PuTTY/"
+      - "C:/Users/Pavel/AppData/Local/Microsoft/WindowsApps/"
+      - "C:/Users/User/AppData/Local/Programs/Microsoft VS Code/bin/"
+      - "C:/Users/Pavel/AppData/Local/Python/bin/"
+    searched_directories:
+      - "C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/ar.com"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/ar.exe"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/ar"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/ninja/v1.13.2/ar.com"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/ninja/v1.13.2/ar.exe"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/ninja/v1.13.2/ar"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/make/v4.4.1/windows/ar.com"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/make/v4.4.1/windows/ar.exe"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/make/v4.4.1/windows/ar"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/ar.com"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/ar.exe"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/ar"
+      - "C:/Windows/System32/ar.com"
+      - "C:/Windows/System32/ar.exe"
+      - "C:/Windows/System32/ar"
+      - "C:/Windows/ar.com"
+      - "C:/Windows/ar.exe"
+      - "C:/Windows/ar"
+      - "C:/Windows/System32/wbem/ar.com"
+      - "C:/Windows/System32/wbem/ar.exe"
+      - "C:/Windows/System32/wbem/ar"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/ar.com"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/ar.exe"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/ar"
+      - "C:/Windows/System32/OpenSSH/ar.com"
+      - "C:/Windows/System32/OpenSSH/ar.exe"
+      - "C:/Windows/System32/OpenSSH/ar"
+      - "C:/Program Files/Git/cmd/ar.com"
+      - "C:/Program Files/Git/cmd/ar.exe"
+      - "C:/Program Files/Git/cmd/ar"
+      - "C:/Program Files/dotnet/ar.com"
+      - "C:/Program Files/dotnet/ar.exe"
+      - "C:/Program Files/dotnet/ar"
+      - "C:/Program Files/Intel/WiFi/bin/ar.com"
+      - "C:/Program Files/Intel/WiFi/bin/ar.exe"
+      - "C:/Program Files/Intel/WiFi/bin/ar"
+      - "C:/Program Files/Common Files/Intel/WirelessCommon/ar.com"
+      - "C:/Program Files/Common Files/Intel/WirelessCommon/ar.exe"
+      - "C:/Program Files/Common Files/Intel/WirelessCommon/ar"
+      - "C:/Program Files (x86)/Intel/Intel(R) Management Engine Components/DAL/ar.com"
+      - "C:/Program Files (x86)/Intel/Intel(R) Management Engine Components/DAL/ar.exe"
+      - "C:/Program Files (x86)/Intel/Intel(R) Management Engine Components/DAL/ar"
+      - "C:/Program Files/Intel/Intel(R) Management Engine Components/DAL/ar.com"
+      - "C:/Program Files/Intel/Intel(R) Management Engine Components/DAL/ar.exe"
+      - "C:/Program Files/Intel/Intel(R) Management Engine Components/DAL/ar"
+      - "C:/Program Files (x86)/IDEMIA/AWP/Dlls/ar.com"
+      - "C:/Program Files (x86)/IDEMIA/AWP/Dlls/ar.exe"
+      - "C:/Program Files (x86)/IDEMIA/AWP/Dlls/ar"
+      - "C:/Program Files/IDEMIA/AWP/Dlls/ar.com"
+      - "C:/Program Files/IDEMIA/AWP/Dlls/ar.exe"
+      - "C:/Program Files/IDEMIA/AWP/Dlls/ar"
+      - "C:/Program Files/PuTTY/ar.com"
+      - "C:/Program Files/PuTTY/ar.exe"
+      - "C:/Program Files/PuTTY/ar"
+      - "C:/Users/Pavel/AppData/Local/Microsoft/WindowsApps/ar.com"
+      - "C:/Users/Pavel/AppData/Local/Microsoft/WindowsApps/ar.exe"
+      - "C:/Users/Pavel/AppData/Local/Microsoft/WindowsApps/ar"
+      - "C:/Users/User/AppData/Local/Programs/Microsoft VS Code/bin/ar.com"
+      - "C:/Users/User/AppData/Local/Programs/Microsoft VS Code/bin/ar.exe"
+      - "C:/Users/User/AppData/Local/Programs/Microsoft VS Code/bin/ar"
+      - "C:/Users/Pavel/AppData/Local/Python/bin/ar.com"
+      - "C:/Users/Pavel/AppData/Local/Python/bin/ar.exe"
+      - "C:/Users/Pavel/AppData/Local/Python/bin/ar"
+    found: false
+    search_context:
+      ENV{PATH}:
+        - "C:\\Users\\Pavel\\.mplab\\app-finder\\apps\\ninja\\v1.13.2"
+        - "C:\\Users\\Pavel\\.mplab\\app-finder\\apps\\make\\v4.4.1\\windows"
+        - "C:\\Users\\Pavel\\.mplab\\app-finder\\apps\\hexmate\\v3.00\\dist\\win\\bin"
+        - "C:\\Windows\\system32"
+        - "C:\\Windows"
+        - "C:\\Windows\\System32\\Wbem"
+        - "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\Windows\\System32\\OpenSSH\\"
+        - "C:\\Program Files\\Git\\cmd"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\Program Files\\Intel\\WiFi\\bin\\"
+        - "C:\\Program Files\\Common Files\\Intel\\WirelessCommon\\"
+        - "C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\DAL"
+        - "C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\DAL"
+        - "C:\\Program Files (x86)\\IDEMIA\\AWP\\Dlls"
+        - "C:\\Program Files\\IDEMIA\\AWP\\Dlls"
+        - "C:\\Program Files\\PuTTY\\"
+        - "C:\\Users\\Pavel\\AppData\\Local\\Microsoft\\WindowsApps"
+        - "C:\\Users\\User\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
+        - "C:\\Users\\Pavel\\AppData\\Local\\Python\\bin"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeFindBinUtils.cmake:247 (find_program)"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineASMCompiler.cmake:270 (include)"
+      - "CMakeLists.txt:13 (project)"
+    mode: "program"
+    variable: "CMAKE_RANLIB"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "ranlib"
+    candidate_directories:
+      - "C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/ninja/v1.13.2/"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/make/v4.4.1/windows/"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/"
+      - "C:/Windows/System32/"
+      - "C:/Windows/"
+      - "C:/Windows/System32/wbem/"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/"
+      - "C:/Windows/System32/OpenSSH/"
+      - "C:/Program Files/Git/cmd/"
+      - "C:/Program Files/dotnet/"
+      - "C:/Program Files/Intel/WiFi/bin/"
+      - "C:/Program Files/Common Files/Intel/WirelessCommon/"
+      - "C:/Program Files (x86)/Intel/Intel(R) Management Engine Components/DAL/"
+      - "C:/Program Files/Intel/Intel(R) Management Engine Components/DAL/"
+      - "C:/Program Files (x86)/IDEMIA/AWP/Dlls/"
+      - "C:/Program Files/IDEMIA/AWP/Dlls/"
+      - "C:/Program Files/PuTTY/"
+      - "C:/Users/Pavel/AppData/Local/Microsoft/WindowsApps/"
+      - "C:/Users/User/AppData/Local/Programs/Microsoft VS Code/bin/"
+      - "C:/Users/Pavel/AppData/Local/Python/bin/"
+    searched_directories:
+      - "C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/ranlib.com"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/ranlib.exe"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/ranlib"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/ninja/v1.13.2/ranlib.com"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/ninja/v1.13.2/ranlib.exe"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/ninja/v1.13.2/ranlib"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/make/v4.4.1/windows/ranlib.com"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/make/v4.4.1/windows/ranlib.exe"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/make/v4.4.1/windows/ranlib"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/ranlib.com"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/ranlib.exe"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/ranlib"
+      - "C:/Windows/System32/ranlib.com"
+      - "C:/Windows/System32/ranlib.exe"
+      - "C:/Windows/System32/ranlib"
+      - "C:/Windows/ranlib.com"
+      - "C:/Windows/ranlib.exe"
+      - "C:/Windows/ranlib"
+      - "C:/Windows/System32/wbem/ranlib.com"
+      - "C:/Windows/System32/wbem/ranlib.exe"
+      - "C:/Windows/System32/wbem/ranlib"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/ranlib.com"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/ranlib.exe"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/ranlib"
+      - "C:/Windows/System32/OpenSSH/ranlib.com"
+      - "C:/Windows/System32/OpenSSH/ranlib.exe"
+      - "C:/Windows/System32/OpenSSH/ranlib"
+      - "C:/Program Files/Git/cmd/ranlib.com"
+      - "C:/Program Files/Git/cmd/ranlib.exe"
+      - "C:/Program Files/Git/cmd/ranlib"
+      - "C:/Program Files/dotnet/ranlib.com"
+      - "C:/Program Files/dotnet/ranlib.exe"
+      - "C:/Program Files/dotnet/ranlib"
+      - "C:/Program Files/Intel/WiFi/bin/ranlib.com"
+      - "C:/Program Files/Intel/WiFi/bin/ranlib.exe"
+      - "C:/Program Files/Intel/WiFi/bin/ranlib"
+      - "C:/Program Files/Common Files/Intel/WirelessCommon/ranlib.com"
+      - "C:/Program Files/Common Files/Intel/WirelessCommon/ranlib.exe"
+      - "C:/Program Files/Common Files/Intel/WirelessCommon/ranlib"
+      - "C:/Program Files (x86)/Intel/Intel(R) Management Engine Components/DAL/ranlib.com"
+      - "C:/Program Files (x86)/Intel/Intel(R) Management Engine Components/DAL/ranlib.exe"
+      - "C:/Program Files (x86)/Intel/Intel(R) Management Engine Components/DAL/ranlib"
+      - "C:/Program Files/Intel/Intel(R) Management Engine Components/DAL/ranlib.com"
+      - "C:/Program Files/Intel/Intel(R) Management Engine Components/DAL/ranlib.exe"
+      - "C:/Program Files/Intel/Intel(R) Management Engine Components/DAL/ranlib"
+      - "C:/Program Files (x86)/IDEMIA/AWP/Dlls/ranlib.com"
+      - "C:/Program Files (x86)/IDEMIA/AWP/Dlls/ranlib.exe"
+      - "C:/Program Files (x86)/IDEMIA/AWP/Dlls/ranlib"
+      - "C:/Program Files/IDEMIA/AWP/Dlls/ranlib.com"
+      - "C:/Program Files/IDEMIA/AWP/Dlls/ranlib.exe"
+      - "C:/Program Files/IDEMIA/AWP/Dlls/ranlib"
+      - "C:/Program Files/PuTTY/ranlib.com"
+      - "C:/Program Files/PuTTY/ranlib.exe"
+      - "C:/Program Files/PuTTY/ranlib"
+      - "C:/Users/Pavel/AppData/Local/Microsoft/WindowsApps/ranlib.com"
+      - "C:/Users/Pavel/AppData/Local/Microsoft/WindowsApps/ranlib.exe"
+      - "C:/Users/Pavel/AppData/Local/Microsoft/WindowsApps/ranlib"
+      - "C:/Users/User/AppData/Local/Programs/Microsoft VS Code/bin/ranlib.com"
+      - "C:/Users/User/AppData/Local/Programs/Microsoft VS Code/bin/ranlib.exe"
+      - "C:/Users/User/AppData/Local/Programs/Microsoft VS Code/bin/ranlib"
+      - "C:/Users/Pavel/AppData/Local/Python/bin/ranlib.com"
+      - "C:/Users/Pavel/AppData/Local/Python/bin/ranlib.exe"
+      - "C:/Users/Pavel/AppData/Local/Python/bin/ranlib"
+    found: false
+    search_context:
+      ENV{PATH}:
+        - "C:\\Users\\Pavel\\.mplab\\app-finder\\apps\\ninja\\v1.13.2"
+        - "C:\\Users\\Pavel\\.mplab\\app-finder\\apps\\make\\v4.4.1\\windows"
+        - "C:\\Users\\Pavel\\.mplab\\app-finder\\apps\\hexmate\\v3.00\\dist\\win\\bin"
+        - "C:\\Windows\\system32"
+        - "C:\\Windows"
+        - "C:\\Windows\\System32\\Wbem"
+        - "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\Windows\\System32\\OpenSSH\\"
+        - "C:\\Program Files\\Git\\cmd"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\Program Files\\Intel\\WiFi\\bin\\"
+        - "C:\\Program Files\\Common Files\\Intel\\WirelessCommon\\"
+        - "C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\DAL"
+        - "C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\DAL"
+        - "C:\\Program Files (x86)\\IDEMIA\\AWP\\Dlls"
+        - "C:\\Program Files\\IDEMIA\\AWP\\Dlls"
+        - "C:\\Program Files\\PuTTY\\"
+        - "C:\\Users\\Pavel\\AppData\\Local\\Microsoft\\WindowsApps"
+        - "C:\\Users\\User\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
+        - "C:\\Users\\Pavel\\AppData\\Local\\Python\\bin"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeFindBinUtils.cmake:247 (find_program)"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineASMCompiler.cmake:270 (include)"
+      - "CMakeLists.txt:13 (project)"
+    mode: "program"
+    variable: "CMAKE_STRIP"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "strip"
+    candidate_directories:
+      - "C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/ninja/v1.13.2/"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/make/v4.4.1/windows/"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/"
+      - "C:/Windows/System32/"
+      - "C:/Windows/"
+      - "C:/Windows/System32/wbem/"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/"
+      - "C:/Windows/System32/OpenSSH/"
+      - "C:/Program Files/Git/cmd/"
+      - "C:/Program Files/dotnet/"
+      - "C:/Program Files/Intel/WiFi/bin/"
+      - "C:/Program Files/Common Files/Intel/WirelessCommon/"
+      - "C:/Program Files (x86)/Intel/Intel(R) Management Engine Components/DAL/"
+      - "C:/Program Files/Intel/Intel(R) Management Engine Components/DAL/"
+      - "C:/Program Files (x86)/IDEMIA/AWP/Dlls/"
+      - "C:/Program Files/IDEMIA/AWP/Dlls/"
+      - "C:/Program Files/PuTTY/"
+      - "C:/Users/Pavel/AppData/Local/Microsoft/WindowsApps/"
+      - "C:/Users/User/AppData/Local/Programs/Microsoft VS Code/bin/"
+      - "C:/Users/Pavel/AppData/Local/Python/bin/"
+    searched_directories:
+      - "C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/strip.com"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/strip.exe"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/strip"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/ninja/v1.13.2/strip.com"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/ninja/v1.13.2/strip.exe"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/ninja/v1.13.2/strip"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/make/v4.4.1/windows/strip.com"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/make/v4.4.1/windows/strip.exe"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/make/v4.4.1/windows/strip"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/strip.com"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/strip.exe"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/strip"
+      - "C:/Windows/System32/strip.com"
+      - "C:/Windows/System32/strip.exe"
+      - "C:/Windows/System32/strip"
+      - "C:/Windows/strip.com"
+      - "C:/Windows/strip.exe"
+      - "C:/Windows/strip"
+      - "C:/Windows/System32/wbem/strip.com"
+      - "C:/Windows/System32/wbem/strip.exe"
+      - "C:/Windows/System32/wbem/strip"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/strip.com"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/strip.exe"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/strip"
+      - "C:/Windows/System32/OpenSSH/strip.com"
+      - "C:/Windows/System32/OpenSSH/strip.exe"
+      - "C:/Windows/System32/OpenSSH/strip"
+      - "C:/Program Files/Git/cmd/strip.com"
+      - "C:/Program Files/Git/cmd/strip.exe"
+      - "C:/Program Files/Git/cmd/strip"
+      - "C:/Program Files/dotnet/strip.com"
+      - "C:/Program Files/dotnet/strip.exe"
+      - "C:/Program Files/dotnet/strip"
+      - "C:/Program Files/Intel/WiFi/bin/strip.com"
+      - "C:/Program Files/Intel/WiFi/bin/strip.exe"
+      - "C:/Program Files/Intel/WiFi/bin/strip"
+      - "C:/Program Files/Common Files/Intel/WirelessCommon/strip.com"
+      - "C:/Program Files/Common Files/Intel/WirelessCommon/strip.exe"
+      - "C:/Program Files/Common Files/Intel/WirelessCommon/strip"
+      - "C:/Program Files (x86)/Intel/Intel(R) Management Engine Components/DAL/strip.com"
+      - "C:/Program Files (x86)/Intel/Intel(R) Management Engine Components/DAL/strip.exe"
+      - "C:/Program Files (x86)/Intel/Intel(R) Management Engine Components/DAL/strip"
+      - "C:/Program Files/Intel/Intel(R) Management Engine Components/DAL/strip.com"
+      - "C:/Program Files/Intel/Intel(R) Management Engine Components/DAL/strip.exe"
+      - "C:/Program Files/Intel/Intel(R) Management Engine Components/DAL/strip"
+      - "C:/Program Files (x86)/IDEMIA/AWP/Dlls/strip.com"
+      - "C:/Program Files (x86)/IDEMIA/AWP/Dlls/strip.exe"
+      - "C:/Program Files (x86)/IDEMIA/AWP/Dlls/strip"
+      - "C:/Program Files/IDEMIA/AWP/Dlls/strip.com"
+      - "C:/Program Files/IDEMIA/AWP/Dlls/strip.exe"
+      - "C:/Program Files/IDEMIA/AWP/Dlls/strip"
+      - "C:/Program Files/PuTTY/strip.com"
+      - "C:/Program Files/PuTTY/strip.exe"
+      - "C:/Program Files/PuTTY/strip"
+      - "C:/Users/Pavel/AppData/Local/Microsoft/WindowsApps/strip.com"
+      - "C:/Users/Pavel/AppData/Local/Microsoft/WindowsApps/strip.exe"
+      - "C:/Users/Pavel/AppData/Local/Microsoft/WindowsApps/strip"
+      - "C:/Users/User/AppData/Local/Programs/Microsoft VS Code/bin/strip.com"
+      - "C:/Users/User/AppData/Local/Programs/Microsoft VS Code/bin/strip.exe"
+      - "C:/Users/User/AppData/Local/Programs/Microsoft VS Code/bin/strip"
+      - "C:/Users/Pavel/AppData/Local/Python/bin/strip.com"
+      - "C:/Users/Pavel/AppData/Local/Python/bin/strip.exe"
+      - "C:/Users/Pavel/AppData/Local/Python/bin/strip"
+    found: false
+    search_context:
+      ENV{PATH}:
+        - "C:\\Users\\Pavel\\.mplab\\app-finder\\apps\\ninja\\v1.13.2"
+        - "C:\\Users\\Pavel\\.mplab\\app-finder\\apps\\make\\v4.4.1\\windows"
+        - "C:\\Users\\Pavel\\.mplab\\app-finder\\apps\\hexmate\\v3.00\\dist\\win\\bin"
+        - "C:\\Windows\\system32"
+        - "C:\\Windows"
+        - "C:\\Windows\\System32\\Wbem"
+        - "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\Windows\\System32\\OpenSSH\\"
+        - "C:\\Program Files\\Git\\cmd"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\Program Files\\Intel\\WiFi\\bin\\"
+        - "C:\\Program Files\\Common Files\\Intel\\WirelessCommon\\"
+        - "C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\DAL"
+        - "C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\DAL"
+        - "C:\\Program Files (x86)\\IDEMIA\\AWP\\Dlls"
+        - "C:\\Program Files\\IDEMIA\\AWP\\Dlls"
+        - "C:\\Program Files\\PuTTY\\"
+        - "C:\\Users\\Pavel\\AppData\\Local\\Microsoft\\WindowsApps"
+        - "C:\\Users\\User\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
+        - "C:\\Users\\Pavel\\AppData\\Local\\Python\\bin"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeFindBinUtils.cmake:247 (find_program)"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineASMCompiler.cmake:270 (include)"
+      - "CMakeLists.txt:13 (project)"
+    mode: "program"
+    variable: "CMAKE_LINKER"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "ld"
+    candidate_directories:
+      - "C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/ninja/v1.13.2/"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/make/v4.4.1/windows/"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/"
+      - "C:/Windows/System32/"
+      - "C:/Windows/"
+      - "C:/Windows/System32/wbem/"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/"
+      - "C:/Windows/System32/OpenSSH/"
+      - "C:/Program Files/Git/cmd/"
+      - "C:/Program Files/dotnet/"
+      - "C:/Program Files/Intel/WiFi/bin/"
+      - "C:/Program Files/Common Files/Intel/WirelessCommon/"
+      - "C:/Program Files (x86)/Intel/Intel(R) Management Engine Components/DAL/"
+      - "C:/Program Files/Intel/Intel(R) Management Engine Components/DAL/"
+      - "C:/Program Files (x86)/IDEMIA/AWP/Dlls/"
+      - "C:/Program Files/IDEMIA/AWP/Dlls/"
+      - "C:/Program Files/PuTTY/"
+      - "C:/Users/Pavel/AppData/Local/Microsoft/WindowsApps/"
+      - "C:/Users/User/AppData/Local/Programs/Microsoft VS Code/bin/"
+      - "C:/Users/Pavel/AppData/Local/Python/bin/"
+    searched_directories:
+      - "C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/ld.com"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/ld.exe"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/ld"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/ninja/v1.13.2/ld.com"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/ninja/v1.13.2/ld.exe"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/ninja/v1.13.2/ld"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/make/v4.4.1/windows/ld.com"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/make/v4.4.1/windows/ld.exe"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/make/v4.4.1/windows/ld"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/ld.com"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/ld.exe"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/ld"
+      - "C:/Windows/System32/ld.com"
+      - "C:/Windows/System32/ld.exe"
+      - "C:/Windows/System32/ld"
+      - "C:/Windows/ld.com"
+      - "C:/Windows/ld.exe"
+      - "C:/Windows/ld"
+      - "C:/Windows/System32/wbem/ld.com"
+      - "C:/Windows/System32/wbem/ld.exe"
+      - "C:/Windows/System32/wbem/ld"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/ld.com"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/ld.exe"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/ld"
+      - "C:/Windows/System32/OpenSSH/ld.com"
+      - "C:/Windows/System32/OpenSSH/ld.exe"
+      - "C:/Windows/System32/OpenSSH/ld"
+      - "C:/Program Files/Git/cmd/ld.com"
+      - "C:/Program Files/Git/cmd/ld.exe"
+      - "C:/Program Files/Git/cmd/ld"
+      - "C:/Program Files/dotnet/ld.com"
+      - "C:/Program Files/dotnet/ld.exe"
+      - "C:/Program Files/dotnet/ld"
+      - "C:/Program Files/Intel/WiFi/bin/ld.com"
+      - "C:/Program Files/Intel/WiFi/bin/ld.exe"
+      - "C:/Program Files/Intel/WiFi/bin/ld"
+      - "C:/Program Files/Common Files/Intel/WirelessCommon/ld.com"
+      - "C:/Program Files/Common Files/Intel/WirelessCommon/ld.exe"
+      - "C:/Program Files/Common Files/Intel/WirelessCommon/ld"
+      - "C:/Program Files (x86)/Intel/Intel(R) Management Engine Components/DAL/ld.com"
+      - "C:/Program Files (x86)/Intel/Intel(R) Management Engine Components/DAL/ld.exe"
+      - "C:/Program Files (x86)/Intel/Intel(R) Management Engine Components/DAL/ld"
+      - "C:/Program Files/Intel/Intel(R) Management Engine Components/DAL/ld.com"
+      - "C:/Program Files/Intel/Intel(R) Management Engine Components/DAL/ld.exe"
+      - "C:/Program Files/Intel/Intel(R) Management Engine Components/DAL/ld"
+      - "C:/Program Files (x86)/IDEMIA/AWP/Dlls/ld.com"
+      - "C:/Program Files (x86)/IDEMIA/AWP/Dlls/ld.exe"
+      - "C:/Program Files (x86)/IDEMIA/AWP/Dlls/ld"
+      - "C:/Program Files/IDEMIA/AWP/Dlls/ld.com"
+      - "C:/Program Files/IDEMIA/AWP/Dlls/ld.exe"
+      - "C:/Program Files/IDEMIA/AWP/Dlls/ld"
+      - "C:/Program Files/PuTTY/ld.com"
+      - "C:/Program Files/PuTTY/ld.exe"
+      - "C:/Program Files/PuTTY/ld"
+      - "C:/Users/Pavel/AppData/Local/Microsoft/WindowsApps/ld.com"
+      - "C:/Users/Pavel/AppData/Local/Microsoft/WindowsApps/ld.exe"
+      - "C:/Users/Pavel/AppData/Local/Microsoft/WindowsApps/ld"
+      - "C:/Users/User/AppData/Local/Programs/Microsoft VS Code/bin/ld.com"
+      - "C:/Users/User/AppData/Local/Programs/Microsoft VS Code/bin/ld.exe"
+      - "C:/Users/User/AppData/Local/Programs/Microsoft VS Code/bin/ld"
+      - "C:/Users/Pavel/AppData/Local/Python/bin/ld.com"
+      - "C:/Users/Pavel/AppData/Local/Python/bin/ld.exe"
+      - "C:/Users/Pavel/AppData/Local/Python/bin/ld"
+    found: false
+    search_context:
+      ENV{PATH}:
+        - "C:\\Users\\Pavel\\.mplab\\app-finder\\apps\\ninja\\v1.13.2"
+        - "C:\\Users\\Pavel\\.mplab\\app-finder\\apps\\make\\v4.4.1\\windows"
+        - "C:\\Users\\Pavel\\.mplab\\app-finder\\apps\\hexmate\\v3.00\\dist\\win\\bin"
+        - "C:\\Windows\\system32"
+        - "C:\\Windows"
+        - "C:\\Windows\\System32\\Wbem"
+        - "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\Windows\\System32\\OpenSSH\\"
+        - "C:\\Program Files\\Git\\cmd"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\Program Files\\Intel\\WiFi\\bin\\"
+        - "C:\\Program Files\\Common Files\\Intel\\WirelessCommon\\"
+        - "C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\DAL"
+        - "C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\DAL"
+        - "C:\\Program Files (x86)\\IDEMIA\\AWP\\Dlls"
+        - "C:\\Program Files\\IDEMIA\\AWP\\Dlls"
+        - "C:\\Program Files\\PuTTY\\"
+        - "C:\\Users\\Pavel\\AppData\\Local\\Microsoft\\WindowsApps"
+        - "C:\\Users\\User\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
+        - "C:\\Users\\Pavel\\AppData\\Local\\Python\\bin"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeFindBinUtils.cmake:247 (find_program)"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineASMCompiler.cmake:270 (include)"
+      - "CMakeLists.txt:13 (project)"
+    mode: "program"
+    variable: "CMAKE_NM"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "nm"
+    candidate_directories:
+      - "C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/ninja/v1.13.2/"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/make/v4.4.1/windows/"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/"
+      - "C:/Windows/System32/"
+      - "C:/Windows/"
+      - "C:/Windows/System32/wbem/"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/"
+      - "C:/Windows/System32/OpenSSH/"
+      - "C:/Program Files/Git/cmd/"
+      - "C:/Program Files/dotnet/"
+      - "C:/Program Files/Intel/WiFi/bin/"
+      - "C:/Program Files/Common Files/Intel/WirelessCommon/"
+      - "C:/Program Files (x86)/Intel/Intel(R) Management Engine Components/DAL/"
+      - "C:/Program Files/Intel/Intel(R) Management Engine Components/DAL/"
+      - "C:/Program Files (x86)/IDEMIA/AWP/Dlls/"
+      - "C:/Program Files/IDEMIA/AWP/Dlls/"
+      - "C:/Program Files/PuTTY/"
+      - "C:/Users/Pavel/AppData/Local/Microsoft/WindowsApps/"
+      - "C:/Users/User/AppData/Local/Programs/Microsoft VS Code/bin/"
+      - "C:/Users/Pavel/AppData/Local/Python/bin/"
+    searched_directories:
+      - "C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/nm.com"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/nm.exe"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/nm"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/ninja/v1.13.2/nm.com"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/ninja/v1.13.2/nm.exe"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/ninja/v1.13.2/nm"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/make/v4.4.1/windows/nm.com"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/make/v4.4.1/windows/nm.exe"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/make/v4.4.1/windows/nm"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/nm.com"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/nm.exe"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/nm"
+      - "C:/Windows/System32/nm.com"
+      - "C:/Windows/System32/nm.exe"
+      - "C:/Windows/System32/nm"
+      - "C:/Windows/nm.com"
+      - "C:/Windows/nm.exe"
+      - "C:/Windows/nm"
+      - "C:/Windows/System32/wbem/nm.com"
+      - "C:/Windows/System32/wbem/nm.exe"
+      - "C:/Windows/System32/wbem/nm"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/nm.com"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/nm.exe"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/nm"
+      - "C:/Windows/System32/OpenSSH/nm.com"
+      - "C:/Windows/System32/OpenSSH/nm.exe"
+      - "C:/Windows/System32/OpenSSH/nm"
+      - "C:/Program Files/Git/cmd/nm.com"
+      - "C:/Program Files/Git/cmd/nm.exe"
+      - "C:/Program Files/Git/cmd/nm"
+      - "C:/Program Files/dotnet/nm.com"
+      - "C:/Program Files/dotnet/nm.exe"
+      - "C:/Program Files/dotnet/nm"
+      - "C:/Program Files/Intel/WiFi/bin/nm.com"
+      - "C:/Program Files/Intel/WiFi/bin/nm.exe"
+      - "C:/Program Files/Intel/WiFi/bin/nm"
+      - "C:/Program Files/Common Files/Intel/WirelessCommon/nm.com"
+      - "C:/Program Files/Common Files/Intel/WirelessCommon/nm.exe"
+      - "C:/Program Files/Common Files/Intel/WirelessCommon/nm"
+      - "C:/Program Files (x86)/Intel/Intel(R) Management Engine Components/DAL/nm.com"
+      - "C:/Program Files (x86)/Intel/Intel(R) Management Engine Components/DAL/nm.exe"
+      - "C:/Program Files (x86)/Intel/Intel(R) Management Engine Components/DAL/nm"
+      - "C:/Program Files/Intel/Intel(R) Management Engine Components/DAL/nm.com"
+      - "C:/Program Files/Intel/Intel(R) Management Engine Components/DAL/nm.exe"
+      - "C:/Program Files/Intel/Intel(R) Management Engine Components/DAL/nm"
+      - "C:/Program Files (x86)/IDEMIA/AWP/Dlls/nm.com"
+      - "C:/Program Files (x86)/IDEMIA/AWP/Dlls/nm.exe"
+      - "C:/Program Files (x86)/IDEMIA/AWP/Dlls/nm"
+      - "C:/Program Files/IDEMIA/AWP/Dlls/nm.com"
+      - "C:/Program Files/IDEMIA/AWP/Dlls/nm.exe"
+      - "C:/Program Files/IDEMIA/AWP/Dlls/nm"
+      - "C:/Program Files/PuTTY/nm.com"
+      - "C:/Program Files/PuTTY/nm.exe"
+      - "C:/Program Files/PuTTY/nm"
+      - "C:/Users/Pavel/AppData/Local/Microsoft/WindowsApps/nm.com"
+      - "C:/Users/Pavel/AppData/Local/Microsoft/WindowsApps/nm.exe"
+      - "C:/Users/Pavel/AppData/Local/Microsoft/WindowsApps/nm"
+      - "C:/Users/User/AppData/Local/Programs/Microsoft VS Code/bin/nm.com"
+      - "C:/Users/User/AppData/Local/Programs/Microsoft VS Code/bin/nm.exe"
+      - "C:/Users/User/AppData/Local/Programs/Microsoft VS Code/bin/nm"
+      - "C:/Users/Pavel/AppData/Local/Python/bin/nm.com"
+      - "C:/Users/Pavel/AppData/Local/Python/bin/nm.exe"
+      - "C:/Users/Pavel/AppData/Local/Python/bin/nm"
+    found: false
+    search_context:
+      ENV{PATH}:
+        - "C:\\Users\\Pavel\\.mplab\\app-finder\\apps\\ninja\\v1.13.2"
+        - "C:\\Users\\Pavel\\.mplab\\app-finder\\apps\\make\\v4.4.1\\windows"
+        - "C:\\Users\\Pavel\\.mplab\\app-finder\\apps\\hexmate\\v3.00\\dist\\win\\bin"
+        - "C:\\Windows\\system32"
+        - "C:\\Windows"
+        - "C:\\Windows\\System32\\Wbem"
+        - "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\Windows\\System32\\OpenSSH\\"
+        - "C:\\Program Files\\Git\\cmd"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\Program Files\\Intel\\WiFi\\bin\\"
+        - "C:\\Program Files\\Common Files\\Intel\\WirelessCommon\\"
+        - "C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\DAL"
+        - "C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\DAL"
+        - "C:\\Program Files (x86)\\IDEMIA\\AWP\\Dlls"
+        - "C:\\Program Files\\IDEMIA\\AWP\\Dlls"
+        - "C:\\Program Files\\PuTTY\\"
+        - "C:\\Users\\Pavel\\AppData\\Local\\Microsoft\\WindowsApps"
+        - "C:\\Users\\User\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
+        - "C:\\Users\\Pavel\\AppData\\Local\\Python\\bin"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeFindBinUtils.cmake:247 (find_program)"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineASMCompiler.cmake:270 (include)"
+      - "CMakeLists.txt:13 (project)"
+    mode: "program"
+    variable: "CMAKE_OBJDUMP"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "objdump"
+    candidate_directories:
+      - "C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/ninja/v1.13.2/"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/make/v4.4.1/windows/"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/"
+      - "C:/Windows/System32/"
+      - "C:/Windows/"
+      - "C:/Windows/System32/wbem/"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/"
+      - "C:/Windows/System32/OpenSSH/"
+      - "C:/Program Files/Git/cmd/"
+      - "C:/Program Files/dotnet/"
+      - "C:/Program Files/Intel/WiFi/bin/"
+      - "C:/Program Files/Common Files/Intel/WirelessCommon/"
+      - "C:/Program Files (x86)/Intel/Intel(R) Management Engine Components/DAL/"
+      - "C:/Program Files/Intel/Intel(R) Management Engine Components/DAL/"
+      - "C:/Program Files (x86)/IDEMIA/AWP/Dlls/"
+      - "C:/Program Files/IDEMIA/AWP/Dlls/"
+      - "C:/Program Files/PuTTY/"
+      - "C:/Users/Pavel/AppData/Local/Microsoft/WindowsApps/"
+      - "C:/Users/User/AppData/Local/Programs/Microsoft VS Code/bin/"
+      - "C:/Users/Pavel/AppData/Local/Python/bin/"
+    searched_directories:
+      - "C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/objdump.com"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/objdump.exe"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/objdump"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/ninja/v1.13.2/objdump.com"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/ninja/v1.13.2/objdump.exe"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/ninja/v1.13.2/objdump"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/make/v4.4.1/windows/objdump.com"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/make/v4.4.1/windows/objdump.exe"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/make/v4.4.1/windows/objdump"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/objdump.com"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/objdump.exe"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/objdump"
+      - "C:/Windows/System32/objdump.com"
+      - "C:/Windows/System32/objdump.exe"
+      - "C:/Windows/System32/objdump"
+      - "C:/Windows/objdump.com"
+      - "C:/Windows/objdump.exe"
+      - "C:/Windows/objdump"
+      - "C:/Windows/System32/wbem/objdump.com"
+      - "C:/Windows/System32/wbem/objdump.exe"
+      - "C:/Windows/System32/wbem/objdump"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/objdump.com"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/objdump.exe"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/objdump"
+      - "C:/Windows/System32/OpenSSH/objdump.com"
+      - "C:/Windows/System32/OpenSSH/objdump.exe"
+      - "C:/Windows/System32/OpenSSH/objdump"
+      - "C:/Program Files/Git/cmd/objdump.com"
+      - "C:/Program Files/Git/cmd/objdump.exe"
+      - "C:/Program Files/Git/cmd/objdump"
+      - "C:/Program Files/dotnet/objdump.com"
+      - "C:/Program Files/dotnet/objdump.exe"
+      - "C:/Program Files/dotnet/objdump"
+      - "C:/Program Files/Intel/WiFi/bin/objdump.com"
+      - "C:/Program Files/Intel/WiFi/bin/objdump.exe"
+      - "C:/Program Files/Intel/WiFi/bin/objdump"
+      - "C:/Program Files/Common Files/Intel/WirelessCommon/objdump.com"
+      - "C:/Program Files/Common Files/Intel/WirelessCommon/objdump.exe"
+      - "C:/Program Files/Common Files/Intel/WirelessCommon/objdump"
+      - "C:/Program Files (x86)/Intel/Intel(R) Management Engine Components/DAL/objdump.com"
+      - "C:/Program Files (x86)/Intel/Intel(R) Management Engine Components/DAL/objdump.exe"
+      - "C:/Program Files (x86)/Intel/Intel(R) Management Engine Components/DAL/objdump"
+      - "C:/Program Files/Intel/Intel(R) Management Engine Components/DAL/objdump.com"
+      - "C:/Program Files/Intel/Intel(R) Management Engine Components/DAL/objdump.exe"
+      - "C:/Program Files/Intel/Intel(R) Management Engine Components/DAL/objdump"
+      - "C:/Program Files (x86)/IDEMIA/AWP/Dlls/objdump.com"
+      - "C:/Program Files (x86)/IDEMIA/AWP/Dlls/objdump.exe"
+      - "C:/Program Files (x86)/IDEMIA/AWP/Dlls/objdump"
+      - "C:/Program Files/IDEMIA/AWP/Dlls/objdump.com"
+      - "C:/Program Files/IDEMIA/AWP/Dlls/objdump.exe"
+      - "C:/Program Files/IDEMIA/AWP/Dlls/objdump"
+      - "C:/Program Files/PuTTY/objdump.com"
+      - "C:/Program Files/PuTTY/objdump.exe"
+      - "C:/Program Files/PuTTY/objdump"
+      - "C:/Users/Pavel/AppData/Local/Microsoft/WindowsApps/objdump.com"
+      - "C:/Users/Pavel/AppData/Local/Microsoft/WindowsApps/objdump.exe"
+      - "C:/Users/Pavel/AppData/Local/Microsoft/WindowsApps/objdump"
+      - "C:/Users/User/AppData/Local/Programs/Microsoft VS Code/bin/objdump.com"
+      - "C:/Users/User/AppData/Local/Programs/Microsoft VS Code/bin/objdump.exe"
+      - "C:/Users/User/AppData/Local/Programs/Microsoft VS Code/bin/objdump"
+      - "C:/Users/Pavel/AppData/Local/Python/bin/objdump.com"
+      - "C:/Users/Pavel/AppData/Local/Python/bin/objdump.exe"
+      - "C:/Users/Pavel/AppData/Local/Python/bin/objdump"
+    found: false
+    search_context:
+      ENV{PATH}:
+        - "C:\\Users\\Pavel\\.mplab\\app-finder\\apps\\ninja\\v1.13.2"
+        - "C:\\Users\\Pavel\\.mplab\\app-finder\\apps\\make\\v4.4.1\\windows"
+        - "C:\\Users\\Pavel\\.mplab\\app-finder\\apps\\hexmate\\v3.00\\dist\\win\\bin"
+        - "C:\\Windows\\system32"
+        - "C:\\Windows"
+        - "C:\\Windows\\System32\\Wbem"
+        - "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\Windows\\System32\\OpenSSH\\"
+        - "C:\\Program Files\\Git\\cmd"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\Program Files\\Intel\\WiFi\\bin\\"
+        - "C:\\Program Files\\Common Files\\Intel\\WirelessCommon\\"
+        - "C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\DAL"
+        - "C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\DAL"
+        - "C:\\Program Files (x86)\\IDEMIA\\AWP\\Dlls"
+        - "C:\\Program Files\\IDEMIA\\AWP\\Dlls"
+        - "C:\\Program Files\\PuTTY\\"
+        - "C:\\Users\\Pavel\\AppData\\Local\\Microsoft\\WindowsApps"
+        - "C:\\Users\\User\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
+        - "C:\\Users\\Pavel\\AppData\\Local\\Python\\bin"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeFindBinUtils.cmake:247 (find_program)"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineASMCompiler.cmake:270 (include)"
+      - "CMakeLists.txt:13 (project)"
+    mode: "program"
+    variable: "CMAKE_OBJCOPY"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "objcopy"
+    candidate_directories:
+      - "C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/ninja/v1.13.2/"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/make/v4.4.1/windows/"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/"
+      - "C:/Windows/System32/"
+      - "C:/Windows/"
+      - "C:/Windows/System32/wbem/"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/"
+      - "C:/Windows/System32/OpenSSH/"
+      - "C:/Program Files/Git/cmd/"
+      - "C:/Program Files/dotnet/"
+      - "C:/Program Files/Intel/WiFi/bin/"
+      - "C:/Program Files/Common Files/Intel/WirelessCommon/"
+      - "C:/Program Files (x86)/Intel/Intel(R) Management Engine Components/DAL/"
+      - "C:/Program Files/Intel/Intel(R) Management Engine Components/DAL/"
+      - "C:/Program Files (x86)/IDEMIA/AWP/Dlls/"
+      - "C:/Program Files/IDEMIA/AWP/Dlls/"
+      - "C:/Program Files/PuTTY/"
+      - "C:/Users/Pavel/AppData/Local/Microsoft/WindowsApps/"
+      - "C:/Users/User/AppData/Local/Programs/Microsoft VS Code/bin/"
+      - "C:/Users/Pavel/AppData/Local/Python/bin/"
+    searched_directories:
+      - "C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/objcopy.com"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/objcopy.exe"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/objcopy"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/ninja/v1.13.2/objcopy.com"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/ninja/v1.13.2/objcopy.exe"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/ninja/v1.13.2/objcopy"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/make/v4.4.1/windows/objcopy.com"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/make/v4.4.1/windows/objcopy.exe"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/make/v4.4.1/windows/objcopy"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/objcopy.com"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/objcopy.exe"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/objcopy"
+      - "C:/Windows/System32/objcopy.com"
+      - "C:/Windows/System32/objcopy.exe"
+      - "C:/Windows/System32/objcopy"
+      - "C:/Windows/objcopy.com"
+      - "C:/Windows/objcopy.exe"
+      - "C:/Windows/objcopy"
+      - "C:/Windows/System32/wbem/objcopy.com"
+      - "C:/Windows/System32/wbem/objcopy.exe"
+      - "C:/Windows/System32/wbem/objcopy"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/objcopy.com"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/objcopy.exe"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/objcopy"
+      - "C:/Windows/System32/OpenSSH/objcopy.com"
+      - "C:/Windows/System32/OpenSSH/objcopy.exe"
+      - "C:/Windows/System32/OpenSSH/objcopy"
+      - "C:/Program Files/Git/cmd/objcopy.com"
+      - "C:/Program Files/Git/cmd/objcopy.exe"
+      - "C:/Program Files/Git/cmd/objcopy"
+      - "C:/Program Files/dotnet/objcopy.com"
+      - "C:/Program Files/dotnet/objcopy.exe"
+      - "C:/Program Files/dotnet/objcopy"
+      - "C:/Program Files/Intel/WiFi/bin/objcopy.com"
+      - "C:/Program Files/Intel/WiFi/bin/objcopy.exe"
+      - "C:/Program Files/Intel/WiFi/bin/objcopy"
+      - "C:/Program Files/Common Files/Intel/WirelessCommon/objcopy.com"
+      - "C:/Program Files/Common Files/Intel/WirelessCommon/objcopy.exe"
+      - "C:/Program Files/Common Files/Intel/WirelessCommon/objcopy"
+      - "C:/Program Files (x86)/Intel/Intel(R) Management Engine Components/DAL/objcopy.com"
+      - "C:/Program Files (x86)/Intel/Intel(R) Management Engine Components/DAL/objcopy.exe"
+      - "C:/Program Files (x86)/Intel/Intel(R) Management Engine Components/DAL/objcopy"
+      - "C:/Program Files/Intel/Intel(R) Management Engine Components/DAL/objcopy.com"
+      - "C:/Program Files/Intel/Intel(R) Management Engine Components/DAL/objcopy.exe"
+      - "C:/Program Files/Intel/Intel(R) Management Engine Components/DAL/objcopy"
+      - "C:/Program Files (x86)/IDEMIA/AWP/Dlls/objcopy.com"
+      - "C:/Program Files (x86)/IDEMIA/AWP/Dlls/objcopy.exe"
+      - "C:/Program Files (x86)/IDEMIA/AWP/Dlls/objcopy"
+      - "C:/Program Files/IDEMIA/AWP/Dlls/objcopy.com"
+      - "C:/Program Files/IDEMIA/AWP/Dlls/objcopy.exe"
+      - "C:/Program Files/IDEMIA/AWP/Dlls/objcopy"
+      - "C:/Program Files/PuTTY/objcopy.com"
+      - "C:/Program Files/PuTTY/objcopy.exe"
+      - "C:/Program Files/PuTTY/objcopy"
+      - "C:/Users/Pavel/AppData/Local/Microsoft/WindowsApps/objcopy.com"
+      - "C:/Users/Pavel/AppData/Local/Microsoft/WindowsApps/objcopy.exe"
+      - "C:/Users/Pavel/AppData/Local/Microsoft/WindowsApps/objcopy"
+      - "C:/Users/User/AppData/Local/Programs/Microsoft VS Code/bin/objcopy.com"
+      - "C:/Users/User/AppData/Local/Programs/Microsoft VS Code/bin/objcopy.exe"
+      - "C:/Users/User/AppData/Local/Programs/Microsoft VS Code/bin/objcopy"
+      - "C:/Users/Pavel/AppData/Local/Python/bin/objcopy.com"
+      - "C:/Users/Pavel/AppData/Local/Python/bin/objcopy.exe"
+      - "C:/Users/Pavel/AppData/Local/Python/bin/objcopy"
+    found: false
+    search_context:
+      ENV{PATH}:
+        - "C:\\Users\\Pavel\\.mplab\\app-finder\\apps\\ninja\\v1.13.2"
+        - "C:\\Users\\Pavel\\.mplab\\app-finder\\apps\\make\\v4.4.1\\windows"
+        - "C:\\Users\\Pavel\\.mplab\\app-finder\\apps\\hexmate\\v3.00\\dist\\win\\bin"
+        - "C:\\Windows\\system32"
+        - "C:\\Windows"
+        - "C:\\Windows\\System32\\Wbem"
+        - "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\Windows\\System32\\OpenSSH\\"
+        - "C:\\Program Files\\Git\\cmd"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\Program Files\\Intel\\WiFi\\bin\\"
+        - "C:\\Program Files\\Common Files\\Intel\\WirelessCommon\\"
+        - "C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\DAL"
+        - "C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\DAL"
+        - "C:\\Program Files (x86)\\IDEMIA\\AWP\\Dlls"
+        - "C:\\Program Files\\IDEMIA\\AWP\\Dlls"
+        - "C:\\Program Files\\PuTTY\\"
+        - "C:\\Users\\Pavel\\AppData\\Local\\Microsoft\\WindowsApps"
+        - "C:\\Users\\User\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
+        - "C:\\Users\\Pavel\\AppData\\Local\\Python\\bin"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeFindBinUtils.cmake:247 (find_program)"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineASMCompiler.cmake:270 (include)"
+      - "CMakeLists.txt:13 (project)"
+    mode: "program"
+    variable: "CMAKE_READELF"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "readelf"
+    candidate_directories:
+      - "C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/ninja/v1.13.2/"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/make/v4.4.1/windows/"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/"
+      - "C:/Windows/System32/"
+      - "C:/Windows/"
+      - "C:/Windows/System32/wbem/"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/"
+      - "C:/Windows/System32/OpenSSH/"
+      - "C:/Program Files/Git/cmd/"
+      - "C:/Program Files/dotnet/"
+      - "C:/Program Files/Intel/WiFi/bin/"
+      - "C:/Program Files/Common Files/Intel/WirelessCommon/"
+      - "C:/Program Files (x86)/Intel/Intel(R) Management Engine Components/DAL/"
+      - "C:/Program Files/Intel/Intel(R) Management Engine Components/DAL/"
+      - "C:/Program Files (x86)/IDEMIA/AWP/Dlls/"
+      - "C:/Program Files/IDEMIA/AWP/Dlls/"
+      - "C:/Program Files/PuTTY/"
+      - "C:/Users/Pavel/AppData/Local/Microsoft/WindowsApps/"
+      - "C:/Users/User/AppData/Local/Programs/Microsoft VS Code/bin/"
+      - "C:/Users/Pavel/AppData/Local/Python/bin/"
+    searched_directories:
+      - "C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/readelf.com"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/readelf.exe"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/readelf"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/ninja/v1.13.2/readelf.com"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/ninja/v1.13.2/readelf.exe"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/ninja/v1.13.2/readelf"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/make/v4.4.1/windows/readelf.com"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/make/v4.4.1/windows/readelf.exe"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/make/v4.4.1/windows/readelf"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/readelf.com"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/readelf.exe"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/readelf"
+      - "C:/Windows/System32/readelf.com"
+      - "C:/Windows/System32/readelf.exe"
+      - "C:/Windows/System32/readelf"
+      - "C:/Windows/readelf.com"
+      - "C:/Windows/readelf.exe"
+      - "C:/Windows/readelf"
+      - "C:/Windows/System32/wbem/readelf.com"
+      - "C:/Windows/System32/wbem/readelf.exe"
+      - "C:/Windows/System32/wbem/readelf"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/readelf.com"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/readelf.exe"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/readelf"
+      - "C:/Windows/System32/OpenSSH/readelf.com"
+      - "C:/Windows/System32/OpenSSH/readelf.exe"
+      - "C:/Windows/System32/OpenSSH/readelf"
+      - "C:/Program Files/Git/cmd/readelf.com"
+      - "C:/Program Files/Git/cmd/readelf.exe"
+      - "C:/Program Files/Git/cmd/readelf"
+      - "C:/Program Files/dotnet/readelf.com"
+      - "C:/Program Files/dotnet/readelf.exe"
+      - "C:/Program Files/dotnet/readelf"
+      - "C:/Program Files/Intel/WiFi/bin/readelf.com"
+      - "C:/Program Files/Intel/WiFi/bin/readelf.exe"
+      - "C:/Program Files/Intel/WiFi/bin/readelf"
+      - "C:/Program Files/Common Files/Intel/WirelessCommon/readelf.com"
+      - "C:/Program Files/Common Files/Intel/WirelessCommon/readelf.exe"
+      - "C:/Program Files/Common Files/Intel/WirelessCommon/readelf"
+      - "C:/Program Files (x86)/Intel/Intel(R) Management Engine Components/DAL/readelf.com"
+      - "C:/Program Files (x86)/Intel/Intel(R) Management Engine Components/DAL/readelf.exe"
+      - "C:/Program Files (x86)/Intel/Intel(R) Management Engine Components/DAL/readelf"
+      - "C:/Program Files/Intel/Intel(R) Management Engine Components/DAL/readelf.com"
+      - "C:/Program Files/Intel/Intel(R) Management Engine Components/DAL/readelf.exe"
+      - "C:/Program Files/Intel/Intel(R) Management Engine Components/DAL/readelf"
+      - "C:/Program Files (x86)/IDEMIA/AWP/Dlls/readelf.com"
+      - "C:/Program Files (x86)/IDEMIA/AWP/Dlls/readelf.exe"
+      - "C:/Program Files (x86)/IDEMIA/AWP/Dlls/readelf"
+      - "C:/Program Files/IDEMIA/AWP/Dlls/readelf.com"
+      - "C:/Program Files/IDEMIA/AWP/Dlls/readelf.exe"
+      - "C:/Program Files/IDEMIA/AWP/Dlls/readelf"
+      - "C:/Program Files/PuTTY/readelf.com"
+      - "C:/Program Files/PuTTY/readelf.exe"
+      - "C:/Program Files/PuTTY/readelf"
+      - "C:/Users/Pavel/AppData/Local/Microsoft/WindowsApps/readelf.com"
+      - "C:/Users/Pavel/AppData/Local/Microsoft/WindowsApps/readelf.exe"
+      - "C:/Users/Pavel/AppData/Local/Microsoft/WindowsApps/readelf"
+      - "C:/Users/User/AppData/Local/Programs/Microsoft VS Code/bin/readelf.com"
+      - "C:/Users/User/AppData/Local/Programs/Microsoft VS Code/bin/readelf.exe"
+      - "C:/Users/User/AppData/Local/Programs/Microsoft VS Code/bin/readelf"
+      - "C:/Users/Pavel/AppData/Local/Python/bin/readelf.com"
+      - "C:/Users/Pavel/AppData/Local/Python/bin/readelf.exe"
+      - "C:/Users/Pavel/AppData/Local/Python/bin/readelf"
+    found: false
+    search_context:
+      ENV{PATH}:
+        - "C:\\Users\\Pavel\\.mplab\\app-finder\\apps\\ninja\\v1.13.2"
+        - "C:\\Users\\Pavel\\.mplab\\app-finder\\apps\\make\\v4.4.1\\windows"
+        - "C:\\Users\\Pavel\\.mplab\\app-finder\\apps\\hexmate\\v3.00\\dist\\win\\bin"
+        - "C:\\Windows\\system32"
+        - "C:\\Windows"
+        - "C:\\Windows\\System32\\Wbem"
+        - "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\Windows\\System32\\OpenSSH\\"
+        - "C:\\Program Files\\Git\\cmd"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\Program Files\\Intel\\WiFi\\bin\\"
+        - "C:\\Program Files\\Common Files\\Intel\\WirelessCommon\\"
+        - "C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\DAL"
+        - "C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\DAL"
+        - "C:\\Program Files (x86)\\IDEMIA\\AWP\\Dlls"
+        - "C:\\Program Files\\IDEMIA\\AWP\\Dlls"
+        - "C:\\Program Files\\PuTTY\\"
+        - "C:\\Users\\Pavel\\AppData\\Local\\Microsoft\\WindowsApps"
+        - "C:\\Users\\User\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
+        - "C:\\Users\\Pavel\\AppData\\Local\\Python\\bin"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeFindBinUtils.cmake:247 (find_program)"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineASMCompiler.cmake:270 (include)"
+      - "CMakeLists.txt:13 (project)"
+    mode: "program"
+    variable: "CMAKE_DLLTOOL"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "dlltool"
+    candidate_directories:
+      - "C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/ninja/v1.13.2/"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/make/v4.4.1/windows/"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/"
+      - "C:/Windows/System32/"
+      - "C:/Windows/"
+      - "C:/Windows/System32/wbem/"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/"
+      - "C:/Windows/System32/OpenSSH/"
+      - "C:/Program Files/Git/cmd/"
+      - "C:/Program Files/dotnet/"
+      - "C:/Program Files/Intel/WiFi/bin/"
+      - "C:/Program Files/Common Files/Intel/WirelessCommon/"
+      - "C:/Program Files (x86)/Intel/Intel(R) Management Engine Components/DAL/"
+      - "C:/Program Files/Intel/Intel(R) Management Engine Components/DAL/"
+      - "C:/Program Files (x86)/IDEMIA/AWP/Dlls/"
+      - "C:/Program Files/IDEMIA/AWP/Dlls/"
+      - "C:/Program Files/PuTTY/"
+      - "C:/Users/Pavel/AppData/Local/Microsoft/WindowsApps/"
+      - "C:/Users/User/AppData/Local/Programs/Microsoft VS Code/bin/"
+      - "C:/Users/Pavel/AppData/Local/Python/bin/"
+    searched_directories:
+      - "C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/dlltool.com"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/dlltool.exe"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/dlltool"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/ninja/v1.13.2/dlltool.com"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/ninja/v1.13.2/dlltool.exe"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/ninja/v1.13.2/dlltool"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/make/v4.4.1/windows/dlltool.com"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/make/v4.4.1/windows/dlltool.exe"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/make/v4.4.1/windows/dlltool"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/dlltool.com"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/dlltool.exe"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/dlltool"
+      - "C:/Windows/System32/dlltool.com"
+      - "C:/Windows/System32/dlltool.exe"
+      - "C:/Windows/System32/dlltool"
+      - "C:/Windows/dlltool.com"
+      - "C:/Windows/dlltool.exe"
+      - "C:/Windows/dlltool"
+      - "C:/Windows/System32/wbem/dlltool.com"
+      - "C:/Windows/System32/wbem/dlltool.exe"
+      - "C:/Windows/System32/wbem/dlltool"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/dlltool.com"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/dlltool.exe"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/dlltool"
+      - "C:/Windows/System32/OpenSSH/dlltool.com"
+      - "C:/Windows/System32/OpenSSH/dlltool.exe"
+      - "C:/Windows/System32/OpenSSH/dlltool"
+      - "C:/Program Files/Git/cmd/dlltool.com"
+      - "C:/Program Files/Git/cmd/dlltool.exe"
+      - "C:/Program Files/Git/cmd/dlltool"
+      - "C:/Program Files/dotnet/dlltool.com"
+      - "C:/Program Files/dotnet/dlltool.exe"
+      - "C:/Program Files/dotnet/dlltool"
+      - "C:/Program Files/Intel/WiFi/bin/dlltool.com"
+      - "C:/Program Files/Intel/WiFi/bin/dlltool.exe"
+      - "C:/Program Files/Intel/WiFi/bin/dlltool"
+      - "C:/Program Files/Common Files/Intel/WirelessCommon/dlltool.com"
+      - "C:/Program Files/Common Files/Intel/WirelessCommon/dlltool.exe"
+      - "C:/Program Files/Common Files/Intel/WirelessCommon/dlltool"
+      - "C:/Program Files (x86)/Intel/Intel(R) Management Engine Components/DAL/dlltool.com"
+      - "C:/Program Files (x86)/Intel/Intel(R) Management Engine Components/DAL/dlltool.exe"
+      - "C:/Program Files (x86)/Intel/Intel(R) Management Engine Components/DAL/dlltool"
+      - "C:/Program Files/Intel/Intel(R) Management Engine Components/DAL/dlltool.com"
+      - "C:/Program Files/Intel/Intel(R) Management Engine Components/DAL/dlltool.exe"
+      - "C:/Program Files/Intel/Intel(R) Management Engine Components/DAL/dlltool"
+      - "C:/Program Files (x86)/IDEMIA/AWP/Dlls/dlltool.com"
+      - "C:/Program Files (x86)/IDEMIA/AWP/Dlls/dlltool.exe"
+      - "C:/Program Files (x86)/IDEMIA/AWP/Dlls/dlltool"
+      - "C:/Program Files/IDEMIA/AWP/Dlls/dlltool.com"
+      - "C:/Program Files/IDEMIA/AWP/Dlls/dlltool.exe"
+      - "C:/Program Files/IDEMIA/AWP/Dlls/dlltool"
+      - "C:/Program Files/PuTTY/dlltool.com"
+      - "C:/Program Files/PuTTY/dlltool.exe"
+      - "C:/Program Files/PuTTY/dlltool"
+      - "C:/Users/Pavel/AppData/Local/Microsoft/WindowsApps/dlltool.com"
+      - "C:/Users/Pavel/AppData/Local/Microsoft/WindowsApps/dlltool.exe"
+      - "C:/Users/Pavel/AppData/Local/Microsoft/WindowsApps/dlltool"
+      - "C:/Users/User/AppData/Local/Programs/Microsoft VS Code/bin/dlltool.com"
+      - "C:/Users/User/AppData/Local/Programs/Microsoft VS Code/bin/dlltool.exe"
+      - "C:/Users/User/AppData/Local/Programs/Microsoft VS Code/bin/dlltool"
+      - "C:/Users/Pavel/AppData/Local/Python/bin/dlltool.com"
+      - "C:/Users/Pavel/AppData/Local/Python/bin/dlltool.exe"
+      - "C:/Users/Pavel/AppData/Local/Python/bin/dlltool"
+    found: false
+    search_context:
+      ENV{PATH}:
+        - "C:\\Users\\Pavel\\.mplab\\app-finder\\apps\\ninja\\v1.13.2"
+        - "C:\\Users\\Pavel\\.mplab\\app-finder\\apps\\make\\v4.4.1\\windows"
+        - "C:\\Users\\Pavel\\.mplab\\app-finder\\apps\\hexmate\\v3.00\\dist\\win\\bin"
+        - "C:\\Windows\\system32"
+        - "C:\\Windows"
+        - "C:\\Windows\\System32\\Wbem"
+        - "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\Windows\\System32\\OpenSSH\\"
+        - "C:\\Program Files\\Git\\cmd"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\Program Files\\Intel\\WiFi\\bin\\"
+        - "C:\\Program Files\\Common Files\\Intel\\WirelessCommon\\"
+        - "C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\DAL"
+        - "C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\DAL"
+        - "C:\\Program Files (x86)\\IDEMIA\\AWP\\Dlls"
+        - "C:\\Program Files\\IDEMIA\\AWP\\Dlls"
+        - "C:\\Program Files\\PuTTY\\"
+        - "C:\\Users\\Pavel\\AppData\\Local\\Microsoft\\WindowsApps"
+        - "C:\\Users\\User\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
+        - "C:\\Users\\Pavel\\AppData\\Local\\Python\\bin"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeFindBinUtils.cmake:247 (find_program)"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineASMCompiler.cmake:270 (include)"
+      - "CMakeLists.txt:13 (project)"
+    mode: "program"
+    variable: "CMAKE_ADDR2LINE"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "addr2line"
+    candidate_directories:
+      - "C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/ninja/v1.13.2/"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/make/v4.4.1/windows/"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/"
+      - "C:/Windows/System32/"
+      - "C:/Windows/"
+      - "C:/Windows/System32/wbem/"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/"
+      - "C:/Windows/System32/OpenSSH/"
+      - "C:/Program Files/Git/cmd/"
+      - "C:/Program Files/dotnet/"
+      - "C:/Program Files/Intel/WiFi/bin/"
+      - "C:/Program Files/Common Files/Intel/WirelessCommon/"
+      - "C:/Program Files (x86)/Intel/Intel(R) Management Engine Components/DAL/"
+      - "C:/Program Files/Intel/Intel(R) Management Engine Components/DAL/"
+      - "C:/Program Files (x86)/IDEMIA/AWP/Dlls/"
+      - "C:/Program Files/IDEMIA/AWP/Dlls/"
+      - "C:/Program Files/PuTTY/"
+      - "C:/Users/Pavel/AppData/Local/Microsoft/WindowsApps/"
+      - "C:/Users/User/AppData/Local/Programs/Microsoft VS Code/bin/"
+      - "C:/Users/Pavel/AppData/Local/Python/bin/"
+    searched_directories:
+      - "C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/addr2line.com"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/addr2line.exe"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/addr2line"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/ninja/v1.13.2/addr2line.com"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/ninja/v1.13.2/addr2line.exe"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/ninja/v1.13.2/addr2line"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/make/v4.4.1/windows/addr2line.com"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/make/v4.4.1/windows/addr2line.exe"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/make/v4.4.1/windows/addr2line"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/addr2line.com"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/addr2line.exe"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/addr2line"
+      - "C:/Windows/System32/addr2line.com"
+      - "C:/Windows/System32/addr2line.exe"
+      - "C:/Windows/System32/addr2line"
+      - "C:/Windows/addr2line.com"
+      - "C:/Windows/addr2line.exe"
+      - "C:/Windows/addr2line"
+      - "C:/Windows/System32/wbem/addr2line.com"
+      - "C:/Windows/System32/wbem/addr2line.exe"
+      - "C:/Windows/System32/wbem/addr2line"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/addr2line.com"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/addr2line.exe"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/addr2line"
+      - "C:/Windows/System32/OpenSSH/addr2line.com"
+      - "C:/Windows/System32/OpenSSH/addr2line.exe"
+      - "C:/Windows/System32/OpenSSH/addr2line"
+      - "C:/Program Files/Git/cmd/addr2line.com"
+      - "C:/Program Files/Git/cmd/addr2line.exe"
+      - "C:/Program Files/Git/cmd/addr2line"
+      - "C:/Program Files/dotnet/addr2line.com"
+      - "C:/Program Files/dotnet/addr2line.exe"
+      - "C:/Program Files/dotnet/addr2line"
+      - "C:/Program Files/Intel/WiFi/bin/addr2line.com"
+      - "C:/Program Files/Intel/WiFi/bin/addr2line.exe"
+      - "C:/Program Files/Intel/WiFi/bin/addr2line"
+      - "C:/Program Files/Common Files/Intel/WirelessCommon/addr2line.com"
+      - "C:/Program Files/Common Files/Intel/WirelessCommon/addr2line.exe"
+      - "C:/Program Files/Common Files/Intel/WirelessCommon/addr2line"
+      - "C:/Program Files (x86)/Intel/Intel(R) Management Engine Components/DAL/addr2line.com"
+      - "C:/Program Files (x86)/Intel/Intel(R) Management Engine Components/DAL/addr2line.exe"
+      - "C:/Program Files (x86)/Intel/Intel(R) Management Engine Components/DAL/addr2line"
+      - "C:/Program Files/Intel/Intel(R) Management Engine Components/DAL/addr2line.com"
+      - "C:/Program Files/Intel/Intel(R) Management Engine Components/DAL/addr2line.exe"
+      - "C:/Program Files/Intel/Intel(R) Management Engine Components/DAL/addr2line"
+      - "C:/Program Files (x86)/IDEMIA/AWP/Dlls/addr2line.com"
+      - "C:/Program Files (x86)/IDEMIA/AWP/Dlls/addr2line.exe"
+      - "C:/Program Files (x86)/IDEMIA/AWP/Dlls/addr2line"
+      - "C:/Program Files/IDEMIA/AWP/Dlls/addr2line.com"
+      - "C:/Program Files/IDEMIA/AWP/Dlls/addr2line.exe"
+      - "C:/Program Files/IDEMIA/AWP/Dlls/addr2line"
+      - "C:/Program Files/PuTTY/addr2line.com"
+      - "C:/Program Files/PuTTY/addr2line.exe"
+      - "C:/Program Files/PuTTY/addr2line"
+      - "C:/Users/Pavel/AppData/Local/Microsoft/WindowsApps/addr2line.com"
+      - "C:/Users/Pavel/AppData/Local/Microsoft/WindowsApps/addr2line.exe"
+      - "C:/Users/Pavel/AppData/Local/Microsoft/WindowsApps/addr2line"
+      - "C:/Users/User/AppData/Local/Programs/Microsoft VS Code/bin/addr2line.com"
+      - "C:/Users/User/AppData/Local/Programs/Microsoft VS Code/bin/addr2line.exe"
+      - "C:/Users/User/AppData/Local/Programs/Microsoft VS Code/bin/addr2line"
+      - "C:/Users/Pavel/AppData/Local/Python/bin/addr2line.com"
+      - "C:/Users/Pavel/AppData/Local/Python/bin/addr2line.exe"
+      - "C:/Users/Pavel/AppData/Local/Python/bin/addr2line"
+    found: false
+    search_context:
+      ENV{PATH}:
+        - "C:\\Users\\Pavel\\.mplab\\app-finder\\apps\\ninja\\v1.13.2"
+        - "C:\\Users\\Pavel\\.mplab\\app-finder\\apps\\make\\v4.4.1\\windows"
+        - "C:\\Users\\Pavel\\.mplab\\app-finder\\apps\\hexmate\\v3.00\\dist\\win\\bin"
+        - "C:\\Windows\\system32"
+        - "C:\\Windows"
+        - "C:\\Windows\\System32\\Wbem"
+        - "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\Windows\\System32\\OpenSSH\\"
+        - "C:\\Program Files\\Git\\cmd"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\Program Files\\Intel\\WiFi\\bin\\"
+        - "C:\\Program Files\\Common Files\\Intel\\WirelessCommon\\"
+        - "C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\DAL"
+        - "C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\DAL"
+        - "C:\\Program Files (x86)\\IDEMIA\\AWP\\Dlls"
+        - "C:\\Program Files\\IDEMIA\\AWP\\Dlls"
+        - "C:\\Program Files\\PuTTY\\"
+        - "C:\\Users\\Pavel\\AppData\\Local\\Microsoft\\WindowsApps"
+        - "C:\\Users\\User\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
+        - "C:\\Users\\Pavel\\AppData\\Local\\Python\\bin"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeFindBinUtils.cmake:247 (find_program)"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineASMCompiler.cmake:270 (include)"
+      - "CMakeLists.txt:13 (project)"
+    mode: "program"
+    variable: "CMAKE_TAPI"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "tapi"
+    candidate_directories:
+      - "C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/ninja/v1.13.2/"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/make/v4.4.1/windows/"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/"
+      - "C:/Windows/System32/"
+      - "C:/Windows/"
+      - "C:/Windows/System32/wbem/"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/"
+      - "C:/Windows/System32/OpenSSH/"
+      - "C:/Program Files/Git/cmd/"
+      - "C:/Program Files/dotnet/"
+      - "C:/Program Files/Intel/WiFi/bin/"
+      - "C:/Program Files/Common Files/Intel/WirelessCommon/"
+      - "C:/Program Files (x86)/Intel/Intel(R) Management Engine Components/DAL/"
+      - "C:/Program Files/Intel/Intel(R) Management Engine Components/DAL/"
+      - "C:/Program Files (x86)/IDEMIA/AWP/Dlls/"
+      - "C:/Program Files/IDEMIA/AWP/Dlls/"
+      - "C:/Program Files/PuTTY/"
+      - "C:/Users/Pavel/AppData/Local/Microsoft/WindowsApps/"
+      - "C:/Users/User/AppData/Local/Programs/Microsoft VS Code/bin/"
+      - "C:/Users/Pavel/AppData/Local/Python/bin/"
+    searched_directories:
+      - "C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/tapi.com"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/tapi.exe"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/tapi"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/ninja/v1.13.2/tapi.com"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/ninja/v1.13.2/tapi.exe"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/ninja/v1.13.2/tapi"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/make/v4.4.1/windows/tapi.com"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/make/v4.4.1/windows/tapi.exe"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/make/v4.4.1/windows/tapi"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/tapi.com"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/tapi.exe"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/tapi"
+      - "C:/Windows/System32/tapi.com"
+      - "C:/Windows/System32/tapi.exe"
+      - "C:/Windows/System32/tapi"
+      - "C:/Windows/tapi.com"
+      - "C:/Windows/tapi.exe"
+      - "C:/Windows/tapi"
+      - "C:/Windows/System32/wbem/tapi.com"
+      - "C:/Windows/System32/wbem/tapi.exe"
+      - "C:/Windows/System32/wbem/tapi"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/tapi.com"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/tapi.exe"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/tapi"
+      - "C:/Windows/System32/OpenSSH/tapi.com"
+      - "C:/Windows/System32/OpenSSH/tapi.exe"
+      - "C:/Windows/System32/OpenSSH/tapi"
+      - "C:/Program Files/Git/cmd/tapi.com"
+      - "C:/Program Files/Git/cmd/tapi.exe"
+      - "C:/Program Files/Git/cmd/tapi"
+      - "C:/Program Files/dotnet/tapi.com"
+      - "C:/Program Files/dotnet/tapi.exe"
+      - "C:/Program Files/dotnet/tapi"
+      - "C:/Program Files/Intel/WiFi/bin/tapi.com"
+      - "C:/Program Files/Intel/WiFi/bin/tapi.exe"
+      - "C:/Program Files/Intel/WiFi/bin/tapi"
+      - "C:/Program Files/Common Files/Intel/WirelessCommon/tapi.com"
+      - "C:/Program Files/Common Files/Intel/WirelessCommon/tapi.exe"
+      - "C:/Program Files/Common Files/Intel/WirelessCommon/tapi"
+      - "C:/Program Files (x86)/Intel/Intel(R) Management Engine Components/DAL/tapi.com"
+      - "C:/Program Files (x86)/Intel/Intel(R) Management Engine Components/DAL/tapi.exe"
+      - "C:/Program Files (x86)/Intel/Intel(R) Management Engine Components/DAL/tapi"
+      - "C:/Program Files/Intel/Intel(R) Management Engine Components/DAL/tapi.com"
+      - "C:/Program Files/Intel/Intel(R) Management Engine Components/DAL/tapi.exe"
+      - "C:/Program Files/Intel/Intel(R) Management Engine Components/DAL/tapi"
+      - "C:/Program Files (x86)/IDEMIA/AWP/Dlls/tapi.com"
+      - "C:/Program Files (x86)/IDEMIA/AWP/Dlls/tapi.exe"
+      - "C:/Program Files (x86)/IDEMIA/AWP/Dlls/tapi"
+      - "C:/Program Files/IDEMIA/AWP/Dlls/tapi.com"
+      - "C:/Program Files/IDEMIA/AWP/Dlls/tapi.exe"
+      - "C:/Program Files/IDEMIA/AWP/Dlls/tapi"
+      - "C:/Program Files/PuTTY/tapi.com"
+      - "C:/Program Files/PuTTY/tapi.exe"
+      - "C:/Program Files/PuTTY/tapi"
+      - "C:/Users/Pavel/AppData/Local/Microsoft/WindowsApps/tapi.com"
+      - "C:/Users/Pavel/AppData/Local/Microsoft/WindowsApps/tapi.exe"
+      - "C:/Users/Pavel/AppData/Local/Microsoft/WindowsApps/tapi"
+      - "C:/Users/User/AppData/Local/Programs/Microsoft VS Code/bin/tapi.com"
+      - "C:/Users/User/AppData/Local/Programs/Microsoft VS Code/bin/tapi.exe"
+      - "C:/Users/User/AppData/Local/Programs/Microsoft VS Code/bin/tapi"
+      - "C:/Users/Pavel/AppData/Local/Python/bin/tapi.com"
+      - "C:/Users/Pavel/AppData/Local/Python/bin/tapi.exe"
+      - "C:/Users/Pavel/AppData/Local/Python/bin/tapi"
+    found: false
+    search_context:
+      ENV{PATH}:
+        - "C:\\Users\\Pavel\\.mplab\\app-finder\\apps\\ninja\\v1.13.2"
+        - "C:\\Users\\Pavel\\.mplab\\app-finder\\apps\\make\\v4.4.1\\windows"
+        - "C:\\Users\\Pavel\\.mplab\\app-finder\\apps\\hexmate\\v3.00\\dist\\win\\bin"
+        - "C:\\Windows\\system32"
+        - "C:\\Windows"
+        - "C:\\Windows\\System32\\Wbem"
+        - "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\Windows\\System32\\OpenSSH\\"
+        - "C:\\Program Files\\Git\\cmd"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\Program Files\\Intel\\WiFi\\bin\\"
+        - "C:\\Program Files\\Common Files\\Intel\\WirelessCommon\\"
+        - "C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\DAL"
+        - "C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\DAL"
+        - "C:\\Program Files (x86)\\IDEMIA\\AWP\\Dlls"
+        - "C:\\Program Files\\IDEMIA\\AWP\\Dlls"
+        - "C:\\Program Files\\PuTTY\\"
+        - "C:\\Users\\Pavel\\AppData\\Local\\Microsoft\\WindowsApps"
+        - "C:\\Users\\User\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
+        - "C:\\Users\\Pavel\\AppData\\Local\\Python\\bin"
+...
+
+---
+events:
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineCompilerId.cmake:1341 (message)"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineASMCompiler.cmake:174 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "CMakeLists.txt:13 (project)"
+    message: |
+      Checking whether the ASM compiler is GNU using "--version" did not match "(GNU assembler)|(GCC)|(Free Software Foundation)":
+      C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/avrasm2.exe: invalid option -- -
+      AVRASM: AVR macro assembler 2.2.8 (build 80 Jan 14 2020 18:27:50)
+      Copyright (C) 1995-2020 ATMEL Corporation
+      
+      usage: C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/avrasm2.exe [options] file.asm
+      
+      Type 'avrasm2 -h' for help.
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineCompilerId.cmake:1341 (message)"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineASMCompiler.cmake:174 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "CMakeLists.txt:13 (project)"
+    message: |
+      Checking whether the ASM compiler is AppleClang using "--version" did not match "(Apple (clang|LLVM) version)":
+      C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/avrasm2.exe: invalid option -- -
+      AVRASM: AVR macro assembler 2.2.8 (build 80 Jan 14 2020 18:27:50)
+      Copyright (C) 1995-2020 ATMEL Corporation
+      
+      usage: C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/avrasm2.exe [options] file.asm
+      
+      Type 'avrasm2 -h' for help.
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineCompilerId.cmake:1341 (message)"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineASMCompiler.cmake:174 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "CMakeLists.txt:13 (project)"
+    message: |
+      Checking whether the ASM compiler is Clang using "--version" did not match "(clang version)":
+      C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/avrasm2.exe: invalid option -- -
+      AVRASM: AVR macro assembler 2.2.8 (build 80 Jan 14 2020 18:27:50)
+      Copyright (C) 1995-2020 ATMEL Corporation
+      
+      usage: C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/avrasm2.exe [options] file.asm
+      
+      Type 'avrasm2 -h' for help.
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineCompilerId.cmake:1341 (message)"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineASMCompiler.cmake:174 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "CMakeLists.txt:13 (project)"
+    message: |
+      Checking whether the ASM compiler is ARMClang using "--version" did not match "armclang":
+      C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/avrasm2.exe: invalid option -- -
+      AVRASM: AVR macro assembler 2.2.8 (build 80 Jan 14 2020 18:27:50)
+      Copyright (C) 1995-2020 ATMEL Corporation
+      
+      usage: C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/avrasm2.exe [options] file.asm
+      
+      Type 'avrasm2 -h' for help.
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineCompilerId.cmake:1341 (message)"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineASMCompiler.cmake:174 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "CMakeLists.txt:13 (project)"
+    message: |
+      Checking whether the ASM compiler is OrangeC using "--version" did not match "occ \\(OrangeC\\) Version":
+      C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/avrasm2.exe: invalid option -- -
+      AVRASM: AVR macro assembler 2.2.8 (build 80 Jan 14 2020 18:27:50)
+      Copyright (C) 1995-2020 ATMEL Corporation
+      
+      usage: C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/avrasm2.exe [options] file.asm
+      
+      Type 'avrasm2 -h' for help.
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineCompilerId.cmake:1341 (message)"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineASMCompiler.cmake:174 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "CMakeLists.txt:13 (project)"
+    message: |
+      Checking whether the ASM compiler is HP using "-V" did not match "HP C":
+      AVRASM: AVR macro assembler 2.2.8 (build 80 Jan 14 2020 18:27:50)
+      Copyright (C) 1995-2020 ATMEL Corporation
+      
+      usage: C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/avrasm2.exe [options] file.asm
+      
+      Type 'avrasm2 -h' for help.
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineCompilerId.cmake:1341 (message)"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineASMCompiler.cmake:174 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "CMakeLists.txt:13 (project)"
+    message: |
+      Checking whether the ASM compiler is Intel using "--version" did not match "(ICC)":
+      C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/avrasm2.exe: invalid option -- -
+      AVRASM: AVR macro assembler 2.2.8 (build 80 Jan 14 2020 18:27:50)
+      Copyright (C) 1995-2020 ATMEL Corporation
+      
+      usage: C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/avrasm2.exe [options] file.asm
+      
+      Type 'avrasm2 -h' for help.
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineCompilerId.cmake:1341 (message)"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineASMCompiler.cmake:174 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "CMakeLists.txt:13 (project)"
+    message: |
+      Checking whether the ASM compiler is IntelLLVM using "--version" did not match "(Intel[^
+      ]+oneAPI)":
+      C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/avrasm2.exe: invalid option -- -
+      AVRASM: AVR macro assembler 2.2.8 (build 80 Jan 14 2020 18:27:50)
+      Copyright (C) 1995-2020 ATMEL Corporation
+      
+      usage: C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/avrasm2.exe [options] file.asm
+      
+      Type 'avrasm2 -h' for help.
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineCompilerId.cmake:1341 (message)"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineASMCompiler.cmake:174 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "CMakeLists.txt:13 (project)"
+    message: |
+      Checking whether the ASM compiler is SunPro using "-V" did not match "Sun C":
+      AVRASM: AVR macro assembler 2.2.8 (build 80 Jan 14 2020 18:27:50)
+      Copyright (C) 1995-2020 ATMEL Corporation
+      
+      usage: C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/avrasm2.exe [options] file.asm
+      
+      Type 'avrasm2 -h' for help.
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineCompilerId.cmake:1341 (message)"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineASMCompiler.cmake:174 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "CMakeLists.txt:13 (project)"
+    message: |
+      Checking whether the ASM compiler is XL using "-qversion" did not match "XL C":
+      C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/avrasm2.exe: invalid option -- q
+      AVRASM: AVR macro assembler 2.2.8 (build 80 Jan 14 2020 18:27:50)
+      Copyright (C) 1995-2020 ATMEL Corporation
+      
+      usage: C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/avrasm2.exe [options] file.asm
+      
+      Type 'avrasm2 -h' for help.
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineCompilerId.cmake:1341 (message)"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineASMCompiler.cmake:174 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "CMakeLists.txt:13 (project)"
+    message: |
+      Checking whether the ASM compiler is MSVC using "-?" did not match "Microsoft":
+      C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/avrasm2.exe: invalid option -- ?
+      AVRASM: AVR macro assembler 2.2.8 (build 80 Jan 14 2020 18:27:50)
+      Copyright (C) 1995-2020 ATMEL Corporation
+      
+      usage: C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/avrasm2.exe [options] file.asm
+      
+      Type 'avrasm2 -h' for help.
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineCompilerId.cmake:1341 (message)"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineASMCompiler.cmake:174 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "CMakeLists.txt:13 (project)"
+    message: |
+      Checking whether the ASM compiler is TI using "-h" did not match "Texas Instruments":
+      AVRASM: AVR macro assembler 2.2.8 (build 80 Jan 14 2020 18:27:50)
+      Copyright (C) 1995-2020 ATMEL Corporation
+      
+      usage: C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/avrasm2.exe [options] file.asm
+      
+       Options:
+          -f O|M|I|G -  output file format:
+              -fO Debug info for simulation in AVR Studio (default)
+                  -fO1 | -fO2 - force format version 1 or 2 (default: auto)
+              -fM Motorola hex
+              -fI Intel hex
+              -fG Generic hex format
+              -f- No output file
+          -o ofile   Put output in 'ofile'.
+          -d dfile   Generate debug info for simulation in AVR Studio in 'dfile'.
+                     Can only be used with the -f [M|I|G] option.
+          -l lfile   Generate listing in 'lfile'
+          -m mfile   Generate map in 'mfile'
+          -e efile   Place EEPROM contents in 'efile'
+          -w         Relative jumps are allowed to wrap for program ROM
+                     up to 4k words in size
+          -C ver     Specify AVR core version
+          -c         Case sensitive
+          -1/-2      Turn on/off AVR Assembler version 1 compatibility.
+          -p1|0      Set/unset AVRASM1 implicit .device include (also set by -1)
+          -I dir     Preprocessor: Add 'dir' to include search path
+          -i file    Preprocessor: Explicitly pre-include file
+          -D name[=value] Preprocessor: Define symbol. If =value is
+                     omitted, it is set to 1.
+          -U name    Preprocessor: Undefine symbol.
+          -S file    Produce include/label info file for AVR Studio
+          -v verbosity [0-9][s]:
+              -vs Include target resource usage statistics
+              -vl Output low-level assembly code to stdout
+              -vk Keep output files if source file empty
+              -v0 Silent, only error messages printed
+              -v1 Error and warning messages printed
+              -v2 Error, warning, and  info messages printed (default)
+              -v3-v9 Unspecified, increasing amounts of assembler internal dumps.
+          -V         Format map and list files for Verilog.
+          -8 -|+     Force Disable/Ebable 8kB check for JMP/CALL
+          -O i|w|e   Overlap report: ignore|warning|error [error]
+          -W-b|+bo|+bi Byte operand out of range warning disable|overflow|integer
+          -W+ie|+iw  Unsupported instruction error | warning
+          -W+fw      Label slip caused by forward ref accepted (DANGEROUS)
+          -FD|Tfmt   __DATE__ | __TIME__ format, using strftime(3) format string
+          -h         this help
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineCompilerId.cmake:1341 (message)"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineASMCompiler.cmake:174 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "CMakeLists.txt:13 (project)"
+    message: |
+      Checking whether the ASM compiler is TIClang using "--version" did not match "(TI (.*) Clang Compiler)":
+      C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/avrasm2.exe: invalid option -- -
+      AVRASM: AVR macro assembler 2.2.8 (build 80 Jan 14 2020 18:27:50)
+      Copyright (C) 1995-2020 ATMEL Corporation
+      
+      usage: C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/avrasm2.exe [options] file.asm
+      
+      Type 'avrasm2 -h' for help.
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineCompilerId.cmake:1341 (message)"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineASMCompiler.cmake:174 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "CMakeLists.txt:13 (project)"
+    message: |
+      Checking whether the ASM compiler is IAR using "" did not match "IAR Assembler":
+      AVRASM: AVR macro assembler 2.2.8 (build 80 Jan 14 2020 18:27:50)
+      Copyright (C) 1995-2020 ATMEL Corporation
+      
+      usage: C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/avrasm2.exe [options] file.asm
+      
+      Type 'avrasm2 -h' for help.
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineCompilerId.cmake:1341 (message)"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineASMCompiler.cmake:174 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "CMakeLists.txt:13 (project)"
+    message: |
+      Checking whether the ASM compiler is Diab using "-V" did not match "Wind River Systems":
+      AVRASM: AVR macro assembler 2.2.8 (build 80 Jan 14 2020 18:27:50)
+      Copyright (C) 1995-2020 ATMEL Corporation
+      
+      usage: C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/avrasm2.exe [options] file.asm
+      
+      Type 'avrasm2 -h' for help.
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineCompilerId.cmake:1341 (message)"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineASMCompiler.cmake:174 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "CMakeLists.txt:13 (project)"
+    message: |
+      Checking whether the ASM compiler is ARMCC using "" did not match "(ARM Compiler)|(ARM Assembler)|(Arm Compiler)":
+      AVRASM: AVR macro assembler 2.2.8 (build 80 Jan 14 2020 18:27:50)
+      Copyright (C) 1995-2020 ATMEL Corporation
+      
+      usage: C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/avrasm2.exe [options] file.asm
+      
+      Type 'avrasm2 -h' for help.
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineCompilerId.cmake:1341 (message)"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineASMCompiler.cmake:174 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "CMakeLists.txt:13 (project)"
+    message: |
+      Checking whether the ASM compiler is NASM using "-v" did not match "(NASM version)":
+      C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/avrasm2.exe: option requires an argument -- v
+      AVRASM: AVR macro assembler 2.2.8 (build 80 Jan 14 2020 18:27:50)
+      Copyright (C) 1995-2020 ATMEL Corporation
+      
+      usage: C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/avrasm2.exe [options] file.asm
+      
+      Type 'avrasm2 -h' for help.
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineCompilerId.cmake:1341 (message)"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineASMCompiler.cmake:174 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "CMakeLists.txt:13 (project)"
+    message: |
+      Checking whether the ASM compiler is YASM using "--version" did not match "(yasm)":
+      C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/avrasm2.exe: invalid option -- -
+      AVRASM: AVR macro assembler 2.2.8 (build 80 Jan 14 2020 18:27:50)
+      Copyright (C) 1995-2020 ATMEL Corporation
+      
+      usage: C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/avrasm2.exe [options] file.asm
+      
+      Type 'avrasm2 -h' for help.
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineCompilerId.cmake:1341 (message)"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineASMCompiler.cmake:174 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "CMakeLists.txt:13 (project)"
+    message: |
+      Checking whether the ASM compiler is ADSP using "-version" did not match "Analog Devices":
+      AVRASM: AVR macro assembler 2.2.8 (build 80 Jan 14 2020 18:27:50)
+      Copyright (C) 1995-2020 ATMEL Corporation
+      
+      Invalid/too many comamnd line arguments
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineCompilerId.cmake:1341 (message)"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineASMCompiler.cmake:174 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "CMakeLists.txt:13 (project)"
+    message: |
+      Checking whether the ASM compiler is QCC using "-V" did not match "gcc_nto":
+      AVRASM: AVR macro assembler 2.2.8 (build 80 Jan 14 2020 18:27:50)
+      Copyright (C) 1995-2020 ATMEL Corporation
+      
+      usage: C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/avrasm2.exe [options] file.asm
+      
+      Type 'avrasm2 -h' for help.
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineCompilerId.cmake:1341 (message)"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineASMCompiler.cmake:174 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "CMakeLists.txt:13 (project)"
+    message: |
+      Checking whether the ASM compiler is Tasking using "--version" did not match "TASKING":
+      C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/avrasm2.exe: invalid option -- -
+      AVRASM: AVR macro assembler 2.2.8 (build 80 Jan 14 2020 18:27:50)
+      Copyright (C) 1995-2020 ATMEL Corporation
+      
+      usage: C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/avrasm2.exe [options] file.asm
+      
+      Type 'avrasm2 -h' for help.
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineCompilerId.cmake:1341 (message)"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineASMCompiler.cmake:174 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "CMakeLists.txt:13 (project)"
+    message: |
+      Checking whether the ASM compiler is Renesas using "-v" did not match "(RX Family C/C\\+\\+ Compiler)|(RL78 Family Compiler)|(RH850 Family Compiler)":
+      C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/avrasm2.exe: option requires an argument -- v
+      AVRASM: AVR macro assembler 2.2.8 (build 80 Jan 14 2020 18:27:50)
+      Copyright (C) 1995-2020 ATMEL Corporation
+      
+      usage: C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/avrasm2.exe [options] file.asm
+      
+      Type 'avrasm2 -h' for help.
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineCompilerId.cmake:1341 (message)"
+      - "C:/Users/Pavel/.mplab/app-finder/apps/cmake/v4.4.3/cmake-4.4.3-windows-x86_64/share/cmake-4.4/Modules/CMakeDetermineASMCompiler.cmake:174 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "CMakeLists.txt:13 (project)"
+    message: |
+      Checking whether the ASM compiler is PellesC using "" did not match "Pelles Macro Assembler":
+      AVRASM: AVR macro assembler 2.2.8 (build 80 Jan 14 2020 18:27:50)
+      Copyright (C) 1995-2020 ATMEL Corporation
+      
+      usage: C:/Users/Pavel/.mplab/app-finder/apps/avrasm2/v2.2.8/avrasm2.exe [options] file.asm
+      
+      Type 'avrasm2 -h' for help.
+      
+...

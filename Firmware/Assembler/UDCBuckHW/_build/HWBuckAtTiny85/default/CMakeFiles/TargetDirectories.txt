@@ -1,0 +1,5 @@
+C:/src/tennp/git/UniversalDCBuckHW/Firmware/Assembler/UDCBuckHW/_build/HWBuckAtTiny85/default/CMakeFiles/HWBuckAtTiny85_default_default_AVR_ASM2_assemble.dir
+C:/src/tennp/git/UniversalDCBuckHW/Firmware/Assembler/UDCBuckHW/_build/HWBuckAtTiny85/default/CMakeFiles/HWBuckAtTiny85_default_default_AVR_ASM2_assemble_build.dir
+C:/src/tennp/git/UniversalDCBuckHW/Firmware/Assembler/UDCBuckHW/_build/HWBuckAtTiny85/default/CMakeFiles/HWBuckAtTiny85_default_image_Xu_e3k8E.dir
+C:/src/tennp/git/UniversalDCBuckHW/Firmware/Assembler/UDCBuckHW/_build/HWBuckAtTiny85/default/CMakeFiles/edit_cache.dir
+C:/src/tennp/git/UniversalDCBuckHW/Firmware/Assembler/UDCBuckHW/_build/HWBuckAtTiny85/default/CMakeFiles/rebuild_cache.dir

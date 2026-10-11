@@ -1,0 +1,39 @@
+{
+    "version": "1.9",
+    "configurations": [
+        {
+            "name": "default",
+            "id": "conf1",
+            "device": "ATtiny85",
+            "imagePath": "./out/HWBuckAtTiny85/default.hex",
+            "packs": [
+                {
+                    "name": "ATtiny_DFP",
+                    "vendor": "Microchip",
+                    "version": "3.4.278"
+                }
+            ],
+            "fileSet": "default",
+            "toolchain": "default-AVR-ASM2"
+        }
+    ],
+    "propertyGroups": [
+        {
+            "name": "default-AVR-ASM2",
+            "type": "toolchain",
+            "provider": "microchip.toolchains:avr-asm2@2.2.8",
+            "properties": {}
+        }
+    ],
+    "fileSets": [
+        {
+            "name": "default",
+            "files": [
+                {
+                    "include": "**/*",
+                    "exclude": "**/@(build|_build|out|cmake|.vscode|Debug)/**/*"
+                }
+            ]
+        }
+    ]
+}

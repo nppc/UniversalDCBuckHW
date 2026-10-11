@@ -34,14 +34,30 @@ init_USI:
 ; Other routines called from interrupts
 	
 USI_start:
-	; SREG register is not affected here
+	in r_sreg, SREG
 	#ifdef DEBUG
 	cbi DDRB, PIN_Vsense
 	#endif
 
-	sbic PINB,PIN_SCL	;Wait for SCL to go low to ensure the "Start Condition" has completed.
-	rjmp PC-1			;Without this, I2c is unstable.
+	; Bounded wait for SCL to go low, or abort on STOP / timeout
+	ldi itmp, 255		; Timeout counter (~223 us at 8 MHz)
+USI_wait_scl:
+	sbis PINB, PIN_SCL	; If SCL is Low (0), skip next instruction
+	rjmp USI_scl_low	; SCL went Low -> Start condition valid!
+	sbic PINB, PIN_SDA	; If SDA is High (1), do not skip (Stop condition / glitch)
+	rjmp USI_start_abort	; SDA went High while SCL High -> Abort!
+	dec itmp
+	brne USI_wait_scl
 
+USI_start_abort:
+	; False start, glitch, STOP, or bus hang: clear flags, reset state, and exit
+	clr USIstate
+	ldi itmp, (1<<USISIF) | (1<<USIOIF) | (1<<USIPF)
+	out USISR, itmp
+	out SREG, r_sreg
+	reti
+
+USI_scl_low:
 	ldi USIstate, (1<<I2Cadr)	; Initialize flags for new packet
 
 	; Enable USI Counter overflow interrupt
@@ -49,6 +65,7 @@ USI_start:
 	sbr itmp, (1<<USIOIE)
 	out USICR,itmp
 	rcall I2C_clear_ack
+	out SREG, r_sreg
 	reti
 
 USI_ovf:
