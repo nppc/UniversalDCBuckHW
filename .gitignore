@@ -1,2 +1,4 @@
 Firmware/Assembler/UDCBuckHW/Debug/
 !*.hex
+Firmware/Assembler/UDCBuckHW/out/
+Firmware/Assembler/UDCBuckHW/_build/

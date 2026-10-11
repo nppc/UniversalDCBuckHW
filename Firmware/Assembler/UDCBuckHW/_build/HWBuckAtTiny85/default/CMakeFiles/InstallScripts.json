@@ -1,7 +1,0 @@
-{
-	"InstallScripts" : 
-	[
-		"C:/src/tennp/git/UniversalDCBuckHW/Firmware/Assembler/UDCBuckHW/_build/HWBuckAtTiny85/default/cmake_install.cmake"
-	],
-	"Parallel" : false
-}
