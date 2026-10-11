@@ -151,6 +151,8 @@ RESET:
 	sei
 
 loop:
+	rcall USI_stop_check
+
 	; wait for ADC complete
 	sbic ADCSRA, ADSC
 	rjmp loop

@@ -58,6 +58,16 @@ USI_start_abort:
 	reti
 
 USI_scl_low:
+	; If previous write received data before a new/repeated START, commit it:
+	sbrc USIstate, I2Cdir
+	rjmp USI_start_new
+	mov itmp, USIstate
+	andi itmp, I2Ccounter
+	cpi itmp, 2
+	brlo USI_start_new
+	sts USI_buffer_updateStatus, z1
+
+USI_start_new:
 	ldi USIstate, (1<<I2Cadr)	; Initialize flags for new packet
 
 	; Enable USI Counter overflow interrupt
@@ -204,4 +214,36 @@ I2C_clear_ack:
 
 	ldi itmp, (1<<USISIF) | (1<<USIOIF) | (1<<USIPF)
 	out USISR, itmp
+	ret
+
+; Check for I2C Stop Condition (polled from main loop)
+USI_stop_check:
+	sbis USISR, USIPF	; Fast check: return immediately if no STOP detected
+	ret
+
+	cli					; Atomic section while reading/resetting USI state
+	in tmp, USISR
+	sbrs tmp, USIPF		; Re-check flag
+	rjmp USI_stop_exit
+
+	; Stop condition occurred!
+	; Check if we were receiving data (Write mode):
+	sbrc USIstate, I2Cdir	; If Read mode (I2Cdir = 1), no data buffer to save
+	rjmp USI_stop_reset
+
+	; Write mode (I2Cdir = 0):
+	; Check if at least 1 data byte was received (counter in USIstate >= 2)
+	mov tmp, USIstate
+	andi tmp, I2Ccounter
+	cpi tmp, 2			; counter < 2 means 0 data bytes received (empty probe)
+	brlo USI_stop_reset
+
+	; Valid data received before STOP: mark buffer as updated
+	sts USI_buffer_updateStatus, z1
+
+USI_stop_reset:
+	rcall StopDetected	; clears USIstate, disables USIOIE, clears USISR, releases SDA/SCL
+
+USI_stop_exit:
+	sei
 	ret
