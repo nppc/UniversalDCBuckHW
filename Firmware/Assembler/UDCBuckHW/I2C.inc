@@ -175,8 +175,11 @@ I2Cbyte_process:
 	sbrc USIstate, I2Cdir
 	rjmp I2Cbyte_process_transmit
 	
-	; we already have data in itmp
+	; check buffer bounds before storing to prevent SRAM overflow
+	cpi YL, low(USI_dataBuffer + USI_DATALEN)
+	brsh I2Cbyte_skip_store
 	st Y+, itmp	; store received byte
+I2Cbyte_skip_store:
 	rcall SetACK
 
 	sbr USIstate, (1<<I2Cack)
