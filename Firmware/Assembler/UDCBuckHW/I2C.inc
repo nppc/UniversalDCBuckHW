@@ -109,6 +109,19 @@ I2Cadr_check:
 
 I2Cack_byte:	; Acknowledge received byte
 	cbr USIstate, (1<<I2Cack)	; reset flag
+
+	; Check if master sent NACK during read (itmp bit 0 holds the received ACK/NACK bit)
+	sbrs USIstate, I2Cdir		; Skip if in Read mode (I2Cdir = 1)
+	rjmp I2Cack_not_master_read
+
+	mov itmp1, USIstate
+	andi itmp1, I2Ccounter		; Check byte counter
+	breq I2Cack_not_master_read	; Counter == 0: slave's ACK for address byte
+
+	sbrc itmp, 0				; Bit 0: 0 = ACK, 1 = NACK
+	rjmp I2C_data_OK			; Master sent NACK -> stop transmission and release bus!
+
+I2Cack_not_master_read:
 	rcall I2C_clear_ack
 	mov itmp, USIstate	
 	inc itmp	; increment counter. Flags bits will be not touched
@@ -179,6 +192,7 @@ SetACK:
 
 
 StopDetected:
+	clr USIstate
 	in itmp, USICR;(Disable USI Counter overflow interrupt)
 	cbr itmp, 0b01000000
 	out USICR, itmp

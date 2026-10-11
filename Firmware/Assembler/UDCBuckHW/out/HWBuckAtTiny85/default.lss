@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.8  C:/src/tennp/git/UniversalDCBuckHW/Firmware/Assembler/UDCBuckHW/cmake/HWBuckAtTiny85/default/../../../main.asm Sun Oct 11 14:57:45 2026
+AVRASM ver. 2.2.8  C:/src/tennp/git/UniversalDCBuckHW/Firmware/Assembler/UDCBuckHW/cmake/HWBuckAtTiny85/default/../../../main.asm Sun Oct 11 17:03:54 2026
 
 C:/src/tennp/git/UniversalDCBuckHW/Firmware/Assembler/UDCBuckHW/cmake/HWBuckAtTiny85/default/../../../main.asm(28): Including file 'C:/src/tennp/git/UniversalDCBuckHW/Firmware/Assembler/UDCBuckHW/cmake/HWBuckAtTiny85/default/../../../tn85def.inc'
 C:/src/tennp/git/UniversalDCBuckHW/Firmware/Assembler/UDCBuckHW/cmake/HWBuckAtTiny85/default/../../../main.asm(103): Including file 'C:/src/tennp/git/UniversalDCBuckHW/Firmware/Assembler/UDCBuckHW/cmake/HWBuckAtTiny85/default/../../../I2C.inc'
@@ -787,7 +787,7 @@ C:/src/tennp/git/UniversalDCBuckHW/Firmware/Assembler/UDCBuckHW/cmake/HWBuckAtTi
                                  .ORG 0
                                  
                                  	; Interrupt vectors
-000000 c21b                      	rjmp RESET ; Reset Handler
+000000 c223                      	rjmp RESET ; Reset Handler
 000001 9518                      	reti	;rjmp EXT_INT0 ; IRQ0 Handler
 000002 9518                      	reti	;PCINT0 External Interrupt Request 1
 000003 9518                      	reti	;TIMER1 COMPA Timer/Counter1 Compare Match A
@@ -797,7 +797,7 @@ C:/src/tennp/git/UniversalDCBuckHW/Firmware/Assembler/UDCBuckHW/cmake/HWBuckAtTi
 000007 9518                      	reti	;ANA_COMP Analog Comparator
 000008 9518                      	reti	;ADC_INT ;ADC Conversion Complete
 000009 9518                      	reti	;TIMER1 COMPB Timer/Counter1 Compare Match B
-00000a c132                      	rjmp TMR0_COMPA ; Timer/Counter0 Compare Match A
+00000a c13a                      	rjmp TMR0_COMPA ; Timer/Counter0 Compare Match A
 00000b 9518                      	reti	;TIMER0 COMPB Timer/Counter0 Compare Match B
 00000c 9518                      	reti	;WDT
 00000d c019                      	rjmp USI_start	; USI start
@@ -870,7 +870,7 @@ C:/src/tennp/git/UniversalDCBuckHW/Firmware/Assembler/UDCBuckHW/cmake/HWBuckAtTi
 000035 b12d                      	in itmp,USICR
 000036 6420                      	sbr itmp, (1<<USIOIE)
 000037 b92d                      	out USICR,itmp
-000038 d042                      	rcall I2C_clear_ack
+000038 d04a                      	rcall I2C_clear_ack
 000039 be2f                      	out SREG, r_sreg
 00003a 9518                      	reti
                                  
@@ -886,16 +886,16 @@ C:/src/tennp/git/UniversalDCBuckHW/Firmware/Assembler/UDCBuckHW/cmake/HWBuckAtTi
 000040 fd46                      	sbrc USIstate, I2Cack
 000041 c00f                      	rjmp I2Cack_byte
 000042 fd44                      	sbrc USIstate, I2Cbyte
-000043 c023                      	rjmp I2Cbyte_process
+000043 c02a                      	rjmp I2Cbyte_process
                                  
-000044 c020                      	rjmp USI_exit
+000044 c027                      	rjmp USI_exit
                                  
                                  I2Cadr_check:
                                  	; we already have in itmp address and data direction bit
 000045 fb20                      	bst itmp,0	; store data direction bit
 000046 7f2e                      	andi itmp,  0xFE	; reset data direction bit
 000047 3b2c                      	cpi itmp, (USI_ADDRESS<<1)
-000048 f4d9                      	brne I2Cbadadr
+000048 f511                      	brne I2Cbadadr
 000049 774f                      	cbr USIstate, (1<<I2Cadr)	; Address processed - clear flag
 00004a f945                      	bld USIstate, I2Cdir	; set flag according to data direction bit
                                  	
@@ -905,35 +905,48 @@ C:/src/tennp/git/UniversalDCBuckHW/Firmware/Assembler/UDCBuckHW/cmake/HWBuckAtTi
 00004b e6c0                      	ldi YL, low(USI_dataBuffer)	;Set pointer to the USI array
 00004c e0d0                      	ldi YH, high(USI_dataBuffer)
                                  
-00004d d024                      	rcall SetACK
+00004d d02b                      	rcall SetACK
                                  
 00004e 6440                      	sbr USIstate, (1<<I2Cack)
 00004f 7f40                      	cbr USIstate, I2Ccounter	; clear counter
-000050 c014                      	rjmp USI_exit
+000050 c01b                      	rjmp USI_exit
                                  
                                  
                                  I2Cack_byte:	; Acknowledge received byte
 000051 7b4f                      	cbr USIstate, (1<<I2Cack)	; reset flag
-000052 d028                      	rcall I2C_clear_ack
-000053 2f24                      	mov itmp, USIstate	
-000054 9523                      	inc itmp	; increment counter. Flags bits will be not touched
-000055 702f                      	andi itmp, I2Ccounter	; we need to filter counter bits
-000056 302c                      	cpi itmp, USI_DATALEN+1	; total bytes to receive (including address byte)
-000057 f049                      	breq I2C_data_OK
+                                 
+                                 	; Check if master sent NACK during read (itmp bit 0 holds the received ACK/NACK bit)
+000052 ff45                      	sbrs USIstate, I2Cdir		; Skip if in Read mode (I2Cdir = 1)
+000053 c005                      	rjmp I2Cack_not_master_read
+                                 
+000054 2f34                      	mov itmp1, USIstate
+000055 703f                      	andi itmp1, I2Ccounter		; Check byte counter
+000056 f011                      	breq I2Cack_not_master_read	; Counter == 0: slave's ACK for address byte
+                                 
+000057 fd20                      	sbrc itmp, 0				; Bit 0: 0 = ACK, 1 = NACK
+000058 c00f                      	rjmp I2C_data_OK			; Master sent NACK -> stop transmission and release bus!
+                                 
+                                 I2Cack_not_master_read:
+000059 d029                      	rcall I2C_clear_ack
+00005a 2f24                      	mov itmp, USIstate	
+00005b 9523                      	inc itmp	; increment counter. Flags bits will be not touched
+00005c 702f                      	andi itmp, I2Ccounter	; we need to filter counter bits
+00005d 302c                      	cpi itmp, USI_DATALEN+1	; total bytes to receive (including address byte)
+00005e f049                      	breq I2C_data_OK
                                  	; store new counter value
-000058 7f40                      	cbr USIstate, I2Ccounter	; erase counter bits
-000059 2b42                      	or USIstate, itmp			; store counter bits
+00005f 7f40                      	cbr USIstate, I2Ccounter	; erase counter bits
+000060 2b42                      	or USIstate, itmp			; store counter bits
                                  	
-00005a 6140                      	sbr USIstate, (1<<I2Cbyte)	; Receive/Send next byte
+000061 6140                      	sbr USIstate, (1<<I2Cbyte)	; Receive/Send next byte
                                  	; if we transmit the data, then fill USI data register
-00005b ff45                      	sbrs USIstate, I2Cdir
-00005c c008                      	rjmp USI_exit
+000062 ff45                      	sbrs USIstate, I2Cdir
+000063 c008                      	rjmp USI_exit
                                  	
-00005d 9ab8                      	sbi	DDRB, PIN_SDA	; Seems this is important	
-00005e 9129                      	ld itmp, Y+ ; load data from array
-00005f b92f                      	out USIDR, itmp
+000064 9ab8                      	sbi	DDRB, PIN_SDA	; Seems this is important	
+000065 9129                      	ld itmp, Y+ ; load data from array
+000066 b92f                      	out USIDR, itmp
                                  	
-000060 c004                      	rjmp USI_exit
+000067 c004                      	rjmp USI_exit
                                  
                                  I2C_data_OK:	; Received/sent all bytes
                                  
@@ -941,84 +954,85 @@ C:/src/tennp/git/UniversalDCBuckHW/Firmware/Assembler/UDCBuckHW/cmake/HWBuckAtTi
                                  	#endif
                                  
                                  	; If master sent new data, then make it known to main loop for processing
-000061 ff45                      	sbrs USIstate, I2Cdir
-000062 9210 006b                 	sts USI_buffer_updateStatus, z1	; New data arrived
+000068 ff45                      	sbrs USIstate, I2Cdir
+000069 9210 006b                 	sts USI_buffer_updateStatus, z1	; New data arrived
                                  
                                  I2Cbadadr:
-000064 d013                      	rcall StopDetected
+00006b d013                      	rcall StopDetected
                                  
                                  USI_exit:
-000065 be2f                      	out SREG, r_sreg
-000066 9518                      	reti
+00006c be2f                      	out SREG, r_sreg
+00006d 9518                      	reti
                                  
                                  I2Cbyte_process:
                                  	; check, does we read or transmit data?
-000067 fd45                      	sbrc USIstate, I2Cdir
-000068 c004                      	rjmp I2Cbyte_process_transmit
+00006e fd45                      	sbrc USIstate, I2Cdir
+00006f c004                      	rjmp I2Cbyte_process_transmit
                                  	
                                  	; we already have data in itmp
-000069 9329                      	st Y+, itmp	; store received byte
-00006a d007                      	rcall SetACK
+000070 9329                      	st Y+, itmp	; store received byte
+000071 d007                      	rcall SetACK
                                  
-00006b 6440                      	sbr USIstate, (1<<I2Cack)
-00006c cff8                      	rjmp USI_exit
+000072 6440                      	sbr USIstate, (1<<I2Cack)
+000073 cff8                      	rjmp USI_exit
                                  
                                  I2Cbyte_process_transmit:
                                  	; need to wait for ACK from master
-00006d 98b8                      	cbi	DDRB, PIN_SDA	; release the line to give master possibility to answer
+000074 98b8                      	cbi	DDRB, PIN_SDA	; release the line to give master possibility to answer
                                  	; wait for ack bit
-00006e e72e                      	ldi itmp,(1<<USIOIF) | (1<<USIPF) | (1<<USIDC) | (0x0E<<USICNT0)
-00006f b92e                      	out USISR, itmp
-000070 6440                      	sbr USIstate, (1<<I2Cack)
-000071 cff3                      	rjmp USI_exit
-                                 	
-                                 SetACK:
-000072 9ab8                      	sbi	DDRB, PIN_SDA
-000073 9ac2                      	sbi PortB, PIN_SCL
-000074 9aba                      	sbi DDRB, PIN_SCL
-                                 
 000075 e72e                      	ldi itmp,(1<<USIOIF) | (1<<USIPF) | (1<<USIDC) | (0x0E<<USICNT0)
 000076 b92e                      	out USISR, itmp
-000077 9508                      	ret
+000077 6440                      	sbr USIstate, (1<<I2Cack)
+000078 cff3                      	rjmp USI_exit
+                                 	
+                                 SetACK:
+000079 9ab8                      	sbi	DDRB, PIN_SDA
+00007a 9ac2                      	sbi PortB, PIN_SCL
+00007b 9aba                      	sbi DDRB, PIN_SCL
+                                 
+00007c e72e                      	ldi itmp,(1<<USIOIF) | (1<<USIPF) | (1<<USIDC) | (0x0E<<USICNT0)
+00007d b92e                      	out USISR, itmp
+00007e 9508                      	ret
                                  
                                  
                                  StopDetected:
-000078 b12d                      	in itmp, USICR;(Disable USI Counter overflow interrupt)
-000079 7b2f                      	cbr itmp, 0b01000000
-00007a b92d                      	out USICR, itmp
+00007f 2744                      	clr USIstate
+000080 b12d                      	in itmp, USICR;(Disable USI Counter overflow interrupt)
+000081 7b2f                      	cbr itmp, 0b01000000
+000082 b92d                      	out USICR, itmp
                                  
                                  I2C_clear_ack:
-00007b 98b8                      	cbi	DDRB, PIN_SDA
-00007c 98c2                      	cbi PortB, PIN_SCL
-00007d 98ba                      	cbi DDRB, PIN_SCL
+000083 98b8                      	cbi	DDRB, PIN_SDA
+000084 98c2                      	cbi PortB, PIN_SCL
+000085 98ba                      	cbi DDRB, PIN_SCL
                                  
-00007e ee20                      	ldi itmp, (1<<USISIF) | (1<<USIOIF) | (1<<USIPF)
-00007f b92e                      	out USISR, itmp
-000080 9508                      	ret
+000086 ee20                      	ldi itmp, (1<<USISIF) | (1<<USIOIF) | (1<<USIPF)
+000087 b92e                      	out USISR, itmp
+000088 9508                      	ret
                                  .include "PWM.inc"
                                  
                                  ; 250 Khz
                                  init_PWM:
-000081 98c1                      	cbi PORTB, PIN_PWM		; after reset it will be LOW,( but still, let's force it to LOW.
-000082 9ab9                      	sbi DDRB, PIN_PWM		; output
-000083 bc0f                      	out TCNT1, z0
-000084 bc0e                      	out OCR1A, z0			; no PWM
-000085 2777                      	clr PWM_flags
-000086 9200 0064                 	sts USI_dataBuffer+4, z0	; Clear PWM value in buffer
-000088 e601                      	ldi tmp, (0<<CS13) | (0<<CS12) | (0<<CS11) | (1<<CS10) | (1<<PWM1A) | (1<<COM1A1) | (0<<COM1A0)	; prescaller 1; fast PWM on OC1A
-000089 bf00                      	out TCCR1, tmp	
+000089 98c1                      	cbi PORTB, PIN_PWM		; after reset it will be LOW,( but still, let's force it to LOW.
+00008a 9ab9                      	sbi DDRB, PIN_PWM		; output
+00008b bc0f                      	out TCNT1, z0
+00008c bc0e                      	out OCR1A, z0			; no PWM
+00008d 2777                      	clr PWM_flags
+00008e 9200 0064                 	sts USI_dataBuffer+4, z0	; Clear PWM value in buffer
+000090 e601                      	ldi tmp, (0<<CS13) | (0<<CS12) | (0<<CS11) | (1<<CS10) | (1<<PWM1A) | (1<<COM1A1) | (0<<COM1A0)	; prescaller 1; fast PWM on OC1A
+000091 bf00                      	out TCCR1, tmp	
                                  	; Enable 64mhz
-00008a e002                      	ldi tmp, (1<<PLLE)
-00008b bd07                      	out PLLCSR, tmp
+000092 e002                      	ldi tmp, (1<<PLLE)
+000093 bd07                      	out PLLCSR, tmp
                                  	; wait until clock stabilize (about 100us)
                                  waitPLL:
-00008c b507                      	in tmp, PLLCSR
-00008d ff00                      	sbrs tmp, PLOCK
-00008e cffd                      	rjmp waitPLL
-00008f e006                      	ldi tmp, (1<<PCKE) | (1<<PLLE)
-000090 bd07                      	out PLLCSR, tmp
+000094 b507                      	in tmp, PLLCSR
+000095 ff00                      	sbrs tmp, PLOCK
+000096 cffd                      	rjmp waitPLL
+000097 e006                      	ldi tmp, (1<<PCKE) | (1<<PLLE)
+000098 bd07                      	out PLLCSR, tmp
                                  .include "ADC.inc"
-000091 9508                      
+000099 9508                      
                                  ; We measure first 8 samples of V.
                                  ; Then measure 1 sample of I.
                                  ; So, I will be measured 8 times slower than V.
@@ -1053,134 +1067,134 @@ C:/src/tennp/git/UniversalDCBuckHW/Firmware/Assembler/UDCBuckHW/cmake/HWBuckAtTi
                                  										
                                  
                                  ADC_Read:
-000092 b034                      	in tmp2, ADCL
-000093 b045                      	in tmp3, ADCH
-000094 3058                      	cpi ADC_counter, 8	; check counter
-000095 f419                      	brne ADC_skp_change_1
+00009a b034                      	in tmp2, ADCL
+00009b b045                      	in tmp3, ADCH
+00009c 3058                      	cpi ADC_counter, 8	; check counter
+00009d f419                      	brne ADC_skp_change_1
                                  	; Change channel to I
-000096 e003                      	ldi tmp, ISENSE_ADC
-000097 b907                      	out ADMUX, tmp
-000098 c004                      	rjmp ADC_skp_change_2
+00009e e003                      	ldi tmp, ISENSE_ADC
+00009f b907                      	out ADMUX, tmp
+0000a0 c004                      	rjmp ADC_skp_change_2
                                  ADC_skp_change_1:
-000099 305a                      	cpi ADC_counter, 10	; check counter
-00009a f411                      	brne ADC_skp_change_2
+0000a1 305a                      	cpi ADC_counter, 10	; check counter
+0000a2 f411                      	brne ADC_skp_change_2
                                  	; Change channel to V
-00009b e002                      	ldi tmp, VSENSE_ADC
-00009c b907                      	out ADMUX, tmp
+0000a3 e002                      	ldi tmp, VSENSE_ADC
+0000a4 b907                      	out ADMUX, tmp
                                  ADC_skp_change_2:
                                  	; start new ADC reading
-00009d 9a36                      	sbi ADCSRA, ADSC
+0000a5 9a36                      	sbi ADCSRA, ADSC
                                  	; continue to analyze counter
-00009e 3050                      	cpi ADC_counter, 0	; skip reading
-00009f f031                      	breq adc_exit
-0000a0 3059                      	cpi ADC_counter, 9	; 1-8
-0000a1 f030                      	brlo ADC_read_Volt
-0000a2 3059                      	cpi ADC_counter, 9 ; skip reading
-0000a3 f011                      	breq adc_exit
-0000a4 305a                      	cpi ADC_counter, 10 
-0000a5 f051                      	breq ADC_read_Current
+0000a6 3050                      	cpi ADC_counter, 0	; skip reading
+0000a7 f031                      	breq adc_exit
+0000a8 3059                      	cpi ADC_counter, 9	; 1-8
+0000a9 f030                      	brlo ADC_read_Volt
+0000aa 3059                      	cpi ADC_counter, 9 ; skip reading
+0000ab f011                      	breq adc_exit
+0000ac 305a                      	cpi ADC_counter, 10 
+0000ad f051                      	breq ADC_read_Current
                                  
                                  adc_exit:
-0000a6 9553                      	inc ADC_counter	; increment counter
-0000a7 9508                      	ret
+0000ae 9553                      	inc ADC_counter	; increment counter
+0000af 9508                      	ret
                                  ADC_read_Volt:
                                  	; store value
-0000a8 94f8                      	cli
-0000a9 9230 0067                 	sts USI_dataBuffer+7, tmp2
-0000ab 9240 0068                 	sts USI_dataBuffer+8, tmp3
-0000ad 9478                      	sei
-0000ae d12c                      	rcall Convert_VoltageADC_to_Volt
-0000af cff6                      	rjmp adc_exit
+0000b0 94f8                      	cli
+0000b1 9230 0067                 	sts USI_dataBuffer+7, tmp2
+0000b3 9240 0068                 	sts USI_dataBuffer+8, tmp3
+0000b5 9478                      	sei
+0000b6 d12c                      	rcall Convert_VoltageADC_to_Volt
+0000b7 cff6                      	rjmp adc_exit
                                  ADC_read_Current:
                                  	; store value
-0000b0 94f8                      	cli
-0000b1 9230 0069                 	sts USI_dataBuffer+9, tmp2
-0000b3 9240 006a                 	sts USI_dataBuffer+10, tmp3
-0000b5 9478                      	sei
-0000b6 d137                      	rcall Convert_CurrentADC_to_Current
+0000b8 94f8                      	cli
+0000b9 9230 0069                 	sts USI_dataBuffer+9, tmp2
+0000bb 9240 006a                 	sts USI_dataBuffer+10, tmp3
+0000bd 9478                      	sei
+0000be d137                      	rcall Convert_CurrentADC_to_Current
                                  	; also reset counter
-0000b7 ef5f                      	ldi ADC_counter, 255	; Before exit counter will became 0.
-0000b8 cfed                      	rjmp adc_exit
+0000bf ef5f                      	ldi ADC_counter, 255	; Before exit counter will became 0.
+0000c0 cfed                      	rjmp adc_exit
                                  
                                  
                                  init_ADC:
-0000b9 94f8                      	cli	; just in case
+0000c1 94f8                      	cli	; just in case
                                  	; Initialize remaining pins
                                  	#ifndef DEBUG	; disable digital logic only in "prodution"
-0000ba e108                      		ldi tmp, (1<<PIN_Vsense) | (1<<PIN_Isense)
-0000bb bb04                      		out DIDR0, tmp		; disable digital logic
+0000c2 e108                      		ldi tmp, (1<<PIN_Vsense) | (1<<PIN_Isense)
+0000c3 bb04                      		out DIDR0, tmp		; disable digital logic
                                  	#endif
-0000bc 98bc                      	cbi DDRB, PIN_Vsense	; input
-0000bd 98bb                      	cbi DDRB, PIN_Isense	; input
+0000c4 98bc                      	cbi DDRB, PIN_Vsense	; input
+0000c5 98bb                      	cbi DDRB, PIN_Isense	; input
                                  	; Initialize ADC variables
-0000be 2755                      	clr ADC_counter
+0000c6 2755                      	clr ADC_counter
                                  	; set 125khz clock for ADC (8mhz/64)m interrupt
-0000bf e806                      	ldi tmp, (1<<ADPS2) | (1<<ADPS1) | (0<<ADPS0) | (0<<ADIE) | (1<<ADEN)	; no interrupts
-0000c0 b906                      	out ADCSRA, tmp
+0000c7 e806                      	ldi tmp, (1<<ADPS2) | (1<<ADPS1) | (0<<ADPS0) | (0<<ADIE) | (1<<ADEN)	; no interrupts
+0000c8 b906                      	out ADCSRA, tmp
                                  	; configure channel 
                                  	; voltage reference by default is VCC
-0000c1 e003                      	ldi tmp, ISENSE_ADC
-0000c2 b907                      	out ADMUX, tmp
+0000c9 e003                      	ldi tmp, ISENSE_ADC
+0000ca b907                      	out ADMUX, tmp
                                  	#ifdef MOVINGAVERAGE
                                  		; fill M_average array for I
-0000c3 e7ed                      		ldi ZL, LOW(M_AVERAGE_current_COUNTER)
-0000c4 e0f0                      		ldi ZH, HIGH(M_AVERAGE_current_COUNTER)
-0000c5 d00b                      		rcall init_ADC_array
+0000cb e7ed                      		ldi ZL, LOW(M_AVERAGE_current_COUNTER)
+0000cc e0f0                      		ldi ZH, HIGH(M_AVERAGE_current_COUNTER)
+0000cd d00b                      		rcall init_ADC_array
                                  	#else
                                  	#endif
                                  	; store last value to get reference for Current measurement (0.0A)
-0000c6 9230 0070                 	sts ADC_Current_zero_RAW, tmp2
-0000c8 9240 0071                 	sts ADC_Current_zero_RAW+1, tmp3
+0000ce 9230 0070                 	sts ADC_Current_zero_RAW, tmp2
+0000d0 9240 0071                 	sts ADC_Current_zero_RAW+1, tmp3
                                  
-0000ca e002                      	ldi tmp, VSENSE_ADC
-0000cb b907                      	out ADMUX, tmp
+0000d2 e002                      	ldi tmp, VSENSE_ADC
+0000d3 b907                      	out ADMUX, tmp
                                  	#ifdef MOVINGAVERAGE
                                  		; fill M_average array for V
-0000cc e7e2                      		ldi ZL, LOW(M_AVERAGE_voltage_COUNTER)
-0000cd e0f0                      		ldi ZH, HIGH(M_AVERAGE_voltage_COUNTER)
-0000ce d002                      		rcall init_ADC_array
+0000d4 e7e2                      		ldi ZL, LOW(M_AVERAGE_voltage_COUNTER)
+0000d5 e0f0                      		ldi ZH, HIGH(M_AVERAGE_voltage_COUNTER)
+0000d6 d002                      		rcall init_ADC_array
                                  		; now V channel is selected
                                  	#endif
                                  	; clear ADC interrupt flag
-0000cf 9a34                      	sbi ADCSRA, ADIF
+0000d7 9a34                      	sbi ADCSRA, ADIF
                                  	; no sense to store voltage now
                                  	;sts ADC_Voltage_RAW, itmp2
                                  	;sts ADC_Voltage_RAW+1, itmp3
-0000d0 9508                      	ret
+0000d8 9508                      	ret
                                  
                                  #ifdef MOVINGAVERAGE
                                  init_ADC_array:
-0000d1 e00a                      	ldi tmp, MOVINGAVERAGE_N * 2
+0000d9 e00a                      	ldi tmp, MOVINGAVERAGE_N * 2
                                  init_ADC_loop:
-0000d2 930f                      	push tmp
-0000d3 93ef                      	push ZL
-0000d4 93ff                      	push ZH
+0000da 930f                      	push tmp
+0000db 93ef                      	push ZL
+0000dc 93ff                      	push ZH
                                  	; start first conversion
-0000d5 9a36                      	sbi ADCSRA, ADSC
+0000dd 9a36                      	sbi ADCSRA, ADSC
                                  	; wait for result
                                  waitforADC:
-0000d6 9936                      	sbic ADCSRA, ADSC
-0000d7 cffe                      	rjmp waitforADC
+0000de 9936                      	sbic ADCSRA, ADSC
+0000df cffe                      	rjmp waitforADC
                                  	; read ADC
-0000d8 b034                      	in tmp2, ADCL
-0000d9 b045                      	in tmp3, ADCH
-0000da d00c                      	rcall moving_average	; fill array
-0000db 91ff                      	pop ZH
-0000dc 91ef                      	pop ZL
-0000dd 910f                      	pop tmp
-0000de 950a                      	dec tmp
-0000df f791                      	brne init_ADC_loop
-0000e0 9508                      	ret
+0000e0 b034                      	in tmp2, ADCL
+0000e1 b045                      	in tmp3, ADCH
+0000e2 d00c                      	rcall moving_average	; fill array
+0000e3 91ff                      	pop ZH
+0000e4 91ef                      	pop ZL
+0000e5 910f                      	pop tmp
+0000e6 950a                      	dec tmp
+0000e7 f791                      	brne init_ADC_loop
+0000e8 9508                      	ret
                                  #endif
                                  .include "MovAverage.inc"
                                  
                                  
                                  ; while Mov Average init interrupts should be disabled
                                  init_Moving_Average:
-0000e1 94f8                      	cli	; just in case
-0000e2 9200 0072                 	sts M_AVERAGE_voltage_COUNTER, z0
-0000e4 9200 007d                 	sts M_AVERAGE_current_COUNTER, z0
-0000e6 9508                      	ret
+0000e9 94f8                      	cli	; just in case
+0000ea 9200 0072                 	sts M_AVERAGE_voltage_COUNTER, z0
+0000ec 9200 007d                 	sts M_AVERAGE_current_COUNTER, z0
+0000ee 9508                      	ret
                                  
                                  
                                  ; smooth RC signal via moving average algorithm
@@ -1190,46 +1204,46 @@ C:/src/tennp/git/UniversalDCBuckHW/Firmware/Assembler/UDCBuckHW/cmake/HWBuckAtTi
                                  moving_average:
                                  	; we will run average within MOVINGAVERAGE_N values.
                                  	; pointer for moving average table
-0000e7 93ef                      	push ZL	; store for future use
-0000e8 93ff                      	push ZH	; store for future use
-0000e9 9101                      	ld tmp, Z+
-0000ea 2f10                      	mov tmp1, tmp
-0000eb 0f11                      	lsl tmp1	; multiply by 2 because we operate with 16 bit values
-0000ec 0fe1                      	add ZL, tmp1
-0000ed 1df0                      	adc ZH, z0
+0000ef 93ef                      	push ZL	; store for future use
+0000f0 93ff                      	push ZH	; store for future use
+0000f1 9101                      	ld tmp, Z+
+0000f2 2f10                      	mov tmp1, tmp
+0000f3 0f11                      	lsl tmp1	; multiply by 2 because we operate with 16 bit values
+0000f4 0fe1                      	add ZL, tmp1
+0000f5 1df0                      	adc ZH, z0
                                  	; store current value in the table
-0000ee 9231                      	st Z+, tmp2
-0000ef 8240                      	st Z, tmp3
+0000f6 9231                      	st Z+, tmp2
+0000f7 8240                      	st Z, tmp3
                                  	; update counter
-0000f0 9503                      	inc tmp
-0000f1 3005                      	cpi tmp, MOVINGAVERAGE_N
-0000f2 f409                      	brne mov_avrg_skp
-0000f3 2700                      	clr tmp
+0000f8 9503                      	inc tmp
+0000f9 3005                      	cpi tmp, MOVINGAVERAGE_N
+0000fa f409                      	brne mov_avrg_skp
+0000fb 2700                      	clr tmp
                                  mov_avrg_skp:
-0000f4 91ff                      	pop ZH
-0000f5 91ef                      	pop ZL
-0000f6 9301                      	st Z+, tmp	; Store counter
+0000fc 91ff                      	pop ZH
+0000fd 91ef                      	pop ZL
+0000fe 9301                      	st Z+, tmp	; Store counter
                                  	; sum all values in the table
                                  	; Z points to the first element in the table
-0000f7 e005                      	ldi tmp, MOVINGAVERAGE_N
-0000f8 2488                      	clr tmpL1
-0000f9 2499                      	clr tmpH1
+0000ff e005                      	ldi tmp, MOVINGAVERAGE_N
+000100 2488                      	clr tmpL1
+000101 2499                      	clr tmpH1
                                  mov_avrg_loop:
-0000fa 9031                      	ld tmp2, Z+
-0000fb 9041                      	ld tmp3, Z+
-0000fc 0c83                      	add tmpL1, tmp2
-0000fd 1c94                      	adc tmpH1, tmp3
-0000fe 950a                      	dec tmp
-0000ff f7d1                      	brne mov_avrg_loop
+000102 9031                      	ld tmp2, Z+
+000103 9041                      	ld tmp3, Z+
+000104 0c83                      	add tmpL1, tmp2
+000105 1c94                      	adc tmpH1, tmp3
+000106 950a                      	dec tmp
+000107 f7d1                      	brne mov_avrg_loop
                                  	; divide result by MOVINGAVERAGE_N
-000100 e005                      	ldi tmp, MOVINGAVERAGE_N
-000101 2ea0                      	mov tmpL2, tmp
-000102 24bb                      	clr tmpH2
-000103 d003                      	rcall div16u
+000108 e005                      	ldi tmp, MOVINGAVERAGE_N
+000109 2ea0                      	mov tmpL2, tmp
+00010a 24bb                      	clr tmpH2
+00010b d003                      	rcall div16u
                                  	; new result store back to tmp2:tmp3
-000104 2c38                      	mov tmp2, tmpL1
-000105 2c49                      	mov tmp3, tmpH1
-000106 9508                      	ret
+00010c 2c38                      	mov tmp2, tmpL1
+00010d 2c49                      	mov tmp3, tmpH1
+00010e 9508                      	ret
                                  
                                  #endif	
                                  .include "math.inc"
@@ -1249,109 +1263,109 @@ C:/src/tennp/git/UniversalDCBuckHW/Firmware/Assembler/UDCBuckHW/cmake/HWBuckAtTi
                                  ;*
                                  ;***************************************************************************
                                  ; about 25us at 9.6mhz
-000107 2433                      div16u:	clr	tmp2	;clear remainder Low byte
-000108 1844                      	sub	tmp3,tmp3;clear remainder High byte and carry
-000109 e101                      	ldi	tmp,17	;init loop counter
-00010a 1c88                      d16u_1:	rol	tmpL1		;shift left dividend
-00010b 1c99                      	rol	tmpH1
-00010c 950a                      	dec	tmp		;decrement counter
-00010d f441                      	brne	d16u_2		;if done
+00010f 2433                      div16u:	clr	tmp2	;clear remainder Low byte
+000110 1844                      	sub	tmp3,tmp3;clear remainder High byte and carry
+000111 e101                      	ldi	tmp,17	;init loop counter
+000112 1c88                      d16u_1:	rol	tmpL1		;shift left dividend
+000113 1c99                      	rol	tmpH1
+000114 950a                      	dec	tmp		;decrement counter
+000115 f441                      	brne	d16u_2		;if done
                                  	; take care of reminder (we want to have coeff as precise as possible)
                                  	;divide divisor by 2
-00010e 94b6                      	lsr tmpH2
-00010f 94a7                      	ror tmpL2
+000116 94b6                      	lsr tmpH2
+000117 94a7                      	ror tmpL2
                                  	; compare reminder to half of divisor
-000110 143a                      	cp  tmp2, tmpL2 
-000111 044b                      	cpc	tmp3, tmpH2
-000112 f010                      	brlo d16u_exit
+000118 143a                      	cp  tmp2, tmpL2 
+000119 044b                      	cpc	tmp3, tmpH2
+00011a f010                      	brlo d16u_exit
                                  	; increment result
-000113 0c81                      	add tmpL1, z1
-000114 1c90                      	adc tmpH1, z0
+00011b 0c81                      	add tmpL1, z1
+00011c 1c90                      	adc tmpH1, z0
                                  d16u_exit:
-000115 9508                      	ret			;    return
-000116 1c33                      d16u_2:	rol	tmp2	;shift dividend into remainder
-000117 1c44                      	rol	tmp3
-000118 183a                      	sub	tmp2,tmpL2	;remainder = remainder - divisor
-000119 084b                      	sbc	tmp3,tmpH2	;
-00011a f420                      	brcc	d16u_3		;if result negative
-00011b 0c3a                      	add	tmp2,tmpL2	;    restore remainder
-00011c 1c4b                      	adc	tmp3,tmpH2
-00011d 9488                      	clc			;    clear carry to be shifted into result
-00011e cfeb                      	rjmp	d16u_1		;else
-00011f 9408                      d16u_3:	sec			;    set carry to be shifted into result
+00011d 9508                      	ret			;    return
+00011e 1c33                      d16u_2:	rol	tmp2	;shift dividend into remainder
+00011f 1c44                      	rol	tmp3
+000120 183a                      	sub	tmp2,tmpL2	;remainder = remainder - divisor
+000121 084b                      	sbc	tmp3,tmpH2	;
+000122 f420                      	brcc	d16u_3		;if result negative
+000123 0c3a                      	add	tmp2,tmpL2	;    restore remainder
+000124 1c4b                      	adc	tmp3,tmpH2
+000125 9488                      	clc			;    clear carry to be shifted into result
+000126 cfeb                      	rjmp	d16u_1		;else
+000127 9408                      d16u_3:	sec			;    set carry to be shifted into result
                                  .include "scheduler.inc"
-000120 cfe9                      
+000128 cfe9                      
                                  ; At 8Mhz divider is 1/64 and overflow value is 125 (OCR0A).
                                  init_Scheduler:
                                  	; Halt the timer
-000121 e801                      	ldi tmp, (1<<TSM) | (1<<PSR0)
-000122 bd0c                      	out GTCCR, tmp		; we don't care about timer1 as GTCCR is not used there
+000129 e801                      	ldi tmp, (1<<TSM) | (1<<PSR0)
+00012a bd0c                      	out GTCCR, tmp		; we don't care about timer1 as GTCCR is not used there
                                  	; Configure timer in CTC mode and prescaller
-000123 e002                      	ldi tmp, (1<<WGM01) | (0<<WGM00)
-000124 bd0a                      	out TCCR0A, tmp
-000125 e003                      	ldi tmp, (0<<WGM02) | (0<<CS02) | (1<<CS01) | (1<<CS00)
-000126 bf03                      	out TCCR0B, tmp
-000127 be02                      	out TCNT0, z0
+00012b e002                      	ldi tmp, (1<<WGM01) | (0<<WGM00)
+00012c bd0a                      	out TCCR0A, tmp
+00012d e003                      	ldi tmp, (0<<WGM02) | (0<<CS02) | (1<<CS01) | (1<<CS00)
+00012e bf03                      	out TCCR0B, tmp
+00012f be02                      	out TCNT0, z0
                                  	; Set top value to match 1ms.
-000128 e70d                      	ldi tmp, 125
-000129 bd09                      	out OCR0A, tmp
+000130 e70d                      	ldi tmp, 125
+000131 bd09                      	out OCR0A, tmp
                                  	; Enable interrupt 
-00012a e100                      	ldi tmp, (1<<OCIE0A)
-00012b bf09                      	out TIMSK, tmp		; we don't care about timer1 interrupts as we don't use them. 
+000132 e100                      	ldi tmp, (1<<OCIE0A)
+000133 bf09                      	out TIMSK, tmp		; we don't care about timer1 interrupts as we don't use them. 
                                  	
-00012c 24cc                      	clr setVolt_tmp		; At the beginning voltage is 0.
-00012d 9508                      	ret
+000134 24cc                      	clr setVolt_tmp		; At the beginning voltage is 0.
+000135 9508                      	ret
                                  	
                                  ; The value transmitted via I2C and stored in EEPROM is human readable value ((V*10)/S)
                                  ; But we need to convert it for timer0 use
                                  Scheduler_convert_changeValue:
                                  	; formula is: (1000/1ms)/Value
-00012e e003                      	ldi tmp, HIGH(1000)
-00012f 2e90                      	mov tmpH1, tmp
-000130 ee08                      	ldi tmp, LOW(1000)
-000131 2e80                      	mov tmpL1, tmp
-000132 24bb                      	clr tmpH2
-000133 90a0 006c                 	lds tmpL2, Voltage_Change
-000135 dfd1                      	rcall div16u
-000136 2cd8                      	mov V_chg_const, tmpL1
-000137 9508                      	ret
+000136 e003                      	ldi tmp, HIGH(1000)
+000137 2e90                      	mov tmpH1, tmp
+000138 ee08                      	ldi tmp, LOW(1000)
+000139 2e80                      	mov tmpL1, tmp
+00013a 24bb                      	clr tmpH2
+00013b 90a0 006c                 	lds tmpL2, Voltage_Change
+00013d dfd1                      	rcall div16u
+00013e 2cd8                      	mov V_chg_const, tmpL1
+00013f 9508                      	ret
                                  
                                  	
                                  Scheduler_start:
-000138 dff5                      	rcall Scheduler_convert_changeValue
-000139 2ced                      	mov SchedulerCnt, V_chg_const
+000140 dff5                      	rcall Scheduler_convert_changeValue
+000141 2ced                      	mov SchedulerCnt, V_chg_const
                                  	; start timer when everything else configured and ready
-00013a e000                      	ldi tmp, (0<<TSM)
-00013b bd0c                      	out GTCCR, tmp		; we don't care about timer1 as GTCCR is not used there
-00013c 9508                      	ret
+000142 e000                      	ldi tmp, (0<<TSM)
+000143 bd0c                      	out GTCCR, tmp		; we don't care about timer1 as GTCCR is not used there
+000144 9508                      	ret
                                  	
                                  ; interrupt for timer0 counting (every 1ms)
                                  TMR0_COMPA:
                                  	; most of the time only these 6 instructions will run
-00013d b62f                      	in r_sreg, SREG
-00013e 6870                      	sbr PWM_flags, (1<<PWM_flag_regulatePWM)	; We adjust PWM every 1ms.
-00013f 94ea                      	dec SchedulerCnt
-000140 f011                      	breq TMR0_changeVolt
-000141 be2f                      	out SREG, r_sreg
-000142 9518                      	reti
+000145 b62f                      	in r_sreg, SREG
+000146 6870                      	sbr PWM_flags, (1<<PWM_flag_regulatePWM)	; We adjust PWM every 1ms.
+000147 94ea                      	dec SchedulerCnt
+000148 f011                      	breq TMR0_changeVolt
+000149 be2f                      	out SREG, r_sreg
+00014a 9518                      	reti
                                  TMR0_changeVolt:
-000143 2ced                      	mov SchedulerCnt, V_chg_const	; rewind counter
+00014b 2ced                      	mov SchedulerCnt, V_chg_const	; rewind counter
                                  	; compare setVolt_tmp to Voltage_Set
                                  	; if not equal, then adjust setVolt_tmp to be closer to Voltage_Set
-000144 116c                      	cpse Voltage_Set, setVolt_tmp
-000145 c002                      	rjmp TMR0_changeVolt_adjust
-000146 be2f                      	out SREG, r_sreg
-000147 9518                      	reti
-                                 TMR0_changeVolt_adjust:
-000148 16c6                      	cp setVolt_tmp, Voltage_Set
-000149 f018                      	brlo TMR0_changeVolt_adjust_inc
-00014a 94ca                      	dec setVolt_tmp
-00014b be2f                      	out SREG, r_sreg
-00014c 9518                      	reti
-                                 TMR0_changeVolt_adjust_inc:
-00014d 94c3                      	inc setVolt_tmp
+00014c 116c                      	cpse Voltage_Set, setVolt_tmp
+00014d c002                      	rjmp TMR0_changeVolt_adjust
 00014e be2f                      	out SREG, r_sreg
 00014f 9518                      	reti
+                                 TMR0_changeVolt_adjust:
+000150 16c6                      	cp setVolt_tmp, Voltage_Set
+000151 f018                      	brlo TMR0_changeVolt_adjust_inc
+000152 94ca                      	dec setVolt_tmp
+000153 be2f                      	out SREG, r_sreg
+000154 9518                      	reti
+                                 TMR0_changeVolt_adjust_inc:
+000155 94c3                      	inc setVolt_tmp
+000156 be2f                      	out SREG, r_sreg
+000157 9518                      	reti
                                  
                                  .include "EEPROM.inc"
                                  
@@ -1370,142 +1384,142 @@ C:/src/tennp/git/UniversalDCBuckHW/Firmware/Assembler/UDCBuckHW/cmake/HWBuckAtTi
                                  ; Store Settings to EEPROM
                                  ; Store only changed bytes
                                  EEPROM_StoreSettings:
-000150 e005                      	ldi tmp, EEPROM_STARTADDR
-000151 2eb0                      	mov tmpH2, tmp	; reuse this variable for EEPROM address
+000158 e005                      	ldi tmp, EEPROM_STARTADDR
+000159 2eb0                      	mov tmpH2, tmp	; reuse this variable for EEPROM address
                                  	; 1st byte
-000152 9100 006c                 	lds tmp, Voltage_Change
-000154 d00f                      	rcall ee_check_byte
+00015a 9100 006c                 	lds tmp, Voltage_Change
+00015c d00f                      	rcall ee_check_byte
                                  	; 2nd byte
-000155 9100 006d                 	lds tmp, Voltage_Min
-000157 d00c                      	rcall ee_check_byte
+00015d 9100 006d                 	lds tmp, Voltage_Min
+00015f d00c                      	rcall ee_check_byte
                                  	; 3nd byte
-000158 9100 006e                 	lds tmp, Voltage_Max
-00015a d009                      	rcall ee_check_byte
+000160 9100 006e                 	lds tmp, Voltage_Max
+000162 d009                      	rcall ee_check_byte
                                  	; calculate and store (if needed CRC value)
-00015b d030                      	rcall crc_calc
-00015c 1100                      	cpse tmp, z0
-00015d 9508                      	ret			; exit if no update needed
-00015e 94ba                      	dec tmpH2	; set address back to correct eeprom location for CRC
-00015f 2ca3                      	mov tmpL2, tmp2
-000160 94f8                      	cli
-000161 d04a                      	rcall EEPROM_write	; Write CRC
-000162 9478                      	sei
-000163 9508                      	ret
+000163 d030                      	rcall crc_calc
+000164 1100                      	cpse tmp, z0
+000165 9508                      	ret			; exit if no update needed
+000166 94ba                      	dec tmpH2	; set address back to correct eeprom location for CRC
+000167 2ca3                      	mov tmpL2, tmp2
+000168 94f8                      	cli
+000169 d04a                      	rcall EEPROM_write	; Write CRC
+00016a 9478                      	sei
+00016b 9508                      	ret
                                  ee_check_byte:
-000164 d03f                      	rcall EEPROM_read
-000165 16a0                      	cp tmpL2, tmp
-000166 f029                      	breq ee_bt_ok
-000167 94ba                      	dec tmpH2		; back to correct address
-000168 2d0a                      	mov tmp, tmpL2
-000169 94f8                      	cli
-00016a d041                      	rcall EEPROM_write
-00016b 9478                      	sei
+00016c d03f                      	rcall EEPROM_read
+00016d 16a0                      	cp tmpL2, tmp
+00016e f029                      	breq ee_bt_ok
+00016f 94ba                      	dec tmpH2		; back to correct address
+000170 2d0a                      	mov tmp, tmpL2
+000171 94f8                      	cli
+000172 d041                      	rcall EEPROM_write
+000173 9478                      	sei
                                  ee_bt_ok:	
-00016c 9508                      	ret
+000174 9508                      	ret
                                  
                                  ; Restore data from EEPROM.
                                  ; Restore Factory settings if EEPROM is corrupted
                                  EEPROM_restoreSettings:
-00016d d01e                      	rcall crc_calc
-00016e 1101                      	cpse tmp, z1
-00016f d00c                      	rcall EEPROM_FactoryReset
+000175 d01e                      	rcall crc_calc
+000176 1101                      	cpse tmp, z1
+000177 d00c                      	rcall EEPROM_FactoryReset
                                  	; EEPROM is ok - read the data
-000170 e005                      	ldi tmp, EEPROM_STARTADDR
-000171 2eb0                      	mov tmpH2, tmp	; reuse this variable for EEPROM address
-000172 d031                      	rcall EEPROM_read	; read byte to tmpL2. Address is incremented
-000173 92a0 006c                 	sts Voltage_Change, tmpL2
-000175 d02e                      	rcall EEPROM_read	; read byte to tmpL2. Address is incremented
-000176 92a0 006d                 	sts Voltage_Min, tmpL2
-000178 d02b                      	rcall EEPROM_read	; read byte to tmpL2. Address is incremented
-000179 92a0 006e                 	sts Voltage_Max, tmpL2
-00017b 9508                      	ret
+000178 e005                      	ldi tmp, EEPROM_STARTADDR
+000179 2eb0                      	mov tmpH2, tmp	; reuse this variable for EEPROM address
+00017a d031                      	rcall EEPROM_read	; read byte to tmpL2. Address is incremented
+00017b 92a0 006c                 	sts Voltage_Change, tmpL2
+00017d d02e                      	rcall EEPROM_read	; read byte to tmpL2. Address is incremented
+00017e 92a0 006d                 	sts Voltage_Min, tmpL2
+000180 d02b                      	rcall EEPROM_read	; read byte to tmpL2. Address is incremented
+000181 92a0 006e                 	sts Voltage_Max, tmpL2
+000183 9508                      	ret
                                  
                                  ; This routine is called at startup, so interrupts are off.
                                  EEPROM_FactoryReset:
-00017c e005                      	ldi tmp, EEPROM_STARTADDR
-00017d 2eb0                      	mov tmpH2, tmp	; reuse this variable for EEPROM address
-00017e e005                      	ldi tmp, 5	; Voltage change. 5 means 0.5V/S
-00017f 2ea0                      	mov tmpL2, tmp
-000180 d02b                      	rcall EEPROM_write
-000181 e00a                      	ldi tmp, 10		; Voltage min. 10 means 1V
-000182 2ea0                      	mov tmpL2, tmp
-000183 d028                      	rcall EEPROM_write
-000184 e708                      	ldi tmp, 120	; Voltage max. 120 means 12V
-000185 2ea0                      	mov tmpL2, tmp
-000186 d025                      	rcall EEPROM_write
+000184 e005                      	ldi tmp, EEPROM_STARTADDR
+000185 2eb0                      	mov tmpH2, tmp	; reuse this variable for EEPROM address
+000186 e005                      	ldi tmp, 5	; Voltage change. 5 means 0.5V/S
+000187 2ea0                      	mov tmpL2, tmp
+000188 d02b                      	rcall EEPROM_write
+000189 e00a                      	ldi tmp, 10		; Voltage min. 10 means 1V
+00018a 2ea0                      	mov tmpL2, tmp
+00018b d028                      	rcall EEPROM_write
+00018c e708                      	ldi tmp, 120	; Voltage max. 120 means 12V
+00018d 2ea0                      	mov tmpL2, tmp
+00018e d025                      	rcall EEPROM_write
                                  	; calculate CRC
-000187 d004                      	rcall crc_calc
-000188 94ba                      	dec tmpH2	; set address back to correct eeprom location for CRC
-000189 2ca3                      	mov tmpL2, tmp2
-00018a d021                      	rcall EEPROM_write	; Write CRC
-00018b 9508                      	ret
+00018f d004                      	rcall crc_calc
+000190 94ba                      	dec tmpH2	; set address back to correct eeprom location for CRC
+000191 2ca3                      	mov tmpL2, tmp2
+000192 d021                      	rcall EEPROM_write	; Write CRC
+000193 9508                      	ret
                                  
                                  ;INPUT: -
                                  ;OUTPUT: tmp=1 - EEPROM ok, tmp=0 - EEPROM corrupted
                                  ; we are safe here to use T flag as it will be not corrupted in I2C routine (SREG is preserved)
                                  crc_calc:
-00018c e005                      	ldi tmp, EEPROM_STARTADDR
-00018d 2eb0                      	mov tmpH2, tmp	; reuse this variable for EEPROM address
-00018e e003                      	ldi tmp, EEPROM_DATALEN
-00018f 2e40                      	mov tmp3, tmp	; len of the data
-000190 e80c                      	ldi	tmp,0x8C	; polynom
-000191 2433                      	clr	tmp2		; CRC value
+000194 e005                      	ldi tmp, EEPROM_STARTADDR
+000195 2eb0                      	mov tmpH2, tmp	; reuse this variable for EEPROM address
+000196 e003                      	ldi tmp, EEPROM_DATALEN
+000197 2e40                      	mov tmp3, tmp	; len of the data
+000198 e80c                      	ldi	tmp,0x8C	; polynom
+000199 2433                      	clr	tmp2		; CRC value
                                  crc8b:
-000192 d011                      	rcall EEPROM_read	; read byte to tmpL2. Address is incremented
-000193 e018                      	ldi	tmp1,8	; bits counter
+00019a d011                      	rcall EEPROM_read	; read byte to tmpL2. Address is incremented
+00019b e018                      	ldi	tmp1,8	; bits counter
                                  crc01:
-000194 243a                      	eor	tmp2,tmpL2
-000195 fa30                      	bst	tmp2,0
-000196 243a                      	eor	tmp2,tmpL2
-000197 94a6                      	lsr	tmpL2
-000198 9436                      	lsr	tmp2
-000199 f40e                      	brtc crc02
-00019a 2630                      	eor	tmp2,tmp
+00019c 243a                      	eor	tmp2,tmpL2
+00019d fa30                      	bst	tmp2,0
+00019e 243a                      	eor	tmp2,tmpL2
+00019f 94a6                      	lsr	tmpL2
+0001a0 9436                      	lsr	tmp2
+0001a1 f40e                      	brtc crc02
+0001a2 2630                      	eor	tmp2,tmp
                                  crc02:
-00019b 951a                      	dec	tmp1
-00019c f7b9                      	brne crc01
-00019d 944a                      	dec	tmp3
-00019e f799                      	brne crc8b
+0001a3 951a                      	dec	tmp1
+0001a4 f7b9                      	brne crc01
+0001a5 944a                      	dec	tmp3
+0001a6 f799                      	brne crc8b
                                  	; tmp2 contains CRC value, compare it to the next EEPROM byte
-00019f e001                      	ldi tmp, 1 ; assume data is not corrupted
-0001a0 d003                      	rcall EEPROM_read	; read CRC byte
-0001a1 103a                      	cpse tmp2, tmpL2
-0001a2 2700                      	clr tmp		; if data is corrupted - clear flag
-0001a3 9508                      	ret
+0001a7 e001                      	ldi tmp, 1 ; assume data is not corrupted
+0001a8 d003                      	rcall EEPROM_read	; read CRC byte
+0001a9 103a                      	cpse tmp2, tmpL2
+0001aa 2700                      	clr tmp		; if data is corrupted - clear flag
+0001ab 9508                      	ret
                                  	
                                  
                                  ; tmpH2 - address
                                  ; tmpL2 - data
                                  EEPROM_read:
-0001a4 99e1                      	sbic EECR, EEPE	; wait for prev write
-0001a5 cffe                      	rjmp EEPROM_read
-0001a6 ba0f                      	out EEARH, z0	; we will never use more than 256 bytes of EEPROM
-0001a7 babe                      	out EEARL, tmpH2
-0001a8 9ae0                      	sbi EECR, EERE	; start read operation
-0001a9 b2ad                      	in tmpL2, EEDR
-0001aa 94b3                      	inc tmpH2			; next byte address
-0001ab 9508                      	ret
+0001ac 99e1                      	sbic EECR, EEPE	; wait for prev write
+0001ad cffe                      	rjmp EEPROM_read
+0001ae ba0f                      	out EEARH, z0	; we will never use more than 256 bytes of EEPROM
+0001af babe                      	out EEARL, tmpH2
+0001b0 9ae0                      	sbi EECR, EERE	; start read operation
+0001b1 b2ad                      	in tmpL2, EEDR
+0001b2 94b3                      	inc tmpH2			; next byte address
+0001b3 9508                      	ret
                                  	
                                  ; tmpH2 - address
                                  ; tmpL2 - data
                                  ; every time, when calling this function, make sure interrupts are off.
                                  EEPROM_write:
-0001ac 99e1                      	sbic EECR,EEPE ; Wait for completion of previous write
-0001ad cffe                      	rjmp EEPROM_write 
+0001b4 99e1                      	sbic EECR,EEPE ; Wait for completion of previous write
+0001b5 cffe                      	rjmp EEPROM_write 
                                  	; Set Programming mode
                                  	;ldi tmp, (0<<EEPM1) | (0<<EEPM0)
                                  	;out EECR, tmp
-0001ae 98e5                      	cbi EECR, EEPM1
-0001af 98e4                      	cbi EECR, EEPM0
+0001b6 98e5                      	cbi EECR, EEPM1
+0001b7 98e4                      	cbi EECR, EEPM0
                                  	; Set up address (r18:r17) in address register
-0001b0 ba0f                      	out EEARH, z0
-0001b1 babe                      	out EEARL, tmpH2
-0001b2 baad                      	out EEDR, tmpL2
+0001b8 ba0f                      	out EEARH, z0
+0001b9 babe                      	out EEARL, tmpH2
+0001ba baad                      	out EEDR, tmpL2
                                  	; Start eeprom write
-0001b3 9ae2                      	sbi EECR,EEMPE
-0001b4 9ae1                      	sbi EECR,EEPE
-0001b5 94b3                      	inc tmpH2			; next byte address
-0001b6 9508                      	ret
+0001bb 9ae2                      	sbi EECR,EEMPE
+0001bc 9ae1                      	sbi EECR,EEPE
+0001bd 94b3                      	inc tmpH2			; next byte address
+0001be 9508                      	ret
                                  
                                  .include "main.inc"
                                  
@@ -1513,209 +1527,209 @@ C:/src/tennp/git/UniversalDCBuckHW/Firmware/Assembler/UDCBuckHW/cmake/HWBuckAtTi
                                  .EQU	PWM_flag_regulatePWM = 7
                                  
                                  copy_buffer_to_Variables:
-0001b7 9200 006b                 	sts USI_buffer_updateStatus, z0	; reset flag
+0001bf 9200 006b                 	sts USI_buffer_updateStatus, z0	; reset flag
                                  
                                  	; received new data
                                  	; we will not disable interrupts, as normally we will not receive new I2C data very soon
                                  	; update variables from buffer
                                  	; also check validity of data (values are in valid range)
-0001b9 e6e0                      	ldi ZL, low(USI_dataBuffer)	;Set pointer to the USI array
-0001ba e0f0                      	ldi ZH, high(USI_dataBuffer)
-0001bb 9101                      	ld tmp, Z+	; Voltage_Set we update later, after Min/Max data received
-0001bc 9111                      	ld tmp1, Z+
-0001bd 9031                      	ld tmp2, Z+	; Voltage_min
-0001be 9041                      	ld tmp3, Z+	; Voltage_max
+0001c1 e6e0                      	ldi ZL, low(USI_dataBuffer)	;Set pointer to the USI array
+0001c2 e0f0                      	ldi ZH, high(USI_dataBuffer)
+0001c3 9101                      	ld tmp, Z+	; Voltage_Set we update later, after Min/Max data received
+0001c4 9111                      	ld tmp1, Z+
+0001c5 9031                      	ld tmp2, Z+	; Voltage_min
+0001c6 9041                      	ld tmp3, Z+	; Voltage_max
                                  	; Other data we don't care as it is read only data
                                  
                                  	; check the validity of Voltage_Set
                                  	; Voltage_Set should be in the range from Voltage_Min to Voltage_Max or 0.
-0001bf 1504                      	cp tmp, tmp3
-0001c0 f010                      	brlo copy_buf_inrange
+0001c7 1504                      	cp tmp, tmp3
+0001c8 f010                      	brlo copy_buf_inrange
                                  	; too high - update
-0001c1 2d04                      	mov tmp, tmp3
-0001c2 c005                      	rjmp copy_buf_store_VoltSet
+0001c9 2d04                      	mov tmp, tmp3
+0001ca c005                      	rjmp copy_buf_store_VoltSet
                                  copy_buf_inrange:
-0001c3 1500                      	cp tmp, z0	; check for 0
-0001c4 f019                      	breq copy_buf_store_VoltSet
-0001c5 1503                      	cp tmp, tmp2	; check for min
-0001c6 f408                      	brsh copy_buf_store_VoltSet
+0001cb 1500                      	cp tmp, z0	; check for 0
+0001cc f019                      	breq copy_buf_store_VoltSet
+0001cd 1503                      	cp tmp, tmp2	; check for min
+0001ce f408                      	brsh copy_buf_store_VoltSet
                                  	; We don't need to check for voltage max
                                  	; not valid, adjust it
-0001c7 2700                      	clr tmp
+0001cf 2700                      	clr tmp
                                  copy_buf_store_VoltSet:
-0001c8 2f60                      	mov Voltage_Set, tmp
+0001d0 2f60                      	mov Voltage_Set, tmp
                                  	
                                  	; check the validity of Voltage_Min
                                  	; Voltage_Min should be smaller or equal max
-0001c9 1443                      	cp tmp3, tmp2
-0001ca f408                      	brsh copy_buf_store_VoltMin
-0001cb 2c34                      	mov tmp2, tmp3		; limit min
+0001d1 1443                      	cp tmp3, tmp2
+0001d2 f408                      	brsh copy_buf_store_VoltMin
+0001d3 2c34                      	mov tmp2, tmp3		; limit min
                                  copy_buf_store_VoltMin:	
-0001cc 9230 006d                 	sts Voltage_Min, tmp2
+0001d4 9230 006d                 	sts Voltage_Min, tmp2
                                  
                                  	; We don't need to check the validity of Voltage_Max as it is already in range (from previous check)
                                  	; so, just store it
-0001ce 9240 006e                 	sts Voltage_Max, tmp3
+0001d6 9240 006e                 	sts Voltage_Max, tmp3
                                  
                                  	; if Voltage_Change did not changed, then skip checks as it costs quite much CPU time
-0001d0 9100 006c                 	lds tmp, Voltage_Change
-0001d2 1701                      	cp tmp, tmp1
-0001d3 f031                      	breq copy_buf_skip_VoltChange
+0001d8 9100 006c                 	lds tmp, Voltage_Change
+0001da 1701                      	cp tmp, tmp1
+0001db f031                      	breq copy_buf_skip_VoltChange
                                  	; check the validity of Voltage_Change
                                  	; Voltage_Change should be greater than 3 (from 4 to 255)
-0001d4 3014                      	cpi tmp1, 4
-0001d5 f408                      	brsh copy_buf_store_VoltChange
-0001d6 e014                      	ldi tmp1, 4	; set min value
+0001dc 3014                      	cpi tmp1, 4
+0001dd f408                      	brsh copy_buf_store_VoltChange
+0001de e014                      	ldi tmp1, 4	; set min value
                                  copy_buf_store_VoltChange:
-0001d7 9310 006c                 	sts Voltage_Change, tmp1
+0001df 9310 006c                 	sts Voltage_Change, tmp1
                                  	; now we need to convert Voltage_Change for use in timer0
-0001d9 df54                      	rcall Scheduler_convert_changeValue
+0001e1 df54                      	rcall Scheduler_convert_changeValue
                                  copy_buf_skip_VoltChange:
-0001da 9508                      	ret
+0001e2 9508                      	ret
                                  	
                                  ; Convert ADC RAW voltage to real voltage
                                  Convert_VoltageADC_to_Volt:
                                  	#ifdef MOVINGAVERAGE
-0001db e7e2                      		ldi ZL, LOW(M_AVERAGE_voltage_COUNTER)
-0001dc e0f0                      		ldi ZH, HIGH(M_AVERAGE_voltage_COUNTER)
-0001dd df09                      		rcall moving_average
+0001e3 e7e2                      		ldi ZL, LOW(M_AVERAGE_voltage_COUNTER)
+0001e4 e0f0                      		ldi ZH, HIGH(M_AVERAGE_voltage_COUNTER)
+0001e5 df09                      		rcall moving_average
                                  	#endif
                                  	; Value is ready for converting to Volts (actually V*10 eg 120 = 12V)
                                  	; The formula is: ADC * 32 / VOLT_DIV_CONST
-0001de e005                      	ldi tmp, 5
+0001e6 e005                      	ldi tmp, 5
                                  mult32:
-0001df 0c33                      	lsl tmp2
-0001e0 1c44                      	rol tmp3
-0001e1 950a                      	dec tmp
-0001e2 f7e1                      	brne mult32
+0001e7 0c33                      	lsl tmp2
+0001e8 1c44                      	rol tmp3
+0001e9 950a                      	dec tmp
+0001ea f7e1                      	brne mult32
                                  	; divide it by a constant
-0001e3 2c83                      	mov tmpL1, tmp2
-0001e4 2c94                      	mov tmpH1, tmp3
-0001e5 e703                      	ldi tmp, VOLT_DIV_CONST
-0001e6 2ea0                      	mov tmpL2, tmp
-0001e7 24bb                      	clr tmpH2
-0001e8 df1e                      	rcall div16u	; result in tmpH1:tmpL1 (actually only low byte)
-0001e9 9280 006f                 	sts Voltage_Measured, tmpL1
-0001eb 9280 0065                 	sts USI_dataBuffer+5, tmpL1
+0001eb 2c83                      	mov tmpL1, tmp2
+0001ec 2c94                      	mov tmpH1, tmp3
+0001ed e703                      	ldi tmp, VOLT_DIV_CONST
+0001ee 2ea0                      	mov tmpL2, tmp
+0001ef 24bb                      	clr tmpH2
+0001f0 df1e                      	rcall div16u	; result in tmpH1:tmpL1 (actually only low byte)
+0001f1 9280 006f                 	sts Voltage_Measured, tmpL1
+0001f3 9280 0065                 	sts USI_dataBuffer+5, tmpL1
                                  convert_V_exit:
-0001ed 9508                      	ret
+0001f5 9508                      	ret
                                  
                                  ; Convert ADC RAW current to real current
                                  Convert_CurrentADC_to_Current:
                                  	#ifdef MOVINGAVERAGE
-0001ee e7ed                      		ldi ZL, LOW(M_AVERAGE_current_COUNTER)
-0001ef e0f0                      		ldi ZH, HIGH(M_AVERAGE_current_COUNTER)
-0001f0 def6                      		rcall moving_average
+0001f6 e7ed                      		ldi ZL, LOW(M_AVERAGE_current_COUNTER)
+0001f7 e0f0                      		ldi ZH, HIGH(M_AVERAGE_current_COUNTER)
+0001f8 def6                      		rcall moving_average
                                  	#endif
                                  	; Value is ready for converting to Current (actually C*10 eg 55 = 5.5A)
                                  	; ADC_Current_zero_RAW - reference for 0.0A
                                  	; The formula is: (ADC-ADC_Current_zero_RAW)*64/CURRENT_DIV_CONST
-0001f1 9080 0070                 	lds tmpL1, ADC_Current_zero_RAW
-0001f3 9090 0071                 	lds tmpH1, ADC_Current_zero_RAW+1
-0001f5 1838                      	sub tmp2, tmpL1
-0001f6 0849                      	sbc tmp3, tmpH1
-0001f7 f410                      	brcc convert_C_notminus
-0001f8 2c38                      	mov tmp2, tmpL1	; if minus, then 0
-0001f9 2c49                      	mov tmp3, tmpH1	; if minus, then 0
+0001f9 9080 0070                 	lds tmpL1, ADC_Current_zero_RAW
+0001fb 9090 0071                 	lds tmpH1, ADC_Current_zero_RAW+1
+0001fd 1838                      	sub tmp2, tmpL1
+0001fe 0849                      	sbc tmp3, tmpH1
+0001ff f410                      	brcc convert_C_notminus
+000200 2c38                      	mov tmp2, tmpL1	; if minus, then 0
+000201 2c49                      	mov tmp3, tmpH1	; if minus, then 0
                                  convert_C_notminus:
-0001fa e006                      	ldi tmp, 6
+000202 e006                      	ldi tmp, 6
                                  mult64:
-0001fb 0c33                      	lsl tmp2
-0001fc 1c44                      	rol tmp3
-0001fd 950a                      	dec tmp
-0001fe f7e1                      	brne mult64
+000203 0c33                      	lsl tmp2
+000204 1c44                      	rol tmp3
+000205 950a                      	dec tmp
+000206 f7e1                      	brne mult64
                                  	; divide it by a constant
-0001ff 2c83                      	mov tmpL1, tmp2
-000200 2c94                      	mov tmpH1, tmp3
-000201 ef02                      	ldi tmp, CURRENT_DIV_CONST
-000202 2ea0                      	mov tmpL2, tmp
-000203 24bb                      	clr tmpH2
-000204 df02                      	rcall div16u	; result in tmpH1:tmpL1 (actually only low byte)
-000205 9280 0066                 	sts USI_dataBuffer+6, tmpL1	; Store Current measured to buffer
+000207 2c83                      	mov tmpL1, tmp2
+000208 2c94                      	mov tmpH1, tmp3
+000209 ef02                      	ldi tmp, CURRENT_DIV_CONST
+00020a 2ea0                      	mov tmpL2, tmp
+00020b 24bb                      	clr tmpH2
+00020c df02                      	rcall div16u	; result in tmpH1:tmpL1 (actually only low byte)
+00020d 9280 0066                 	sts USI_dataBuffer+6, tmpL1	; Store Current measured to buffer
                                  convert_C_exit:
-000207 9508                      	ret
+00020f 9508                      	ret
                                  	
                                  ; The routine checks measured voltage and compare it to the desired voltage (setVolt_tmp)
                                  ; Need to see, how it is better to check voltage, by filtered RAW value or calculated V*10?
                                  Regulate_PWM:
                                  	; check flag PWM_flag_regulatePWM
-000208 ff77                      	sbrs PWM_flags, PWM_flag_regulatePWM
-000209 c00d                      	rjmp Regulate_PWM_exit
-00020a 777f                      	cbr PWM_flags, (1<<PWM_flag_regulatePWM)	; clear flag
-00020b b51e                      	in tmp1, OCR1A	; read current PWM
+000210 ff77                      	sbrs PWM_flags, PWM_flag_regulatePWM
+000211 c00d                      	rjmp Regulate_PWM_exit
+000212 777f                      	cbr PWM_flags, (1<<PWM_flag_regulatePWM)	; clear flag
+000213 b51e                      	in tmp1, OCR1A	; read current PWM
                                  	; compare voltages
-00020c 9100 006f                 	lds tmp, Voltage_Measured	
-00020e 150c                      	cp tmp, setVolt_tmp
-00020f f039                      	breq Regulate_PWM_exit	; No need to change
-000210 f438                      	brsh Regulate_PWM_minus ; need to decrease PWM
+000214 9100 006f                 	lds tmp, Voltage_Measured	
+000216 150c                      	cp tmp, setVolt_tmp
+000217 f039                      	breq Regulate_PWM_exit	; No need to change
+000218 f438                      	brsh Regulate_PWM_minus ; need to decrease PWM
                                  	; need to increase PWM
                                  	; check that we not at max already
-000211 3f1f                      	cpi tmp1, 255
-000212 f021                      	breq Regulate_PWM_exit
-000213 9513                      	inc tmp1
+000219 3f1f                      	cpi tmp1, 255
+00021a f021                      	breq Regulate_PWM_exit
+00021b 9513                      	inc tmp1
                                  Regulate_PWM_update:
-000214 bd1e                      	out OCR1A, tmp1
-000215 9310 0064                 	sts USI_dataBuffer+4, tmp1	; PWM_Value
+00021c bd1e                      	out OCR1A, tmp1
+00021d 9310 0064                 	sts USI_dataBuffer+4, tmp1	; PWM_Value
                                  Regulate_PWM_exit:
-000217 9508                      	ret
+00021f 9508                      	ret
                                  Regulate_PWM_minus:
                                  	; check that we not at min already
-000218 3010                      	cpi tmp1, 0
-000219 f3e9                      	breq Regulate_PWM_exit
-00021a 951a                      	dec tmp1
-00021b cff8                      
+000220 3010                      	cpi tmp1, 0
+000221 f3e9                      	breq Regulate_PWM_exit
+000222 951a                      	dec tmp1
+000223 cff8                      
                                  RESET:
-00021c 94f8                      	cli
+000224 94f8                      	cli
                                  	;initialize constants
-00021d 2400                      	clr z0
-00021e 2411                      	clr z1
-00021f 9413                      	inc z1
+000225 2400                      	clr z0
+000226 2411                      	clr z1
+000227 9413                      	inc z1
                                  	
-000220 2766                      	clr Voltage_Set	; At the beginning it is always 0.
+000228 2766                      	clr Voltage_Set	; At the beginning it is always 0.
                                  	
-000221 e800                      	ldi tmp, 1<<CLKPCE	
-000222 bd06                      	out CLKPR, tmp		; enable clock change
-000223 bc06                      	out CLKPR, z0		; prescaler 1
+000229 e800                      	ldi tmp, 1<<CLKPCE	
+00022a bd06                      	out CLKPR, tmp		; enable clock change
+00022b bc06                      	out CLKPR, z0		; prescaler 1
                                  
-000224 e002                      	ldi tmp, high(RAMEND) 
-000225 bf0e                      	out SPH,tmp				; Set Stack Pointer to top of RAM
-000226 e50f                      	ldi tmp, low(RAMEND)
-000227 bf0d                      	out SPL,tmp				; Set Stack Pointer to top of RAM
+00022c e002                      	ldi tmp, high(RAMEND) 
+00022d bf0e                      	out SPH,tmp				; Set Stack Pointer to top of RAM
+00022e e50f                      	ldi tmp, low(RAMEND)
+00022f bf0d                      	out SPL,tmp				; Set Stack Pointer to top of RAM
                                  
                                  	#ifdef DEBUG
                                  	#endif
                                  
-000228 df44                      	rcall EEPROM_restoreSettings
+000230 df44                      	rcall EEPROM_restoreSettings
                                  
-000229 de57                      	rcall init_PWM	; Initialize FET controlling with PWM
+000231 de57                      	rcall init_PWM	; Initialize FET controlling with PWM
                                  	#ifdef MOVINGAVERAGE
-00022a deb6                      		rcall init_Moving_Average
+000232 deb6                      		rcall init_Moving_Average
                                  	#endif
-00022b de8d                      	rcall init_ADC			; Initialize V and I measuring
-00022c dde2                      	rcall init_USI			; Initialize registers and pins for I2C
-00022d def3                      	rcall init_Scheduler	; Initialize scheduler for smooth change to desired voltage
+000233 de8d                      	rcall init_ADC			; Initialize V and I measuring
+000234 ddda                      	rcall init_USI			; Initialize registers and pins for I2C
+000235 def3                      	rcall init_Scheduler	; Initialize scheduler for smooth change to desired voltage
                                  
                                  
                                  	; this call should be the last before enabling interrupts and entering main loop
-00022e df09                      	rcall Scheduler_start	
+000236 df09                      	rcall Scheduler_start	
                                  
-00022f 9a36                      	sbi ADCSRA, ADSC
+000237 9a36                      	sbi ADCSRA, ADSC
                                  	
-000230 9478                      	sei
+000238 9478                      	sei
                                  
                                  loop:
                                  	; wait for ADC complete
-000231 9936                      	sbic ADCSRA, ADSC
-000232 cffe                      	rjmp loop
-000233 de5e                      	rcall ADC_Read
+000239 9936                      	sbic ADCSRA, ADSC
+00023a cffe                      	rjmp loop
+00023b de5e                      	rcall ADC_Read
                                  
-000234 dfd3                      	rcall Regulate_PWM
+00023c dfd3                      	rcall Regulate_PWM
                                  
-000235 9100 006b                 	lds tmp, USI_buffer_updateStatus
-000237 1100                      	cpse tmp, z0
-000238 df7e                      	rcall copy_buffer_to_Variables
+00023d 9100 006b                 	lds tmp, USI_buffer_updateStatus
+00023f 1100                      	cpse tmp, z0
+000240 df7e                      	rcall copy_buffer_to_Variables
                                  	
-000239 cff7                      	rjmp loop
+000241 cff7                      	rjmp loop
 
 
 RESOURCE USE INFORMATION
@@ -1735,27 +1749,27 @@ counted separately from r26..r31 here.
 "ATtiny85" register use summary:
 x  :   0 y  :   2 z  :  10 r0 :  18 r1 :   5 r2 :  10 r3 :  34 r4 :  29 
 r5 :   0 r6 :   0 r7 :   0 r8 :  15 r9 :  11 r10:  24 r11:  19 r12:   6 
-r13:   3 r14:   3 r15:   0 r16: 116 r17:  17 r18:  28 r19:   0 r20:  20 
+r13:   3 r14:   3 r15:   0 r16: 116 r17:  17 r18:  29 r19:   2 r20:  23 
 r21:   9 r22:   4 r23:   4 r24:   0 r25:   0 r26:   0 r27:   0 r28:   1 
 r29:   1 r30:  10 r31:  10 
-Registers used: 25 out of 35 (71.4%)
+Registers used: 26 out of 35 (74.3%)
 
 "ATtiny85" instruction use summary:
 .lds  :   0 .sts  :   0 adc   :   4 add   :   4 adiw  :   0 and   :   0 
-andi  :   2 asr   :   0 bclr  :   0 bld   :   1 brbc  :   0 brbs  :   0 
-brcc  :   2 brcs  :   0 break :   0 breq  :  11 brge  :   0 brhc  :   0 
+andi  :   3 asr   :   0 bclr  :   0 bld   :   1 brbc  :   0 brbs  :   0 
+brcc  :   2 brcs  :   0 break :   0 breq  :  12 brge  :   0 brhc  :   0 
 brhs  :   0 brid  :   0 brie  :   0 brlo  :   4 brlt  :   0 brmi  :   0 
 brne  :  12 brpl  :   0 brsh  :   4 brtc  :   1 brts  :   0 brvc  :   0 
 brvs  :   0 bset  :   0 bst   :   2 cbi   :  10 cbr   :   6 clc   :   1 
-clh   :   0 cli   :   7 cln   :   0 clr   :  19 cls   :   0 clt   :   0 
+clh   :   0 cli   :   7 cln   :   0 clr   :  20 cls   :   0 clt   :   0 
 clv   :   0 clz   :   0 com   :   0 cp    :   9 cpc   :   1 cpi   :  12 
 cpse  :   5 dec   :  14 eor   :   3 icall :   0 ijmp  :   0 in    :  13 
 inc   :   8 ld    :   8 ldd   :   0 ldi   :  61 lds   :  12 lpm   :   0 
-lsl   :   3 lsr   :   3 mov   :  32 movw  :   0 neg   :   0 nop   :   0 
+lsl   :   3 lsr   :   3 mov   :  33 movw  :   0 neg   :   0 nop   :   0 
 or    :   1 ori   :   0 out   :  45 pop   :   5 push  :   5 rcall :  47 
-ret   :  25 reti  :  18 rjmp  :  31 rol   :   6 ror   :   1 sbc   :   2 
+ret   :  25 reti  :  18 rjmp  :  33 rol   :   6 ror   :   1 sbc   :   2 
 sbci  :   0 sbi   :  15 sbic  :   5 sbis  :   1 sbiw  :   0 sbr   :   6 
-sbrc  :   4 sbrs  :   4 sec   :   1 seh   :   0 sei   :   5 sen   :   0 
+sbrc  :   5 sbrs  :   5 sec   :   1 seh   :   0 sei   :   5 sen   :   0 
 ser   :   0 ses   :   0 set   :   0 sev   :   0 sez   :   0 sleep :   0 
 spm   :   0 st    :   4 std   :   0 sts   :  25 sub   :   3 subi  :   0 
 swap  :   0 tst   :   0 wdr   :   0 
@@ -1764,7 +1778,7 @@ Instructions used: 52 out of 105 (49.5%)
 "ATtiny85" memory use summary [bytes]:
 Segment   Begin    End      Code   Data   Used    Size   Use%
 ---------------------------------------------------------------
-[.cseg] 0x000000 0x000474   1140      0   1140    8192  13.9%
+[.cseg] 0x000000 0x000484   1156      0   1156    8192  14.1%
 [.dseg] 0x000060 0x000088      0     40     40     512   7.8%
 [.eseg] 0x000005 0x000009      0      4      4     512   0.8%
 

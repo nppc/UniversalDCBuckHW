@@ -47,16 +47,17 @@
   <USI_wait_scl><FILE>C:/src/tennp/git/UniversalDCBuckHW/Firmware/Assembler/UDCBuckHW/cmake/HWBuckAtTiny85/default/../../../I2C.inc</FILE><LINE>44</LINE></USI_wait_scl>
   <USI_scl_low><FILE>C:/src/tennp/git/UniversalDCBuckHW/Firmware/Assembler/UDCBuckHW/cmake/HWBuckAtTiny85/default/../../../I2C.inc</FILE><LINE>60</LINE></USI_scl_low>
   <USI_start_abort><FILE>C:/src/tennp/git/UniversalDCBuckHW/Firmware/Assembler/UDCBuckHW/cmake/HWBuckAtTiny85/default/../../../I2C.inc</FILE><LINE>52</LINE></USI_start_abort>
-  <I2C_clear_ack><FILE>C:/src/tennp/git/UniversalDCBuckHW/Firmware/Assembler/UDCBuckHW/cmake/HWBuckAtTiny85/default/../../../I2C.inc</FILE><LINE>186</LINE></I2C_clear_ack>
+  <I2C_clear_ack><FILE>C:/src/tennp/git/UniversalDCBuckHW/Firmware/Assembler/UDCBuckHW/cmake/HWBuckAtTiny85/default/../../../I2C.inc</FILE><LINE>200</LINE></I2C_clear_ack>
   <I2Cadr_check><FILE>C:/src/tennp/git/UniversalDCBuckHW/Firmware/Assembler/UDCBuckHW/cmake/HWBuckAtTiny85/default/../../../I2C.inc</FILE><LINE>87</LINE></I2Cadr_check>
   <I2Cack_byte><FILE>C:/src/tennp/git/UniversalDCBuckHW/Firmware/Assembler/UDCBuckHW/cmake/HWBuckAtTiny85/default/../../../I2C.inc</FILE><LINE>110</LINE></I2Cack_byte>
-  <I2Cbyte_process><FILE>C:/src/tennp/git/UniversalDCBuckHW/Firmware/Assembler/UDCBuckHW/cmake/HWBuckAtTiny85/default/../../../I2C.inc</FILE><LINE>150</LINE></I2Cbyte_process>
-  <USI_exit><FILE>C:/src/tennp/git/UniversalDCBuckHW/Firmware/Assembler/UDCBuckHW/cmake/HWBuckAtTiny85/default/../../../I2C.inc</FILE><LINE>146</LINE></USI_exit>
-  <I2Cbadadr><FILE>C:/src/tennp/git/UniversalDCBuckHW/Firmware/Assembler/UDCBuckHW/cmake/HWBuckAtTiny85/default/../../../I2C.inc</FILE><LINE>143</LINE></I2Cbadadr>
-  <SetACK><FILE>C:/src/tennp/git/UniversalDCBuckHW/Firmware/Assembler/UDCBuckHW/cmake/HWBuckAtTiny85/default/../../../I2C.inc</FILE><LINE>171</LINE></SetACK>
-  <I2C_data_OK><FILE>C:/src/tennp/git/UniversalDCBuckHW/Firmware/Assembler/UDCBuckHW/cmake/HWBuckAtTiny85/default/../../../I2C.inc</FILE><LINE>133</LINE></I2C_data_OK>
-  <StopDetected><FILE>C:/src/tennp/git/UniversalDCBuckHW/Firmware/Assembler/UDCBuckHW/cmake/HWBuckAtTiny85/default/../../../I2C.inc</FILE><LINE>181</LINE></StopDetected>
-  <I2Cbyte_process_transmit><FILE>C:/src/tennp/git/UniversalDCBuckHW/Firmware/Assembler/UDCBuckHW/cmake/HWBuckAtTiny85/default/../../../I2C.inc</FILE><LINE>162</LINE></I2Cbyte_process_transmit>
+  <I2Cbyte_process><FILE>C:/src/tennp/git/UniversalDCBuckHW/Firmware/Assembler/UDCBuckHW/cmake/HWBuckAtTiny85/default/../../../I2C.inc</FILE><LINE>163</LINE></I2Cbyte_process>
+  <USI_exit><FILE>C:/src/tennp/git/UniversalDCBuckHW/Firmware/Assembler/UDCBuckHW/cmake/HWBuckAtTiny85/default/../../../I2C.inc</FILE><LINE>159</LINE></USI_exit>
+  <I2Cbadadr><FILE>C:/src/tennp/git/UniversalDCBuckHW/Firmware/Assembler/UDCBuckHW/cmake/HWBuckAtTiny85/default/../../../I2C.inc</FILE><LINE>156</LINE></I2Cbadadr>
+  <SetACK><FILE>C:/src/tennp/git/UniversalDCBuckHW/Firmware/Assembler/UDCBuckHW/cmake/HWBuckAtTiny85/default/../../../I2C.inc</FILE><LINE>184</LINE></SetACK>
+  <I2Cack_not_master_read><FILE>C:/src/tennp/git/UniversalDCBuckHW/Firmware/Assembler/UDCBuckHW/cmake/HWBuckAtTiny85/default/../../../I2C.inc</FILE><LINE>124</LINE></I2Cack_not_master_read>
+  <I2C_data_OK><FILE>C:/src/tennp/git/UniversalDCBuckHW/Firmware/Assembler/UDCBuckHW/cmake/HWBuckAtTiny85/default/../../../I2C.inc</FILE><LINE>146</LINE></I2C_data_OK>
+  <StopDetected><FILE>C:/src/tennp/git/UniversalDCBuckHW/Firmware/Assembler/UDCBuckHW/cmake/HWBuckAtTiny85/default/../../../I2C.inc</FILE><LINE>194</LINE></StopDetected>
+  <I2Cbyte_process_transmit><FILE>C:/src/tennp/git/UniversalDCBuckHW/Firmware/Assembler/UDCBuckHW/cmake/HWBuckAtTiny85/default/../../../I2C.inc</FILE><LINE>175</LINE></I2Cbyte_process_transmit>
   <init_PWM><FILE>C:/src/tennp/git/UniversalDCBuckHW/Firmware/Assembler/UDCBuckHW/cmake/HWBuckAtTiny85/default/../../../PWM.inc</FILE><LINE>3</LINE></init_PWM>
   <waitPLL><FILE>C:/src/tennp/git/UniversalDCBuckHW/Firmware/Assembler/UDCBuckHW/cmake/HWBuckAtTiny85/default/../../../PWM.inc</FILE><LINE>16</LINE></waitPLL>
   <ADC_Read><FILE>C:/src/tennp/git/UniversalDCBuckHW/Firmware/Assembler/UDCBuckHW/cmake/HWBuckAtTiny85/default/../../../ADC.inc</FILE><LINE>35</LINE></ADC_Read>
